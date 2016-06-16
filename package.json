@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "install": "typings install",
     "start": "node server.js",
     "pretest": "# npm run lint",
     "test": "NODE_ENV=test mocha --recursive --require ts-node/register --require ./test/helper.js **/*.spec.ts",
@@ -21,6 +22,7 @@
     "file-loader": "^0.8.5",
     "jsdom": "^9.2.1",
     "mocha": "^2.5.3",
+    "node-sass": "^3.7.0",
     "raw-loader": "^0.5.1",
     "react-addons-test-utils": "^15.1.0",
     "sass-loader": "^3.2.0",
@@ -31,6 +33,7 @@
     "tslint": "^3.11.0",
     "tslint-loader": "^2.1.4",
     "typescript": "^1.8.10",
+    "typings": "^1.3.0",
     "webpack": "^1.13.1",
     "webpack-dev-middleware": "^1.6.1",
     "webpack-hot-middleware": "^2.10.0",
@@ -40,8 +43,9 @@
     "es6-promise": "^3.2.1",
     "es6-shim": "^0.35.1",
     "isomorphic-fetch": "^2.2.1",
-    "react": "^15.1.0",
-    "react-dom": "^15.1.0",
+    "react": "^0.14.8",
+    "react-addons-test-utils": "^0.14.8",
+    "react-dom": "^0.14.8",
     "react-redux": "^4.4.5",
     "redux": "^3.5.2"
   }
