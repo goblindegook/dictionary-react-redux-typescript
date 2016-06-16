@@ -19,9 +19,6 @@
   "filesGlob": [
     "./src/**/*.ts",
     "./src/**/*.tsx",
-    "./test/**/*.ts",
-    "./test/**/*.tsx",
-    "./typings/tsd.d.ts",
     "!./node_modules/**/*"
   ],
   "exclude": [

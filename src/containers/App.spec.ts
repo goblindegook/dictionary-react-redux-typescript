@@ -1,16 +1,15 @@
 import * as expect from "expect";
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 import { shallow } from "enzyme";
 
-import App from "../../src/containers/App";
-// import Header from "../../src/components/Header";
-// import Main from "../../src/components/Main";
-// import Footer from "../../src/components/Footer";
+import App from "./App";
+// import Header from "../components/Header";
+// import Main from "../components/Main";
+// import Footer from "../components/Footer";
 
-describe("components", () => {
+describe("Containers", () => {
   describe("<App />", () => {
-    const wrapper: any = shallow(<App />);
+    const wrapper = shallow(React.createElement(App));
 
     it("should render <App />", () => {
       expect(wrapper.is("div")).toBe(true);

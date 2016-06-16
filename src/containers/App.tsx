@@ -1,7 +1,8 @@
-import React = require("react");
+import * as React from "react";
+import * as ReactDOM from "react-dom";
 
 interface IProps {
-  text: string;
+  text?: string;
 }
 
 class App extends React.Component<IProps, {}> {
