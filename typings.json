@@ -11,13 +11,11 @@
   },
   "globalDependencies": {
     "es6-shim": "registry:dt/es6-shim#0.31.2+20160602141504",
-    "isomorphic-fetch": "registry:dt/isomorphic-fetch#0.0.0+20160524142046",
-    "react-dom": "registry:dt/react-dom#0.14.0+20160412154040"
+    "isomorphic-fetch": "registry:dt/isomorphic-fetch#0.0.0+20160524142046"
   },
   "globalDevDependencies": {
     "expect": "registry:global/expect#1.13.4+20160211003958",
     "jsdom": "registry:dt/jsdom#2.0.0+20160316155526",
-    "mocha": "registry:dt/mocha#2.2.5+20160317120654",
-    "react-addons-test-utils": "registry:dt/react-addons-test-utils#0.14.0+20160427035638"
+    "mocha": "registry:dt/mocha#2.2.5+20160317120654"
   }
 }
