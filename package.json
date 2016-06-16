@@ -1,0 +1,44 @@
+{
+  "name": "dictionary-react-redux-typescript",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "pretest": "npm run lint",
+    "test": "NODE_ENV=test mocha --recursive --compilers ts:typescript-require,tsx:typescript-require --require ./test/helper.js **/*.spec.*",
+    "test:watch": "npm test -- --watch",
+    "lint": "npm run lint:js && npm run lint:ts",
+    "lint:js": "standard *.js",
+    "lint:ts": "tslint {src,test}/**/*.{ts,tsx}"
+  },
+  "author": "Luís Rodrigues",
+  "license": "MIT",
+  "devDependencies": {
+    "enzyme": "^2.3.0",
+    "expect": "^1.20.1",
+    "express": "^4.13.4",
+    "jsdom": "^9.2.1",
+    "mocha": "^2.5.3",
+    "raw-loader": "^0.5.1",
+    "sinon": "^1.17.4",
+    "style-loader": "^0.13.1",
+    "ts-loader": "^0.8.2",
+    "ts-node": "^0.9.1",
+    "tslint": "^3.11.0",
+    "typescript": "^1.8.10",
+    "webpack": "^1.13.1",
+    "webpack-dev-middleware": "^1.6.1",
+    "webpack-hot-middleware": "^2.10.0",
+    "zombie": "^4.2.1"
+  },
+  "dependencies": {
+    "es6-promise": "^3.2.1",
+    "es6-shim": "^0.35.1",
+    "isomorphic-fetch": "^2.2.1",
+    "react": "^15.1.0",
+    "react-dom": "^15.1.0",
+    "react-redux": "^4.4.5",
+    "redux": "^3.5.2"
+  }
+}

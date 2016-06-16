@@ -1,0 +1,22 @@
+{
+  "dependencies": {
+    "es6-promise": "registry:npm/es6-promise#3.0.0+20160211003958",
+    "react": "registry:npm/react#15.0.1+20160601175240",
+    "react-redux": "registry:npm/react-redux#4.4.0+20160614222153",
+    "redux": "registry:npm/redux#3.0.6+20160214194820"
+  },
+  "devDependencies": {
+    "enzyme": "registry:npm/enzyme#2.2.0+20160322031343",
+    "sinon": "registry:npm/sinon#1.16.0+20160427193336"
+  },
+  "globalDependencies": {
+    "es6-shim": "registry:dt/es6-shim#0.31.2+20160602141504",
+    "isomorphic-fetch": "registry:dt/isomorphic-fetch#0.0.0+20160524142046",
+    "react-dom": "registry:dt/react-dom#0.14.0+20160412154040"
+  },
+  "globalDevDependencies": {
+    "expect": "registry:dt/expect#1.13.4+20160316155526",
+    "jsdom": "registry:dt/jsdom#2.0.0+20160316155526",
+    "mocha": "registry:dt/mocha#2.2.5+20160317120654"
+  }
+}
