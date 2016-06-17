@@ -9,8 +9,8 @@ describe("Containers", () => {
   describe("<Header />", () => {
     const wrapper = shallow(<Header />);
 
-    it("should render <Header />", () => {
-      expect(wrapper.is("div")).toBe(true);
+    it("should render", () => {
+      expect(wrapper.is("header")).toBe(true);
     });
   });
 });

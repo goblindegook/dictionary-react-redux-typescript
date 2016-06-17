@@ -5,13 +5,13 @@ interface IProps extends React.Props<Header> {}
 
 export default class Header extends React.Component<IProps, any> {
   /**
-   * Render application container.
+   * Render header container.
    *
-   * @return {any} Rendered application container.
+   * @return {any} Rendered header container.
    */
   public render(): any {
     return (
-      <div className="dictionary-header"></div>
+      <header className="header"></header>
     );
   }
 }

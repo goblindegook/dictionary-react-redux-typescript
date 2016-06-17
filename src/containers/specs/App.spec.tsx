@@ -9,7 +9,7 @@ describe("Containers", () => {
   describe("<App />", () => {
     const wrapper = shallow(<App />);
 
-    it("should render <App />", () => {
+    it("should render a <div />", () => {
       expect(wrapper.is("div")).toBe(true);
     });
 
@@ -17,8 +17,8 @@ describe("Containers", () => {
       expect(wrapper.find("Header").length).toBe(1);
     });
 
-    it("should contain a single <Main /> component", () => {
-      expect(wrapper.find("Main").length).toBe(1);
+    it("should contain a single <Search /> component", () => {
+      expect(wrapper.find("Search").length).toBe(1);
     });
 
     it("should contain a single <Footer /> component", () => {

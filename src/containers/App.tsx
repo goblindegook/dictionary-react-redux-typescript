@@ -3,7 +3,7 @@ import * as ReactDOM from "react-dom";
 
 import Footer from "./Footer";
 import Header from "./Header";
-import Main from "./Main";
+import Search from "./Search";
 
 interface IProps extends React.Props<App> {}
 
@@ -15,9 +15,9 @@ export default class App extends React.Component<IProps, any> {
    */
   public render(): any {
     return (
-      <div>
+      <div className="dictionary-app">
         <Header />
-        <Main />
+        <Search />
         <Footer />
       </div>
     );

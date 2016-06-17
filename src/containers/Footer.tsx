@@ -5,13 +5,13 @@ interface IProps extends React.Props<Footer> {}
 
 export default class Footer extends React.Component<IProps, any> {
   /**
-   * Render application container.
+   * Render footer container.
    *
-   * @return {any} Rendered application container.
+   * @return {any} Rendered footer container.
    */
   public render(): any {
     return (
-      <div></div>
+      <footer className="footer"></footer>
     );
   }
 }
