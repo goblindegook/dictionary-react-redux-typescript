@@ -15,8 +15,13 @@ export default class Search extends React.Component<ISearchProps, {}> {
   public render() {
     return (
       <section className="search">
-        <SearchInput />
-        <EntryList />
+        <SearchInput
+          onChange={(event) => console.log(event.target.value)}
+        />
+        <EntryList
+          onClickEntry={(...args) => console.log(args)}
+          entries={[{id: 1, name: "test1"}, {id: 2, name: "test2"}, {id: 3, name: "test3"}]}
+        />
       </section>
     );
   }

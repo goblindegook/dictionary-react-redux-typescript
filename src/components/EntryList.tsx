@@ -9,6 +9,7 @@ export interface IEntryListProps extends React.Props<EntryList> {
     id: number | string,
     name: string,
   }>;
+  onClickEntry?(Event): void;
 }
 
 export default class EntryList extends React.Component<IEntryListProps, {}> {
@@ -21,8 +22,12 @@ export default class EntryList extends React.Component<IEntryListProps, {}> {
     return (
       <ul className={this.props.className}>
         {this.props.entries && this.props.entries.map(
-          (entry): React.ReactElement<EntryListItem> => (
-            <EntryListItem key={entry.id} name={entry.name} />
+          (entry, index): React.ReactElement<EntryListItem> => (
+            <EntryListItem
+              key={entry.id}
+              name={entry.name}
+              onClick={this.props.onClickEntry}
+            />
           )
         )}
       </ul>

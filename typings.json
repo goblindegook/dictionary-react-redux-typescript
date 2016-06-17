@@ -3,7 +3,8 @@
     "es6-promise": "registry:npm/es6-promise#3.0.0+20160211003958",
     "react-redux": "registry:npm/react-redux#4.4.0+20160614222153",
     "react-router": "registry:npm/react-router#2.4.0+20160616150328",
-    "redux": "registry:npm/redux#3.0.6+20160214194820"
+    "redux": "registry:npm/redux#3.0.6+20160214194820",
+    "redux-thunk": "registry:npm/redux-thunk#2.0.0+20160525185520"
   },
   "devDependencies": {
     "enzyme": "registry:npm/enzyme#2.2.0+20160322031343",
