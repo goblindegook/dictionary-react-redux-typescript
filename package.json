@@ -7,7 +7,7 @@
     "install": "typings install",
     "start": "node server.js",
     "pretest": "# npm run lint",
-    "test": "NODE_ENV=test mocha --recursive --compilers \"ts:ts-node/register,tsx:ts-node/register\" --require jsdom-global/register \"./src/**/*.spec.*\"",
+    "test": "NODE_ENV=test mocha --recursive --compilers ts:ts-node/register,tsx:ts-node/register --require jsdom-global/register './src/**/*.spec.*'",
     "test:watch": "npm test -- --watch",
     "lint": "npm run lint:js && npm run lint:ts",
     "lint:js": "standard *.js",
