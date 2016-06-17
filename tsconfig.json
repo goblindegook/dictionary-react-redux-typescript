@@ -1,4 +1,6 @@
 {
+  "buildOnSave": false,
+  "compileOnSave": false,
   "compilerOptions": {
     "target": "es5",
     "module": "commonjs",
@@ -19,15 +21,13 @@
   "filesGlob": [
     "./src/**/*.ts",
     "./src/**/*.tsx",
+    "./typings/**/*.ts",
+    "./typings/index.d.ts",
     "!./node_modules/**/*"
   ],
   "exclude": [
-    "node_modules",
-    "typings/browser",
-    "typings/browser.d.ts"
+    "node_modules"
   ],
-  "compileOnSave": false,
-  "buildOnSave": false,
   "atom": {
     "rewriteTsconfig": false
   }

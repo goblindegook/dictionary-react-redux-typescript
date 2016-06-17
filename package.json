@@ -7,7 +7,7 @@
     "install": "typings install",
     "start": "node server.js",
     "pretest": "# npm run lint",
-    "test": "NODE_ENV=test mocha --recursive --require ts-node/register --require ./test/helper.js **/*.spec.ts",
+    "test": "NODE_ENV=test mocha --recursive --compilers \"ts:ts-node/register,tsx:ts-node/register\" --require jsdom-global/register \"./src/**/*.spec.*\"",
     "test:watch": "npm test -- --watch",
     "lint": "npm run lint:js && npm run lint:ts",
     "lint:js": "standard *.js",
@@ -21,6 +21,7 @@
     "express": "^4.13.4",
     "file-loader": "^0.8.5",
     "jsdom": "^9.2.1",
+    "jsdom-global": "^2.0.0",
     "mocha": "^2.5.3",
     "node-sass": "^3.7.0",
     "raw-loader": "^0.5.1",
@@ -47,6 +48,7 @@
     "react-addons-test-utils": "^0.14.8",
     "react-dom": "^0.14.8",
     "react-redux": "^4.4.5",
+    "react-router": "^2.4.1",
     "redux": "^3.5.2"
   }
 }

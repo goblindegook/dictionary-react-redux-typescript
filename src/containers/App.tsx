@@ -1,11 +1,13 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
-interface IProps {
-  text?: string;
-}
+import Footer from "./Footer";
+import Header from "./Header";
+import Main from "./Main";
 
-class App extends React.Component<IProps, {}> {
+interface IProps extends React.Props<App> {}
+
+export default class App extends React.Component<IProps, any> {
   /**
    * Render application container.
    *
@@ -13,9 +15,11 @@ class App extends React.Component<IProps, {}> {
    */
   public render(): any {
     return (
-      <div>{this.props.text}</div>
+      <div>
+        <Header />
+        <Main />
+        <Footer />
+      </div>
     );
   }
 }
-
-export default App;
