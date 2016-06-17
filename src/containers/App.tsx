@@ -5,15 +5,15 @@ import Footer from "./Footer";
 import Header from "./Header";
 import Search from "./Search";
 
-interface IProps extends React.Props<App> {}
+export interface IAppProps extends React.Props<App> {}
 
-export default class App extends React.Component<IProps, any> {
+export default class App extends React.Component<IAppProps, {}> {
   /**
    * Render application container.
    *
-   * @return {any} Rendered application container.
+   * @return {JSX.Element} Rendered application container.
    */
-  public render(): any {
+  public render() {
     return (
       <div className="dictionary-app">
         <Header />

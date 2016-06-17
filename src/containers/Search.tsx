@@ -4,15 +4,15 @@ import * as ReactDOM from "react-dom";
 import EntryList from "../components/EntryList";
 import SearchInput from "../components/SearchInput";
 
-interface IProps extends React.Props<Search> {}
+export interface ISearchProps extends React.Props<Search> {}
 
-export default class Search extends React.Component<IProps, any> {
+export default class Search extends React.Component<ISearchProps, {}> {
   /**
    * Render search container.
    *
-   * @return {any} Rendered search container.
+   * @return {JSX.Element} Rendered search container.
    */
-  public render(): any {
+  public render() {
     return (
       <section className="search">
         <SearchInput />

@@ -3,15 +3,15 @@ import * as ReactDOM from "react-dom";
 
 import EntryDefinition from "../components/EntryDefinition";
 
-interface IProps extends React.Props<Search> {}
+interface IDefinitionProps extends React.Props<Search> {}
 
-export default class Search extends React.Component<IProps, any> {
+export default class Search extends React.Component<IDefinitionProps, {}> {
   /**
    * Render search container.
    *
-   * @return {any} Rendered search container.
+   * @return {JSX.Element} Rendered search container.
    */
-  public render(): any {
+  public render() {
     return (
       <section className="definition">
         <EntryDefinition />

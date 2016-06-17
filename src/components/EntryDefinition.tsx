@@ -1,17 +1,20 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
-interface IProps extends React.Props<EntryDefinition> {
+import Entry from "../api/Entry";
+
+export interface IEntryDefinitionProps extends React.Props<EntryDefinition> {
   className?: string;
+  entry?: Entry;
 }
 
-export default class EntryDefinition extends React.Component<IProps, any> {
+export default class EntryDefinition extends React.Component<IEntryDefinitionProps, {}> {
   /**
    * Render EntryDefinition component.
    *
-   * @return {any} Rendered EntryDefinition component.
+   * @return {JSX.Element} Rendered EntryDefinition component.
    */
-  public render(): any {
+  public render() {
     return (
       <article className={this.props.className}>
       </article>

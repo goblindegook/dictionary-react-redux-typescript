@@ -2,6 +2,7 @@
   "buildOnSave": false,
   "compileOnSave": false,
   "compilerOptions": {
+    "outDir": "./dist/",
     "target": "es5",
     "module": "commonjs",
     "moduleResolution": "node",

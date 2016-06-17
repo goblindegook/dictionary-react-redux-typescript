@@ -13,7 +13,7 @@ describe("Containers", () => {
     });
 
     it("should render <EntryDefinition /> with className", () => {
-      const className: string = "test";
+      const className = "test";
       const wrapper = shallow(<EntryDefinition {...{className}} />);
       expect(wrapper.hasClass(className)).toBe(true);
     });

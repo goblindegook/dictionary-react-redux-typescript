@@ -3,23 +3,26 @@ import * as ReactDOM from "react-dom";
 
 import EntryListItem from "./EntryListItem";
 
-interface IProps extends React.Props<EntryList> {
+export interface IEntryListProps extends React.Props<EntryList> {
   className?: string;
-  entries?: Array<string>;
+  entries?: Array<{
+    id: number | string,
+    name: string,
+  }>;
 }
 
-export default class EntryList extends React.Component<IProps, any> {
+export default class EntryList extends React.Component<IEntryListProps, {}> {
   /**
    * Render EntryList component.
    *
-   * @return {any} Rendered EntryList component.
+   * @return {JSX.Element} Rendered EntryList component.
    */
-  public render(): any {
+  public render() {
     return (
       <ul className={this.props.className}>
         {this.props.entries && this.props.entries.map(
-          (entry: string): React.ReactElement<EntryListItem> => (
-            <EntryListItem key={entry} name={entry} />
+          (entry): React.ReactElement<EntryListItem> => (
+            <EntryListItem key={entry.id} name={entry.name} />
           )
         )}
       </ul>

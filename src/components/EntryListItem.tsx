@@ -1,18 +1,18 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
-interface IProps extends React.Props<EntryListItem> {
+export interface IEntryListItemProps extends React.Props<EntryListItem> {
   className?: string;
   name?: string;
 }
 
-export default class EntryListItem extends React.Component<IProps, any> {
+export default class EntryListItem extends React.Component<IEntryListItemProps, {}> {
   /**
    * Render EntryListItem component.
    *
-   * @return {any} Rendered EntryListItem component.
+   * @return {JSX.Element} Rendered EntryListItem component.
    */
-  public render(): any {
+  public render() {
     return (
       <li className={this.props.className}>{this.props.name}</li>
     );
