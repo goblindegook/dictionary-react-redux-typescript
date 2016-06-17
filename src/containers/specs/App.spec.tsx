@@ -4,9 +4,6 @@ import * as ReactDOM from "react-dom";
 import { shallow } from "enzyme";
 
 import App from "../App";
-import Header from "../Header";
-import Main from "../Main";
-import Footer from "../Footer";
 
 describe("Containers", () => {
   describe("<App />", () => {
@@ -17,15 +14,15 @@ describe("Containers", () => {
     });
 
     it("should contain a single <Header /> component", () => {
-      expect(wrapper.find(Header).length).toBe(1);
+      expect(wrapper.find("Header").length).toBe(1);
     });
 
     it("should contain a single <Main /> component", () => {
-      expect(wrapper.find(Main).length).toBe(1);
+      expect(wrapper.find("Main").length).toBe(1);
     });
 
     it("should contain a single <Footer /> component", () => {
-      expect(wrapper.find(Footer).length).toBe(1);
+      expect(wrapper.find("Footer").length).toBe(1);
     });
   });
 });
