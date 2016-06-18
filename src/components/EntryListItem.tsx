@@ -3,7 +3,7 @@ import * as ReactDOM from "react-dom";
 
 export interface IEntryListItemProps extends React.Props<EntryListItem> {
   className?: string;
-  name?: string;
+  label?: string;
   onClick?(Event): void;
 }
 
@@ -17,7 +17,7 @@ export default class EntryListItem extends React.Component<IEntryListItemProps, 
     return (
       <li className={this.props.className}>
         <a onClick={this.props.onClick && this.props.onClick.bind(this, this)}>
-          {this.props.name}
+          {this.props.label}
         </a>
       </li>
     );

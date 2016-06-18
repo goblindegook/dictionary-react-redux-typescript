@@ -1,11 +1,11 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
-import Entry from "../api/Entry";
+import { IEntry } from "../api/Entry";
 
 export interface IEntryDefinitionProps extends React.Props<EntryDefinition> {
   className?: string;
-  entry?: Entry;
+  entry?: IEntry;
 }
 
 export default class EntryDefinition extends React.Component<IEntryDefinitionProps, {}> {

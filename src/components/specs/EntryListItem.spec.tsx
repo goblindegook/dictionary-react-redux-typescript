@@ -14,24 +14,21 @@ describe("Containers", () => {
     });
 
     it("should render with className", () => {
-      const className: string = "test";
+      const className = "test";
       const wrapper = shallow(<EntryListItem {...{className}} />);
       expect(wrapper.hasClass(className)).toBe(true);
     });
 
     it("should render with name", () => {
-      const name: string = "test";
-      const wrapper = shallow(<EntryListItem {...{name}} />);
-
-      expect(wrapper.find("li").text()).toBe(name);
+      const label = "test";
+      const wrapper = shallow(<EntryListItem {...{label}} />);
+      expect(wrapper.find("li").text()).toBe(label);
     });
 
     it("should invoke onClick callbacks", () => {
       const onClick = sinon.spy();
       const wrapper = shallow(<EntryListItem {...{onClick}} />);
-
       wrapper.find("a").first().simulate("click");
-
       expect(onClick.callCount).toBe(1);
     });
   });

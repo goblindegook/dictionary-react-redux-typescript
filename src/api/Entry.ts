@@ -1,20 +1,20 @@
-import { IDictionaryAPIEntry } from "./DictionaryAPI";
+export interface IEntry {
+  content?: any;
+  id: number;
+  name: string;
+}
 
-export default class Entry {
-  public id: number;
-  public name: string;
-  public content: any;
-
-  /**
-   * Dictionary entry constructor.
-   * @param  {IDictionaryAPIEntry} item [description]
-   * @return {void}
-   *
-   * @todo Turn whatever's returned from the API into a consistent object.
-   */
-  public constructor(item?: IDictionaryAPIEntry) {
-    this.id = item && item.id || 0;
-    this.name = item && item.word || "";
-    this.content = item && item.definition || "";
-  }
+/**
+ * Dictionary entry creator.
+ * @param  {IDictionaryAPIEntry} item [description]
+ * @return {void}
+ *
+ * @todo Turn whatever's returned from the API into a consistent object.
+ */
+export function createEntry(item?: any): IEntry {
+  return {
+    content: item && item.definition || "",
+    id: item && item.id || 0,
+    name: item && item.word || "",
+  };
 }

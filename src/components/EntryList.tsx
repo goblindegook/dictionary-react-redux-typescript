@@ -2,13 +2,11 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 
 import EntryListItem from "./EntryListItem";
+import { IEntry } from "../api/Entry";
 
 export interface IEntryListProps extends React.Props<EntryList> {
   className?: string;
-  entries?: Array<{
-    id: number | string,
-    name: string,
-  }>;
+  entries?: IEntry[];
   onClickEntry?(Event): void;
 }
 
@@ -25,7 +23,7 @@ export default class EntryList extends React.Component<IEntryListProps, {}> {
           (entry, index): React.ReactElement<EntryListItem> => (
             <EntryListItem
               key={entry.id}
-              name={entry.name}
+              label={entry.name}
               onClick={this.props.onClickEntry}
             />
           )

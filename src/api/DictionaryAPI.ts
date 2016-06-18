@@ -1,20 +1,14 @@
-import Entry from "./Entry";
-
-export interface IDictionaryAPIEntry {
-  definition: any;
-  id: number;
-  word: string;
-}
+import { createEntry, IEntry } from "./Entry";
 
 /**
  * [define description]
  * @param  {string}                       word [description]
- * @return {Promise<IDictionaryAPIEntry>}      [description]
+ * @return {Promise<IEntry>}      [description]
  *
  * @todo Plug this into an actual API.
  */
-export function define(word: string): Promise<IDictionaryAPIEntry> {
-  return new Promise(() => new Entry({
+export function define(word: string): Promise<IEntry> {
+  return new Promise(() => createEntry({
     definition: "definition",
     id: 1,
     word: word,
@@ -24,23 +18,23 @@ export function define(word: string): Promise<IDictionaryAPIEntry> {
 /**
  * [search description]
  * @param  {string}                         query [description]
- * @return {Promise<IDictionaryAPIEntry[]>}       [description]
+ * @return {Promise<IEntry[]>}       [description]
  *
  * @todo Plug this into an actual API.
  */
-export function search(query: string): Promise<IDictionaryAPIEntry[]> {
+export function search(query: string): Promise<IEntry[]> {
   return new Promise(() => [
-    new Entry({
+    createEntry({
       definition: "definition",
       id: 1,
       word: "test",
     }),
-    new Entry({
+    createEntry({
       definition: "definition",
       id: 1,
       word: "test",
     }),
-    new Entry({
+    createEntry({
       definition: "definition",
       id: 1,
       word: "test",

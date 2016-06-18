@@ -5,12 +5,12 @@ import * as sinon from "sinon";
 import { shallow } from "enzyme";
 
 import EntryList from "../EntryList";
-import Entry from "../../api/Entry";
+import { createEntry } from "../../api/Entry";
 
 describe("Containers", () => {
   describe("<EntryList />", () => {
     const entries = ["one", "two", "three"].map((value, index) => {
-      const entry = new Entry();
+      const entry = createEntry();
       entry.id = index;
       entry.name = value;
       entry.content = value;

@@ -1,10 +1,10 @@
 import * as expect from "expect";
 
-import Entry from "../Entry";
+import { createEntry } from "../Entry";
 
-describe("Model", () => {
-  describe("New entries", () => {
-    const entry = new Entry();
+describe("Entry creator", () => {
+  describe("New entry", () => {
+    const entry = createEntry();
 
     it("should have an ID", () => {
       expect(entry.id).toBe(0);
@@ -19,14 +19,14 @@ describe("Model", () => {
     });
   });
 
-  describe("New entries from API data", () => {
+  describe("New entry from API data", () => {
     const item = {
       definition: "test",
       id: 1,
       word: "test",
     };
 
-    const entry = new Entry(item);
+    const entry = createEntry(item);
 
     it("should have an ID", () => {
       expect(entry.id).toBe(item.id);
