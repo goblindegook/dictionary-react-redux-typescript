@@ -1,17 +1,23 @@
+interface IEntryRaw {
+  definition?: any;
+  id?: number;
+  word?: string;
+}
+
 export interface IEntry {
   content?: any;
-  id: number;
+  id: number | string;
   name: string;
 }
 
 /**
  * Dictionary entry creator.
- * @param  {IDictionaryAPIEntry} item [description]
- * @return {void}
+ * @param  {any}    item  Raw entry item data.
+ * @return {IEntry}       Entry instance.
  *
  * @todo Turn whatever's returned from the API into a consistent object.
  */
-export function createEntry(item?: any): IEntry {
+export function createEntry(item?: IEntryRaw): IEntry {
   return {
     content: item && item.definition || "",
     id: item && item.id || 0,
