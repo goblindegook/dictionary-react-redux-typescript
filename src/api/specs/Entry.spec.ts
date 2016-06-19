@@ -14,7 +14,7 @@ describe("Entry creator", () => {
       expect(entry.name).toBe("");
     });
 
-    it("should have a definition", () => {
+    it("should have content", () => {
       expect(entry.content).toBe("");
     });
   });
@@ -36,7 +36,7 @@ describe("Entry creator", () => {
       expect(entry.name).toBe(item.word);
     });
 
-    it("should have a definition", () => {
+    it("should have content", () => {
       expect(entry.content).toBe(item.definition);
     });
   });

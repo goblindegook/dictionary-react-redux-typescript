@@ -16,7 +16,7 @@ export default class SearchInput extends React.Component<ISearchInputProps, {}> 
   public render() {
     return (
       <input
-        type="text"
+        type="search"
         className={this.props.className}
         value={this.props.text}
         onChange={this.props.onChange}

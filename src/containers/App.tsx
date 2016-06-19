@@ -1,11 +1,15 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
 
-import Footer from "./Footer";
-import Header from "./Header";
-import Search from "./Search";
+import store from "../store";
+import Footer from "../components/Footer";
+import Header from "../components/Header";
 
-export interface IAppProps extends React.Props<App> {}
+interface IAppProps extends React.Props<App> {
+  children?: React.ReactNode;
+}
 
 export default class App extends React.Component<IAppProps, {}> {
   /**
@@ -15,11 +19,13 @@ export default class App extends React.Component<IAppProps, {}> {
    */
   public render() {
     return (
-      <div className="dictionary-app">
-        <Header />
-        <Search />
-        <Footer />
-      </div>
+      <Provider store={store}>
+        <div className="dictionary-app">
+          <Header />
+          {this.props.children}
+          <Footer />
+        </div>
+      </Provider>
     );
   }
 }

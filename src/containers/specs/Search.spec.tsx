@@ -1,16 +1,24 @@
 import * as expect from "expect";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { shallow } from "enzyme";
+import { Provider } from 'react-redux';
+import { mount, shallow } from "enzyme";
+import configureStore = require("redux-mock-store");
 
 import Search from "../Search";
 
 describe("Containers", () => {
   describe("<Search />", () => {
-    const wrapper = shallow(<Search />);
+    const createStore = configureStore([]); // TODO: middlewares
+    const mockStore = createStore({}); // TODO: mock state
+    const wrapper = mount(
+      <Provider store={mockStore}>
+        <Search />
+      </Provider>
+    );
 
     it("should render", () => {
-      expect(wrapper.is("section.search")).toBe(true);
+      expect(wrapper.find("section.search").length).toBe(1);
     });
 
     it("should contain a single <SearchInput /> component", () => {

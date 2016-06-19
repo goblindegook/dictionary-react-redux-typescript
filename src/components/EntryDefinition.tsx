@@ -6,6 +6,7 @@ import { IEntry } from "../api/Entry";
 export interface IEntryDefinitionProps extends React.Props<EntryDefinition> {
   className?: string;
   entry?: IEntry;
+  title?: string;
 }
 
 export default class EntryDefinition extends React.Component<IEntryDefinitionProps, {}> {
@@ -17,6 +18,8 @@ export default class EntryDefinition extends React.Component<IEntryDefinitionPro
   public render() {
     return (
       <article className={this.props.className}>
+        <h2>{this.props.title}</h2>
+        <p>Definition of {this.props.title}</p>
       </article>
     );
   }

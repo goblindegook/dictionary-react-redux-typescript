@@ -3,14 +3,14 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { shallow } from "enzyme";
 
-import Header from "../Header";
+import Footer from "../Footer";
 
-describe("Containers", () => {
-  describe("<Header />", () => {
-    const wrapper = shallow(<Header />);
+describe("Components", () => {
+  describe("<Footer />", () => {
+    const wrapper = shallow(<Footer />);
 
     it("should render", () => {
-      expect(wrapper.is("header")).toBe(true);
+      expect(wrapper.is("footer")).toBe(true);
     });
   });
 });
