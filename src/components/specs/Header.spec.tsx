@@ -7,7 +7,11 @@ import Header from "../Header";
 
 describe("Components", () => {
   describe("<Header />", () => {
-    const wrapper = shallow(<Header />);
+    let wrapper;
+
+    before(() => {
+      wrapper = shallow(<Header />);
+    });
 
     it("should render", () => {
       expect(wrapper.is("header")).toBe(true);

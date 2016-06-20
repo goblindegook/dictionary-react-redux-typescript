@@ -8,7 +8,11 @@ import App from "../App";
 
 describe("Containers", () => {
   describe("<App />", () => {
-    const wrapper = shallow(<App />);
+    let wrapper;
+
+    before(() => {
+      wrapper = shallow(<App />);
+    });
 
     it("should be a Redux store provider", () => {
       expect(wrapper.is(Provider)).toBe(true);
@@ -23,7 +27,7 @@ describe("Containers", () => {
     });
 
     it("should allow children components", () => {
-      const wrapper = shallow(<App><section className="child" /></App>);
+      wrapper = shallow(<App><section className="child" /></App>);
       expect(wrapper.find("section.child").length).toBe(1);
     });
 

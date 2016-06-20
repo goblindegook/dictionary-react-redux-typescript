@@ -3,13 +3,15 @@ import * as ReactDOM from "react-dom";
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 
-import store from "../store";
+import configureStore from "../store";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 
 interface IAppProps extends React.Props<App> {
   children?: React.ReactNode;
 }
+
+const store = configureStore();
 
 export default class App extends React.Component<IAppProps, {}> {
   /**

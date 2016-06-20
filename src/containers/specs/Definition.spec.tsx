@@ -9,13 +9,18 @@ import Definition from "../Definition";
 
 describe("Containers", () => {
   describe("<Definition />", () => {
-    const createStore = configureStore([]); // TODO: middlewares
-    const mockStore = createStore({}); // TODO: mock state
-    const wrapper = mount(
-      <Provider store={mockStore}>
-        <Definition />
-      </Provider>
-    );
+    let wrapper;
+
+    before(() => {
+      const createStore = configureStore([]); // TODO: middlewares
+      const mockStore = createStore({}); // TODO: mock state
+
+      wrapper = mount(
+        <Provider store={mockStore}>
+          <Definition />
+        </Provider>
+      );
+    });
 
     it("should render", () => {
       expect(wrapper.find(Definition).length).toBe(1);

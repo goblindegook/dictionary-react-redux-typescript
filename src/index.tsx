@@ -1,6 +1,6 @@
 import * as React from "react";
 import { render } from "react-dom";
 
-import Router from "./router";
+import routes from "./routes";
 
-render(Router, document.getElementById("root"));
+render(routes, document.getElementById("root"));

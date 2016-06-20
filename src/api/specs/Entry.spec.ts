@@ -20,13 +20,18 @@ describe("Entry creator", () => {
   });
 
   describe("New entry from API data", () => {
-    const item = {
-      definition: "test",
-      id: 1,
-      word: "test",
-    };
+    let entry;
+    let item;
 
-    const entry = createEntry(item);
+    before(() => {
+      item = {
+        definition: "test",
+        id: 1,
+        word: "test",
+      };
+
+      entry = createEntry(item);
+    });
 
     it("should have an ID", () => {
       expect(entry.id).toBe(item.id);

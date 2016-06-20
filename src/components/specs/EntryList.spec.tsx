@@ -9,12 +9,16 @@ import { createEntry } from "../../api/Entry";
 
 describe("Containers", () => {
   describe("<EntryList />", () => {
-    const entries = ["one", "two", "three"].map((value, index) => {
-      const entry = createEntry();
-      entry.id = index;
-      entry.name = value;
-      entry.content = value;
-      return entry;
+    let entries;
+
+    before(() => {
+      entries = ["one", "two", "three"].map((value, index) => {
+        const entry = createEntry();
+        entry.id = index;
+        entry.name = value;
+        entry.content = value;
+        return entry;
+      });
     });
 
     it("should render", () => {

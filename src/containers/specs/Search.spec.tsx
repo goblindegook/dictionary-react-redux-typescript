@@ -9,13 +9,18 @@ import Search from "../Search";
 
 describe("Containers", () => {
   describe("<Search />", () => {
-    const createStore = configureStore([]); // TODO: middlewares
-    const mockStore = createStore({}); // TODO: mock state
-    const wrapper = mount(
-      <Provider store={mockStore}>
-        <Search />
-      </Provider>
-    );
+    let wrapper;
+
+    before(() => {
+      const createStore = configureStore([]); // TODO: middlewares
+      const mockStore = createStore({}); // TODO: mock state
+
+      wrapper = mount(
+        <Provider store={mockStore}>
+          <Search />
+        </Provider>
+      );
+    });
 
     it("should render", () => {
       expect(wrapper.find("section.search").length).toBe(1);
