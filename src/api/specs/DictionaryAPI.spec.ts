@@ -7,7 +7,7 @@ import { IEntry } from "../Entry";
 describe("Dictionary API", () => {
   describe("define", () => {
     it("should return a single entry", () => {
-      new Promise(() => define("test"))
+      new Promise((resolve) => resolve(define("test")))
         .then((result: IEntry) => {
           expect(result.name).toBe("test");
         });
@@ -16,7 +16,7 @@ describe("Dictionary API", () => {
 
   describe("search", () => {
     it("should return a list of entries", () => {
-      new Promise(() => search("test"))
+      new Promise((resolve) => resolve(search("test")))
         .then((results: IEntry[]) => {
           expect(results.length).toNotEqual(0);
         });

@@ -1,16 +1,20 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { connect } from 'react-redux';
-import { createSelector } from 'reselect';
+import { connect } from "react-redux";
+import { createSelector } from "reselect";
 
+import { IEntry } from "../api/Entry";
 import EntryList from "../components/EntryList";
 import SearchInput from "../components/SearchInput";
 
 export interface ISearchProps extends React.Props<Search> {
+  entries?: IEntry[];
   params?: {
     query?: string;
   };
   query?: string;
+  onChange?: (event: Event) => void;
+  onClickEntry?: (...args: any[]) => void;
 }
 
 class Search extends React.Component<ISearchProps, {}> {
@@ -23,12 +27,12 @@ class Search extends React.Component<ISearchProps, {}> {
     return (
       <section className="search">
         <SearchInput
-          onChange={(event) => console.log(event.target.value)}
+          onChange={this.props.onChange}
           text={this.props.params && this.props.params.query}
         />
         <EntryList
-          entries={[{id: 1, name: "test1"}, {id: 2, name: "test2"}, {id: 3, name: "test3"}]}
-          onClickEntry={(...args) => console.log(args)}
+          entries={this.props.entries}
+          onClickEntry={this.props.onClickEntry}
         />
       </section>
     );
@@ -38,6 +42,11 @@ class Search extends React.Component<ISearchProps, {}> {
 // TODO: Connect selectors, map to props, map to actions.
 
 export default connect(
-  state => ({}),
-  dispatch => ({})
+  (state) => ({
+    entries: state.entries,
+  }),
+  (dispatch) => ({
+    onChange: (event) => { console.log(event.target.value) },
+    onClickEntry: (...args) => { console.log(args) },
+  })
 )(Search);

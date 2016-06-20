@@ -1,13 +1,13 @@
 import * as expect from "expect";
 import * as React from "react";
 import { mount, shallow } from "enzyme";
-import { Router, Route, IndexRoute, browserHistory } from "react-router";
+import { Router, Route, IndexRoute, hashHistory } from "react-router";
 
 import routes from "../routes";
 
 describe("Router", () => {
   it("history should use pushState", () => {
-    expect(routes.props.history).toBe(browserHistory);
+    expect(routes.props.history).toBe(hashHistory);
   });
 
   it("should route to the Search component on /", () => {

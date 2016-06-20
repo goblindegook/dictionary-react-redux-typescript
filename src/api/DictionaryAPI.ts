@@ -8,11 +8,15 @@ import { createEntry, IEntry } from "./Entry";
  * @todo Plug this into an actual API.
  */
 export function define(word: string): Promise<IEntry> {
-  return new Promise(() => createEntry({
-    definition: "definition",
-    id: 1,
-    word: word,
-  }));
+  return new Promise(
+    (resolve) => resolve(
+      createEntry({
+        definition: "definition",
+        id: 1,
+        word: word,
+      })
+    )
+  );
 }
 
 /**
@@ -23,21 +27,23 @@ export function define(word: string): Promise<IEntry> {
  * @todo Plug this into an actual API.
  */
 export function search(query: string): Promise<IEntry[]> {
-  return new Promise(() => [
-    createEntry({
-      definition: "definition",
-      id: 1,
-      word: "test",
-    }),
-    createEntry({
-      definition: "definition",
-      id: 1,
-      word: "test",
-    }),
-    createEntry({
-      definition: "definition",
-      id: 1,
-      word: "test",
-    }),
-  ]);
+  return new Promise(
+    (resolve) => resolve([
+      createEntry({
+        definition: "definition",
+        id: 1,
+        word: "test",
+      }),
+      createEntry({
+        definition: "definition",
+        id: 1,
+        word: "test",
+      }),
+      createEntry({
+        definition: "definition",
+        id: 1,
+        word: "test",
+      }),
+    ])
+  );
 }

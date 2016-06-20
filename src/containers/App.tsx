@@ -11,7 +11,9 @@ interface IAppProps extends React.Props<App> {
   children?: React.ReactNode;
 }
 
-const store = configureStore();
+const store = configureStore({
+  entries: [{id: 1, name: "test1"}, {id: 2, name: "test2"}, {id: 3, name: "test3"}]
+});
 
 export default class App extends React.Component<IAppProps, {}> {
   /**
