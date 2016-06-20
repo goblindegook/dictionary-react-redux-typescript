@@ -36,5 +36,9 @@ describe("Containers", () => {
     it("should contain a single <EntryList /> component", () => {
       expect(wrapper.find("EntryList").length).toBe(1);
     });
+
+    xit("should dispatch a search thunk on change", () => {
+      // TODO
+    });
   });
 });

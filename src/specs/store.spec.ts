@@ -10,8 +10,8 @@ describe("Store", () => {
       store = configureStore();
     });
 
-    it("should apply middlewares", () => {
-      expect(1).toBe(1);
+    xit("should apply middlewares", () => {
+      // TODO
     });
   });
 });
