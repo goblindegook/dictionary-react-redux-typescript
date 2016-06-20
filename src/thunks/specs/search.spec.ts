@@ -37,7 +37,7 @@ describe("Thunks", () => {
         });
     });
 
-    xit("should dispatch a SEARCH_ERROR action", () => {
+    xit("should dispatch a SEARCH_ERROR action on error", () => {
       // TODO: nock error
       // TODO: create matching error action
       return thunk(mockDispatch)
