@@ -1,8 +1,8 @@
 import * as expect from "expect";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
+import { Provider } from "react-redux";
 import { shallow } from "enzyme";
-import { Provider } from 'react-redux';
 
 import App from "../App";
 
