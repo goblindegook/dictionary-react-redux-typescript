@@ -10,9 +10,9 @@ import SearchInput from "../components/SearchInput";
 export interface ISearchProps extends React.Props<Search> {
   entries?: IEntry[];
   params?: {
-    query?: string;
+    prefix?: string;
   };
-  query?: string;
+  prefix?: string;
   onChange?: (event: Event) => void;
   onClickEntry?: (...args: any[]) => void;
 }
@@ -28,7 +28,7 @@ class Search extends React.Component<ISearchProps, {}> {
       <section className="search">
         <SearchInput
           onChange={this.props.onChange}
-          text={this.props.params && this.props.params.query}
+          text={this.props.params && this.props.params.prefix}
         />
         <EntryList
           entries={this.props.entries}

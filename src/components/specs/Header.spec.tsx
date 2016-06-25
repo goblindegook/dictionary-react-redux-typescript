@@ -5,7 +5,7 @@ import { shallow } from "enzyme";
 
 import Header from "../Header";
 
-describe("Components", () => {
+describe("Component", () => {
   describe("<Header />", () => {
     let wrapper;
 
@@ -13,7 +13,7 @@ describe("Components", () => {
       wrapper = shallow(<Header />);
     });
 
-    it("should render", () => {
+    it("renders", () => {
       expect(wrapper.is("header")).toBe(true);
     });
   });

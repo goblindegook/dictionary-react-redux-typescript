@@ -9,8 +9,8 @@ export default (
   <Router history={hashHistory}>
     <Route path="/" component={App} >
       <IndexRoute component={Search}/>
-      <Route path="search(/:query)" component={Search} />
-      <Route path="define/:word(/:index)" component={Definition} />
+      <Route path="search(/:prefix)" component={Search} />
+      <Route path="define/:id" component={Definition} />
     </Route>
   </Router>
 );

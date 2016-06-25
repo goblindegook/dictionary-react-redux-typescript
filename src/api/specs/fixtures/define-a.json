@@ -1,0 +1,39 @@
+{"superEntry" : [ {"entry" : {
+ "@n" : "1",
+ "@id" : "a:1",
+ "@type" : "hom",
+"form" : {
+"orth" : "A","pron" : "á"},"sense" : [{"gramGrp" : "m.",
+"def" : "Primeira letra do alfabeto português."},
+{ "@ast" : "1",
+"usg" : {
+ "@type" : "dom",
+ "#text" : "Mús."
+},"def" : "Primeira nota da escala na denominação alfabética dos sons."},
+{"gramGrp" : "Adj.",
+"def" : "Primeiro, (falando-se de um número ou de um objecto que faz parte de uma série)."},
+{ "@ast" : "1",
+"gramGrp" : "Adj.",
+"def" : "Que é de primeira classe, (falando-se de carruagens de caminho de ferro)."}]}},{"entry" : {
+ "@n" : "2",
+ "@type" : "hom",
+ "@id" : "a:2",
+"form" : {
+"orth" : "A","pron" : "á"},"sense" : [{"gramGrp" : "art.",
+"def" : "(fem. de o).<br/>Ant. _la_."}],"etym" : {
+ "@orig" : "lat",
+ "#text" : "(Do lat. _illa_)"
+}}},{"entry" : {
+ "@n" : "3",
+ "@type" : "hom",
+ "@id" : "a:3",
+"form" : {
+"orth" : "A","pron" : "â"},"sense" : [{"gramGrp" : "prep.",
+"def" : "Que indica várias relações.<br/>(Lat. _ad_)."}]}},{"entry" : {
+ "@n" : "4",
+ "@id" : "a:4",
+ "@type" : "hom",
+ "@ast" : "1",
+"form" : {
+"orth" : "A","pron" : "â"},"sense" : [{"gramGrp" : "pron.",
+"def" : "Flexão feminina do pronome _o_."}]}}]}

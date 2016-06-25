@@ -23,7 +23,7 @@ export default class EntryList extends React.Component<IEntryListProps, {}> {
           (entry, index): React.ReactElement<EntryListItem> => (
             <EntryListItem
               key={entry.id}
-              label={entry.name}
+              label={entry.word}
               onClick={this.props.onClickEntry}
             />
           )

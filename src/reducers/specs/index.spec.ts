@@ -3,7 +3,7 @@ import * as expect from "expect";
 import reducers from "../index";
 
 describe("Reducers", () => {
-  xit("should be combined", () => {
+  xit("are combined", () => {
     expect(1).toBe(1);
   });
 });

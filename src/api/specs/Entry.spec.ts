@@ -3,46 +3,47 @@ import * as expect from "expect";
 import { createEntry } from "../Entry";
 
 describe("Entry creator", () => {
-  describe("New entry", () => {
-    const entry = createEntry();
+  describe("New entry from word", () => {
+    const word = "word";
+    const entry = createEntry(word);
 
-    it("should have an ID", () => {
-      expect(entry.id).toBe(0);
+    it("has an ID equal to word", () => {
+      expect(entry.id).toBe(word);
     });
 
-    it("should have a name", () => {
-      expect(entry.name).toBe("");
+    it("has a word", () => {
+      expect(entry.word).toBe(word);
     });
 
-    it("should have content", () => {
-      expect(entry.content).toBe("");
+    it("has undefined content", () => {
+      expect(entry.content).toBe(undefined);
     });
   });
 
-  describe("New entry from API data", () => {
+  describe("New entry from complete data", () => {
+    let content;
     let entry;
-    let item;
+    let id;
+    let word;
 
     before(() => {
-      item = {
-        definition: "test",
-        id: 1,
-        word: "test",
-      };
+      content = { anything: "anything" };
+      id = "test:1";
+      word = "test";
 
-      entry = createEntry(item);
+      entry = createEntry(word, id, content);
     });
 
-    it("should have an ID", () => {
-      expect(entry.id).toBe(item.id);
+    it("has an ID", () => {
+      expect(entry.id).toBe(id);
     });
 
-    it("should have a name", () => {
-      expect(entry.name).toBe(item.word);
+    it("has a word", () => {
+      expect(entry.word).toBe(word);
     });
 
-    it("should have content", () => {
-      expect(entry.content).toBe(item.definition);
+    it("has content", () => {
+      expect(entry.content).toBe(content);
     });
   });
 });

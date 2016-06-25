@@ -2,9 +2,9 @@ import * as expect from "expect";
 
 import { searchStart, searchDone, searchError } from "../search";
 
-describe("Actions", () => {
+describe("Action", () => {
   describe("Search", () => {
-    it("should create search start actions", () => {
+    it("starts a search", () => {
       const query = "test";
       const action = {
         payload: query,
@@ -14,7 +14,7 @@ describe("Actions", () => {
       expect(searchStart(query)).toEqual(action);
     });
 
-    it("should complete a search", () => {
+    it("completes a search", () => {
       const results = ["test"];
       const action = {
         payload: results,
@@ -24,7 +24,7 @@ describe("Actions", () => {
       expect(searchDone(results)).toEqual(action);
     });
 
-    it("should complete a search with an error", () => {
+    it("completes a search with error", () => {
       const error = new Error("test");
       const action = {
         error: true,

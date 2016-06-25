@@ -6,20 +6,20 @@ import * as sinon from "sinon";
 
 import SearchInput from "../SearchInput";
 
-describe("Containers", () => {
+describe("Component", () => {
   describe("<SearchInput />", () => {
-    it("should render", () => {
+    it("renders", () => {
       const wrapper = shallow(<SearchInput />);
       expect(wrapper.is("input")).toBe(true);
     });
 
-    it("should render with className", () => {
+    it("renders with className", () => {
       const className: string = "test";
       const wrapper = shallow(<SearchInput {...{className}} />);
       expect(wrapper.hasClass(className)).toBe(true);
     });
 
-    it("should invoke onChange callbacks", () => {
+    it("invokes onChange callbacks", () => {
       const onChange = sinon.spy();
       const wrapper = shallow(<SearchInput {...{onChange}} />);
 

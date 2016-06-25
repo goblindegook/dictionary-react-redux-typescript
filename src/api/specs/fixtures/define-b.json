@@ -1,0 +1,12 @@
+{"entry" : {
+ "@id" : "b",
+"form" : {
+"orth" : "B","pron" : "bê"},"sense" : [{"gramGrp" : "m.",
+"def" : "Letra, que representa som labial, e que ocupa o segundo lugar no alfabeto português.<br/>Abrev. de _bom_: _no concurso de escrivão, obteve a nota de B_."},
+{ "@ast" : "1",
+"usg" : {
+ "@type" : "dom",
+ "#text" : "Mús."
+},"def" : "O segundo grau da escala, na antiga notação alfabética."},
+{"gramGrp" : "Adj.",
+"def" : "Segundo, (falando-se de um número ou de um objecto, que faz parte de uma série): _o livro B das Conservatórias do registo predial_.<br/>Que é de segunda classe, (falando-se de carruagens do caminho de ferro)."}]}}

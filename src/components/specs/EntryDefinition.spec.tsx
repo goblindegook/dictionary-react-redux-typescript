@@ -5,20 +5,20 @@ import { shallow } from "enzyme";
 
 import EntryDefinition from "../EntryDefinition";
 
-describe("Containers", () => {
+describe("Component", () => {
   describe("<EntryDefinition />", () => {
-    it("should render", () => {
+    it("renders", () => {
       const wrapper = shallow(<EntryDefinition />);
       expect(wrapper.is("article")).toBe(true);
     });
 
-    it("should render with className", () => {
+    it("renders with className", () => {
       const className = "test";
       const wrapper = shallow(<EntryDefinition {...{className}} />);
       expect(wrapper.hasClass(className)).toBe(true);
     });
 
-    it("should render with title", () => {
+    it("renders with title", () => {
       const title = "test";
       const wrapper = shallow(<EntryDefinition {...{title}} />);
       expect(wrapper.find("h2").first().text()).toBe(title);

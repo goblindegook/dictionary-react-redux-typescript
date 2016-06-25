@@ -6,7 +6,7 @@ import { shallow } from "enzyme";
 
 import App from "../App";
 
-describe("Containers", () => {
+describe("Container", () => {
   describe("<App />", () => {
     let wrapper;
 
@@ -14,24 +14,24 @@ describe("Containers", () => {
       wrapper = shallow(<App />);
     });
 
-    it("should be a Redux store provider", () => {
+    it("is a Redux store provider", () => {
       expect(wrapper.is(Provider)).toBe(true);
     });
 
-    it("should render a <div />", () => {
+    it("renders a <div />", () => {
       expect(wrapper.find("div").first().hasClass("dictionary-app")).toBe(true);
     });
 
-    it("should contain a single <Header /> component", () => {
+    it("contains a single <Header /> component", () => {
       expect(wrapper.find("Header").length).toBe(1);
     });
 
-    it("should allow children components", () => {
+    it("allows children components", () => {
       wrapper = shallow(<App><section className="child" /></App>);
       expect(wrapper.find("section.child").length).toBe(1);
     });
 
-    it("should contain a single <Footer /> component", () => {
+    it("contains a single <Footer /> component", () => {
       expect(wrapper.find("Footer").length).toBe(1);
     });
   });

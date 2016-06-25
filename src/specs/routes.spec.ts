@@ -10,19 +10,15 @@ describe("Router", () => {
     expect(routes.props.history).toBe(hashHistory);
   });
 
-  it("should route to the Search component on /", () => {
+  it("routes to the Search component on /", () => {
     // TODO: How do I test this?
   });
 
-  it("should route to the Search component on /search/:query", () => {
+  it("routes to the Search component on /search/:prefix", () => {
     // TODO: How do I test this?
   });
 
-  it("should route to the Definition component on /define/:word", () => {
-    // TODO: How do I test this?
-  });
-
-  it("should route to the Definition component on /define/:word/:index", () => {
+  it("routes to the Definition component on /define/:id", () => {
     // TODO: How do I test this?
   });
 });

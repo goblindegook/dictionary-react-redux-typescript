@@ -8,7 +8,7 @@ import configureStore = require("redux-mock-store");
 
 import Definition from "../Definition";
 
-describe("Containers", () => {
+describe("Container", () => {
   describe("<Definition />", () => {
     let wrapper;
 
@@ -25,11 +25,11 @@ describe("Containers", () => {
       );
     });
 
-    it("should render", () => {
+    it("renders", () => {
       expect(wrapper.find(Definition).length).toBe(1);
     });
 
-    it("should contain a single <EntryDefinition /> component", () => {
+    it("contains a single <EntryDefinition /> component", () => {
       expect(wrapper.find("EntryDefinition").length).toBe(1);
     });
   });

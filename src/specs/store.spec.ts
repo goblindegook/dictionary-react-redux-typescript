@@ -10,7 +10,7 @@ describe("Store", () => {
       store = configureStore();
     });
 
-    xit("should apply middlewares", () => {
+    xit("applies middlewares", () => {
       // TODO
     });
   });

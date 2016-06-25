@@ -8,7 +8,7 @@ import configureStore = require("redux-mock-store");
 
 import Search from "../Search";
 
-describe("Containers", () => {
+describe("Container", () => {
   describe("<Search />", () => {
     let wrapper;
 
@@ -25,19 +25,19 @@ describe("Containers", () => {
       );
     });
 
-    it("should render", () => {
+    it("renders", () => {
       expect(wrapper.find("section.search").length).toBe(1);
     });
 
-    it("should contain a single <SearchInput /> component", () => {
+    it("contains a single <SearchInput /> component", () => {
       expect(wrapper.find("SearchInput").length).toBe(1);
     });
 
-    it("should contain a single <EntryList /> component", () => {
+    it("contains a single <EntryList /> component", () => {
       expect(wrapper.find("EntryList").length).toBe(1);
     });
 
-    xit("should dispatch a search thunk on change", () => {
+    xit("dispatches a search thunk on change", () => {
       // TODO
     });
   });

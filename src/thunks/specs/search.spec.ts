@@ -1,48 +1,62 @@
 import * as expect from "expect";
 import * as sinon from "sinon";
+import * as nock from "nock";
+import * as path from "path";
+import { readFileSync } from "fs";
 
 import doSearch from "../search";
 import { searchStart, searchDone, searchError } from "../../actions/search";
 
-describe("Thunks", () => {
+const mockAPI = nock("http://dicionario-aberto.net");
+
+describe("Thunk", () => {
   describe("Search", () => {
-    let query;
+    let prefix;
     let thunk;
     let mockDispatch;
 
     beforeEach(() => {
-      query = "test";
-      thunk = doSearch(query);
+      prefix = "a";
+      thunk = doSearch(prefix);
       mockDispatch = sinon.spy();
     });
 
-    it("should be a function", () => {
+    it("is a function", () => {
       expect(typeof thunk).toBe("function");
     });
 
-    it("should dispatch a SEARCH_START action", () => {
-      const action = searchStart(query);
+    it("dispatches a SEARCH_START action first", () => {
+      const action = searchStart(prefix);
       return thunk(mockDispatch)
         .then(() => {
-          expect(mockDispatch.getCall(0).args[0]).toEqual(action);
+          expect(mockDispatch.firstCall.args[0]).toEqual(action);
         });
     });
 
-    xit("should dispatch a SEARCH_DONE action on success", () => {
-      // TODO: nock success
-      // TODO: create matching success action
+    it("dispatches a SEARCH_DONE action on success", () => {
+      const mockResult = JSON.parse(
+        readFileSync(path.resolve(__dirname, "fixtures", "search-a.json")).toString());
+
+      mockAPI
+        .get("/search-json")
+        .query({prefix: "a"})
+        .reply(200, mockResult);
+
       return thunk(mockDispatch)
         .then((promise) => {
-          expect(mockDispatch.getCall(1).args[0]).toBe({});
+          expect(mockDispatch.secondCall.args[0].type).toBe("SEARCH_DONE");
         });
     });
 
-    xit("should dispatch a SEARCH_ERROR action on error", () => {
-      // TODO: nock error
-      // TODO: create matching error action
+    it("dispatches a SEARCH_ERROR action on error", () => {
+      mockAPI
+        .get("/search-json")
+        .query({prefix: "a"})
+        .reply(500);
+
       return thunk(mockDispatch)
         .then((promise) => {
-          expect(mockDispatch.getCall(1).args[0]).toBe({});
+          expect(mockDispatch.secondCall.args[0].type).toBe("SEARCH_ERROR");
         });
     });
   });

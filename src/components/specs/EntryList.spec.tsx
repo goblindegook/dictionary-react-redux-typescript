@@ -7,18 +7,14 @@ import { shallow } from "enzyme";
 import EntryList from "../EntryList";
 import { createEntry } from "../../api/Entry";
 
-describe("Containers", () => {
+describe("Component", () => {
   describe("<EntryList />", () => {
     let entries;
 
     before(() => {
-      entries = ["one", "two", "three"].map((value, index) => {
-        const entry = createEntry();
-        entry.id = index;
-        entry.name = value;
-        entry.content = value;
-        return entry;
-      });
+      entries = ["one", "two", "three"].map(
+        (value) => createEntry(value, value, value)
+      );
     });
 
     it("should render", () => {

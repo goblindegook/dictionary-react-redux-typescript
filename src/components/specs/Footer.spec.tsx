@@ -5,7 +5,7 @@ import { shallow } from "enzyme";
 
 import Footer from "../Footer";
 
-describe("Components", () => {
+describe("Component", () => {
   describe("<Footer />", () => {
     let wrapper;
 
@@ -13,7 +13,7 @@ describe("Components", () => {
       wrapper = shallow(<Footer />);
     });
 
-    it("should render", () => {
+    it("renders", () => {
       expect(wrapper.is("footer")).toBe(true);
     });
   });
