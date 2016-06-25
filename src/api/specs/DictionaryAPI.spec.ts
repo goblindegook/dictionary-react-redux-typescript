@@ -11,20 +11,18 @@ function readFixture(filename: string): any {
 }
 
 describe("Dictionary API", () => {
-  let mockAPI;
-
-  beforeEach(() => {
-    mockAPI = nock("http://dicionario-aberto.net");
-  });
-
   describe("search", () => {
+    let mockRequest;
+
+    beforeEach(() => {
+      mockRequest = nock("http://dicionario-aberto.net")
+        .get("/search-json");
+    });
+
     it("returns a list of entries on success", (done) => {
       const mockResult = readFixture("search-a.json");
 
-      mockAPI
-        .get("/search-json")
-        .query({prefix: "a"})
-        .reply(200, mockResult);
+      mockRequest.query({prefix: "a"}).reply(200, mockResult);
 
       search("a")
         .then((results: IEntry[]) => {
@@ -34,10 +32,7 @@ describe("Dictionary API", () => {
     });
 
     it("returns an error on failure", (done) => {
-      mockAPI
-        .get("/search-json")
-        .query({prefix: "error"})
-        .reply(500);
+      mockRequest.query({prefix: "error"}).reply(500);
 
       search("error")
         .catch((error: Error) => {
@@ -48,12 +43,18 @@ describe("Dictionary API", () => {
   });
 
   describe("define", () => {
+    let mockRequest;
+
+    beforeEach(() => {
+      mockRequest = nock("http://dicionario-aberto.net");
+    });
+
     it("returns a single entry on success", (done) => {
       const word = "b";
 
       const mockResult = readFixture("define-b.json");
 
-      mockAPI
+      mockRequest
         .get("/search-json/" + word)
         .reply(200, mockResult);
 
@@ -73,7 +74,7 @@ describe("Dictionary API", () => {
 
       const mockResult = readFixture("define-a.json");
 
-      mockAPI
+      mockRequest
         .get("/search-json/" + word)
         .reply(200, mockResult);
 
@@ -89,7 +90,7 @@ describe("Dictionary API", () => {
     });
 
     it("returns an Not Found error on failure", (done) => {
-      mockAPI
+      mockRequest
         .get("/search-json/error")
         .reply(404);
 

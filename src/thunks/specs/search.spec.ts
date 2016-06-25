@@ -12,16 +12,20 @@ describe("Thunk", () => {
     let prefix;
     let thunk;
     let mockDispatch;
-    let mockAPI;
+    let mockRequest;
     let mockResult;
 
     beforeEach(() => {
       prefix = "a";
       thunk = doSearch(prefix);
       mockDispatch = sinon.spy();
-      mockAPI = nock("http://dicionario-aberto.net");
+
       mockResult = JSON.parse(
         readFileSync(path.resolve(__dirname, "fixtures", "search-a.json")).toString());
+
+      mockRequest = nock("http://dicionario-aberto.net")
+        .get("/search-json")
+        .query({prefix});
     });
 
     it("is a function", () => {
@@ -29,10 +33,7 @@ describe("Thunk", () => {
     });
 
     it("dispatches a SEARCH_START action first", () => {
-      mockAPI
-        .get("/search-json")
-        .query({prefix: "a"})
-        .reply(200, mockResult);
+      mockRequest.reply(200, mockResult);
 
       const action = searchStart(prefix);
 
@@ -43,10 +44,7 @@ describe("Thunk", () => {
     });
 
     it("dispatches a SEARCH_DONE action on success", () => {
-      mockAPI
-        .get("/search-json")
-        .query({prefix: "a"})
-        .reply(200, mockResult);
+      mockRequest.reply(200, mockResult);
 
       return thunk(mockDispatch)
         .then((promise) => {
@@ -55,10 +53,7 @@ describe("Thunk", () => {
     });
 
     it("dispatches a SEARCH_ERROR action on error", () => {
-      mockAPI
-        .get("/search-json")
-        .query({prefix: "a"})
-        .reply(500);
+      mockRequest.reply(500);
 
       return thunk(mockDispatch)
         .then((promise) => {
