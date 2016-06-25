@@ -7,18 +7,21 @@ import { readFileSync } from "fs";
 import doSearch from "../search";
 import { searchStart, searchDone, searchError } from "../../actions/search";
 
-const mockAPI = nock("http://dicionario-aberto.net");
-
 describe("Thunk", () => {
   describe("Search", () => {
     let prefix;
     let thunk;
     let mockDispatch;
+    let mockAPI;
+    let mockResult;
 
     beforeEach(() => {
       prefix = "a";
       thunk = doSearch(prefix);
       mockDispatch = sinon.spy();
+      mockAPI = nock("http://dicionario-aberto.net");
+      mockResult = JSON.parse(
+        readFileSync(path.resolve(__dirname, "fixtures", "search-a.json")).toString());
     });
 
     it("is a function", () => {
@@ -26,7 +29,13 @@ describe("Thunk", () => {
     });
 
     it("dispatches a SEARCH_START action first", () => {
+      mockAPI
+        .get("/search-json")
+        .query({prefix: "a"})
+        .reply(200, mockResult);
+
       const action = searchStart(prefix);
+
       return thunk(mockDispatch)
         .then(() => {
           expect(mockDispatch.firstCall.args[0]).toEqual(action);
@@ -34,9 +43,6 @@ describe("Thunk", () => {
     });
 
     it("dispatches a SEARCH_DONE action on success", () => {
-      const mockResult = JSON.parse(
-        readFileSync(path.resolve(__dirname, "fixtures", "search-a.json")).toString());
-
       mockAPI
         .get("/search-json")
         .query({prefix: "a"})

@@ -6,13 +6,20 @@ import { readFileSync } from "fs";
 import { search, define } from "../DictionaryAPI";
 import { IEntry } from "../Entry";
 
-const mockAPI = nock("http://dicionario-aberto.net");
+function readFixture(filename: string): any {
+  return JSON.parse(readFileSync(path.resolve(__dirname, "fixtures", filename)).toString());
+}
 
 describe("Dictionary API", () => {
+  let mockAPI;
+
+  beforeEach(() => {
+    mockAPI = nock("http://dicionario-aberto.net");
+  });
+
   describe("search", () => {
     it("returns a list of entries on success", (done) => {
-      const mockResult = JSON.parse(
-        readFileSync(path.resolve(__dirname, "fixtures", "search-a.json")).toString());
+      const mockResult = readFixture("search-a.json");
 
       mockAPI
         .get("/search-json")
@@ -44,8 +51,7 @@ describe("Dictionary API", () => {
     it("returns a single entry on success", (done) => {
       const word = "b";
 
-      const mockResult = JSON.parse(
-        readFileSync(path.resolve(__dirname, "fixtures", "define-b.json")).toString());
+      const mockResult = readFixture("define-b.json");
 
       mockAPI
         .get("/search-json/" + word)
@@ -65,8 +71,7 @@ describe("Dictionary API", () => {
     it("returns multiple entries on success", (done) => {
       const word = "a";
 
-      const mockResult = JSON.parse(
-        readFileSync(path.resolve(__dirname, "fixtures", "define-a.json")).toString());
+      const mockResult = readFixture("define-a.json");
 
       mockAPI
         .get("/search-json/" + word)
