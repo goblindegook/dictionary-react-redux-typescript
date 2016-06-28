@@ -1,24 +1,50 @@
 import * as expect from "expect";
 import * as React from "react";
 import { mount, shallow } from "enzyme";
-import { Router, Route, IndexRoute, hashHistory } from "react-router";
+import { match, Route } from "react-router";
 
 import routes from "../routes";
 
-describe("Router", () => {
-  it("history should use pushState", () => {
-    expect(routes.props.history).toBe(hashHistory);
+describe("Route", () => {
+  describe("/", () => {
+    it("routes to the Search component", () => {
+      match(<any> { location: "/", routes }, (error, redirectLocation, renderProps: {components}) => {
+        expect(renderProps.components[1].WrappedComponent.name).toBe("Search");
+      });
+    });
   });
 
-  it("routes to the Search component on /", () => {
-    // TODO: How do I test this?
+  describe("/search/:prefix", () => {
+    const prefix = "test";
+    const location = `/search/${prefix}`;
+
+    it("routes to the Search component", () => {
+      match(<any> { location, routes }, (error, redirectLocation, renderProps: {components}) => {
+        expect(renderProps.components[1].WrappedComponent.name).toBe("Search");
+      });
+    });
+
+    it("captures the prefix param", () => {
+      match(<any> { location, routes }, (error, redirectLocation, renderProps: {params}) => {
+        expect(renderProps.params.prefix).toBe(prefix);
+      });
+    });
   });
 
-  it("routes to the Search component on /search/:prefix", () => {
-    // TODO: How do I test this?
-  });
+  describe("/define/:id", () => {
+    const id = "test:1";
+    const location = `/define/${id}`;
 
-  it("routes to the Definition component on /define/:id", () => {
-    // TODO: How do I test this?
+    it("routes to the Definition component", () => {
+      match(<any> { location, routes }, (error, redirectLocation, renderProps: {components}) => {
+        expect(renderProps.components[1].WrappedComponent.name).toBe("Definition");
+      });
+    });
+
+    it("captures the id param", () => {
+      match(<any> { location, routes }, (error, redirectLocation, renderProps: {params}) => {
+        expect(renderProps.params.id).toBe(id);
+      });
+    });
   });
 });
