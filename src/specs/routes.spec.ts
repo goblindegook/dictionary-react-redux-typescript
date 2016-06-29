@@ -5,10 +5,10 @@ import { match, Route } from "react-router";
 
 import routes from "../routes";
 
-describe("Route", () => {
+describe("Router", () => {
   describe("/", () => {
     it("routes to the Search component", () => {
-      match(<any> { location: "/", routes }, (error, redirectLocation, renderProps: {components}) => {
+      match(<any> { location: "/", routes }, (error, redirectLocation, renderProps: {components: any[]}) => {
         expect(renderProps.components[1].WrappedComponent.name).toBe("Search");
       });
     });
@@ -19,7 +19,8 @@ describe("Route", () => {
     const location = `/search/${prefix}`;
 
     it("routes to the Search component", () => {
-      match(<any> { location, routes }, (error, redirectLocation, renderProps: {components}) => {
+      match(<any> { location, routes }, (error, redirectLocation, renderProps: {components: any[]}) => {
+        console.log('routes', routes);
         expect(renderProps.components[1].WrappedComponent.name).toBe("Search");
       });
     });
@@ -36,7 +37,7 @@ describe("Route", () => {
     const location = `/define/${id}`;
 
     it("routes to the Definition component", () => {
-      match(<any> { location, routes }, (error, redirectLocation, renderProps: {components}) => {
+      match(<any> { location, routes }, (error, redirectLocation, renderProps: {components: any[]}) => {
         expect(renderProps.components[1].WrappedComponent.name).toBe("Definition");
       });
     });

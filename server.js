@@ -1,26 +1,50 @@
 'use strict'
 
-var path = require('path')
-var webpack = require('webpack')
-var webpackDevMiddleware = require('webpack-dev-middleware')
-var webpackHotMiddleware = require('webpack-hot-middleware')
-var config = require('./webpack.config')
+require('ts-node/register')
 
-var app = new (require('express'))()
-var port = 3000
+const fs = require('fs')
+const path = require('path')
+const express = require('express')
+const webpack = require('webpack')
+const webpackDevMiddleware = require('webpack-dev-middleware')
+const webpackHotMiddleware = require('webpack-hot-middleware')
+const React = require('react')
+const { renderToString } = require('react-dom/server')
+const { match, RouterContext } = require('react-router')
 
-var compiler = webpack(config)
-app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }))
+const config = require('./webpack.config')
+const routes = require('./src/routes').default
+
+const port = process.env.PORT || 3000
+const app = new express()
+const compiler = webpack(config)
+
 app.use(webpackHotMiddleware(compiler))
+app.use(webpackDevMiddleware(compiler, {
+  noInfo: true,
+  publicPath: config.output.publicPath,
+}))
 
-app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, 'index.html'))
+app.use((req, res) => {
+  match({routes, location: req.url}, (error, redirectLocation, renderProps) => {
+    if (error) {
+      res.status(500).send(error.message)
+    } else if (redirectLocation) {
+      res.redirect(301, redirectLocation.pathname + redirectLocation.search)
+    } else if (renderProps) {
+      const body = fs.readFileSync(path.join(__dirname, 'index.html')).toString()
+      const markup = renderToString(React.createElement(RouterContext, renderProps))
+      res.send(body.replace('<!-- APP -->', markup))
+    } else {
+      res.status(404).send('Not found')
+    }
+  })
 })
 
-app.listen(port, function (error) {
+app.listen(port, (error) => {
   if (error) {
     console.error(error)
   } else {
-    console.info('==> 🌎  Listening on port %s. Open up http://localhost:%s/ in your browser.', port, port)
+    console.info('🌎  Listening on http://localhost:%s/.', port)
   }
 })
