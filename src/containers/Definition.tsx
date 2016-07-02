@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { connect } from 'react-redux';
-import { createSelector } from 'reselect';
+import { connect } from "react-redux";
+import { createSelector } from "reselect";
 
 import { IEntry } from "../api/Entry";
 import EntryDefinition from "../components/EntryDefinition";

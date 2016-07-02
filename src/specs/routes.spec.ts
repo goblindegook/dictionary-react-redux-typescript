@@ -20,7 +20,6 @@ describe("Router", () => {
 
     it("routes to the Search component", () => {
       match(<any> { location, routes }, (error, redirectLocation, renderProps: {components: any[]}) => {
-        console.log('routes', routes);
         expect(renderProps.components[1].WrappedComponent.name).toBe("Search");
       });
     });

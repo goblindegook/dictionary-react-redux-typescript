@@ -4,7 +4,7 @@ import * as nock from "nock";
 import * as path from "path";
 import { readFileSync } from "fs";
 
-import doSearch from "../search";
+import searchThunk from "../search";
 import { searchStart, searchDone, searchError } from "../../actions/search";
 
 describe("Thunk", () => {
@@ -17,14 +17,14 @@ describe("Thunk", () => {
 
     beforeEach(() => {
       prefix = "a";
-      thunk = doSearch(prefix);
+      thunk = searchThunk(prefix);
       mockDispatch = sinon.spy();
 
       mockResult = JSON.parse(
         readFileSync(path.resolve(__dirname, "fixtures", "search-a.json")).toString());
 
-      mockRequest = nock("http://dicionario-aberto.net")
-        .get("/search-json")
+      mockRequest = nock(/.*/)
+        .get("/api/search-json")
         .query({prefix});
     });
 
@@ -47,7 +47,7 @@ describe("Thunk", () => {
       mockRequest.reply(200, mockResult);
 
       return thunk(mockDispatch)
-        .then((promise) => {
+        .then(() => {
           expect(mockDispatch.secondCall.args[0].type).toBe("SEARCH_DONE");
         });
     });
@@ -56,8 +56,34 @@ describe("Thunk", () => {
       mockRequest.reply(500);
 
       return thunk(mockDispatch)
-        .then((promise) => {
+        .then(() => {
           expect(mockDispatch.secondCall.args[0].type).toBe("SEARCH_ERROR");
+        });
+    });
+  });
+
+  describe("Search with invalid prefix", () => {
+    let mockDispatch;
+
+    beforeEach(() => {
+      mockDispatch = sinon.spy();
+    });
+
+    it("dispatches a SEARCH_DONE action when empty", () => {
+      const thunk = searchThunk("");
+
+      return thunk(mockDispatch)
+        .then(() => {
+          expect(mockDispatch.secondCall.args[0].type).toBe("SEARCH_DONE");
+        });
+    });
+
+    it("dispatches a SEARCH_DONE action when it's whitespace", () => {
+      const thunk = searchThunk(" ");
+
+      return thunk(mockDispatch)
+        .then(() => {
+          expect(mockDispatch.secondCall.args[0].type).toBe("SEARCH_DONE");
         });
     });
   });

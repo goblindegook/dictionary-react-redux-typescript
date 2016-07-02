@@ -15,8 +15,8 @@ describe("Dictionary API", () => {
     let mockRequest;
 
     beforeEach(() => {
-      mockRequest = nock("http://dicionario-aberto.net")
-        .get("/search-json");
+      mockRequest = nock(/.*/)
+        .get("/api/search-json");
     });
 
     it("returns a list of entries on success", (done) => {
@@ -46,7 +46,7 @@ describe("Dictionary API", () => {
     let mockRequest;
 
     beforeEach(() => {
-      mockRequest = nock("http://dicionario-aberto.net");
+      mockRequest = nock(/.*/);
     });
 
     it("returns a single entry on success", (done) => {
@@ -55,7 +55,7 @@ describe("Dictionary API", () => {
       const mockResult = readFixture("define-b.json");
 
       mockRequest
-        .get("/search-json/" + word)
+        .get("/api/search-json/" + word)
         .reply(200, mockResult);
 
       define("b")
@@ -75,7 +75,7 @@ describe("Dictionary API", () => {
       const mockResult = readFixture("define-a.json");
 
       mockRequest
-        .get("/search-json/" + word)
+        .get("/api/search-json/" + word)
         .reply(200, mockResult);
 
       define("a")
@@ -91,7 +91,7 @@ describe("Dictionary API", () => {
 
     it("returns an Not Found error on failure", (done) => {
       mockRequest
-        .get("/search-json/error")
+        .get("/api/search-json/error")
         .reply(404);
 
       define("error")

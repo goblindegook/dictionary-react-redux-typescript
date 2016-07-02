@@ -1,7 +1,7 @@
 import * as fetch from "isomorphic-fetch";
 import { createEntry, IEntry } from "./Entry";
 
-const rootUrl = "http://dicionario-aberto.net/search-json";
+const rootUrl = "http://localhost:3000/api/search-json";
 
 /**
  * [search description]
@@ -13,7 +13,7 @@ const rootUrl = "http://dicionario-aberto.net/search-json";
 export function search(prefix: string): Promise<IEntry[]> {
   const indices = {};
 
-  return fetch(`${rootUrl}?prefix=${prefix}`)
+  return fetch(`${rootUrl}?prefix=${prefix}`, { mode: "cors" })
     .then((response) => {
       if (!response.status || response.status.toString().charAt(0) !== "2") {
         throw new Error(response.statusText);
@@ -37,7 +37,7 @@ export function search(prefix: string): Promise<IEntry[]> {
  * @todo Plug this into an actual API.
  */
 export function define(id: string): Promise<IEntry[]> {
-  return fetch(`${rootUrl}/${id}`)
+  return fetch(`${rootUrl}/${id}`, { mode: "cors" })
     .then((response) => {
       if (!response.status || response.status.toString().charAt(0) !== "2") {
         throw new Error(response.statusText);

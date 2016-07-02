@@ -6,8 +6,9 @@ import { createSelector } from "reselect";
 import { IEntry } from "../api/Entry";
 import EntryList from "../components/EntryList";
 import SearchInput from "../components/SearchInput";
+import searchThunk from "../thunks/search";
 
-export interface ISearchProps extends React.Props<Search> {
+export interface ISearchProps extends React.Props<any> {
   entries?: IEntry[];
   params?: {
     prefix?: string;
@@ -43,10 +44,17 @@ class Search extends React.Component<ISearchProps, {}> {
 
 export default connect(
   (state) => ({
-    entries: state.entries,
+    entries: state.search.entries,
+    isLoading: state.search.isLoading,
+    prefix: state.search.prefix,
   }),
   (dispatch) => ({
-    onChange: (event) => { console.log(event.target.value) },
-    onClickEntry: (...args) => { console.log(args) },
+    onChange: (event) => {
+      // TODO: Debounce
+      dispatch(searchThunk(event.target.value) as any as any);
+    },
+    onClickEntry: (...args) => {
+      console.log(args); // TODO
+    },
   })
-)(Search);
+)(Search as React.ComponentClass<any>);

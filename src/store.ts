@@ -7,7 +7,7 @@ const devtools = global["devToolsExtension"] || (() => noop => noop);
 /* tslint:enable:no-string-literal */
 
 export default function configureStore(initialState: any = {}) {
-  const middleware = [
+  const middlewares = [
     thunk,
   ];
 
@@ -15,7 +15,7 @@ export default function configureStore(initialState: any = {}) {
     rootReducer,
     initialState,
     compose(
-      applyMiddleware(...middleware),
+      applyMiddleware(...middlewares),
       devtools()
     )
   );

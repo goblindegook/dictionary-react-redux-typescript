@@ -19,20 +19,34 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin()
   ],
   resolve: {
-    extensions: ['', '.webpack.js', '.web.js', '.ts', '.tsx', '.js', '.jsx']
+    extensions: ['', '.ts', '.tsx', '.js', '.jsx']
   },
   module: {
     loaders: [
       {
         test: /\.tsx?$/,
-        loaders: ['ts-loader'],
+        loaders: [
+          'ts?sourceMap'
+        ],
         exclude: /node_modules/,
-        include: __dirname
+        include: path.join(__dirname, 'src')
       },
       {
         test: /\.css$/,
-        loaders: ['style', 'raw'],
-        include: __dirname
+        loaders: [
+          'style?sourceMap',
+          'raw'
+        ],
+        include: path.join(__dirname, 'src')
+      },
+      {
+        test: /\.scss$/,
+        loaders: [
+          'style?sourceMap',
+          'css',
+          'sass'
+        ],
+        include: path.join(__dirname, 'src')
       }
     ]
   }
