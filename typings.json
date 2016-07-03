@@ -1,8 +1,8 @@
 {
   "dependencies": {
     "es6-promise": "registry:npm/es6-promise#3.0.0+20160211003958",
-    "lodash": "registry:npm/lodash#4.0.0+20160416211519",
-    "react-router": "registry:npm/react-router#2.4.0+20160616150328"
+    "lodash": "registry:npm/lodash#4.0.0+20160701205107",
+    "react-router": "registry:npm/react-router#2.4.0+20160628165748"
   },
   "devDependencies": {
     "enzyme": "registry:npm/enzyme#2.2.0+20160322031343",
@@ -12,7 +12,7 @@
   "globalDependencies": {
     "es6-shim": "registry:dt/es6-shim#0.31.2+20160602141504",
     "isomorphic-fetch": "registry:dt/isomorphic-fetch#0.0.0+20160524142046",
-    "node": "registry:env/node#6.0.0+20160610031852",
+    "node": "registry:env/node#6.0.0+20160622202520",
     "react": "registry:dt/react#0.14.0+20160630100702",
     "react-dom": "registry:dt/react-dom#0.14.0+20160412154040",
     "react-redux": "registry:dt/react-redux#4.4.0+20160501125835",
@@ -22,7 +22,7 @@
   },
   "globalDevDependencies": {
     "expect": "registry:global/expect#1.13.4+20160211003958",
-    "jquery": "registry:dt/jquery#1.10.0+20160417213236",
+    "jquery": "registry:dt/jquery#1.10.0+20160701124751",
     "jsdom": "registry:dt/jsdom#2.0.0+20160316155526",
     "mocha": "registry:dt/mocha#2.2.5+20160619032855",
     "redux-mock-store": "registry:dt/redux-mock-store#0.0.6+20160514173414"
