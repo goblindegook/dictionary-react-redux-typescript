@@ -14,18 +14,21 @@ const initialState: ISearchState = {
 };
 
 export const searchReducer = handleActions({
-  "SEARCH_START": (state: ISearchState, action: Action<any>): ISearchState => ({
-    isLoading: true,
-    prefix: action.payload,
-  }),
-  "SEARCH_DONE": (state: ISearchState, action: Action<any>): ISearchState => ({
-    entries: action.payload,
-    isLoading: false,
-  }),
-  "SEARCH_ERROR": (state: ISearchState, action: Action<any>): ISearchState => ({
-    entries: [],
-    isLoading: false,
-  }),
+  "SEARCH_START": (state: ISearchState, action: Action<any>): ISearchState =>
+    Object.assign({}, state, {
+      isLoading: true,
+      prefix: action.payload,
+    }),
+  "SEARCH_DONE": (state: ISearchState, action: Action<any>): ISearchState =>
+    Object.assign({}, state, {
+      entries: action.payload,
+      isLoading: false,
+    }),
+  "SEARCH_ERROR": (state: ISearchState, action: Action<any>): ISearchState =>
+    Object.assign({}, state, {
+      entries: [],
+      isLoading: false,
+    }),
 }, initialState);
 
 export default searchReducer;

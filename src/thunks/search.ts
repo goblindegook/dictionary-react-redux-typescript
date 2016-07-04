@@ -1,14 +1,14 @@
 import { searchStart, searchDone, searchError } from "../actions/search";
 import { search } from "../api/DictionaryAPI";
 
-const searchThunk = (query = "") => (dispatch) => {
-  dispatch(searchStart(query));
+const searchThunk = (prefix = "") => (dispatch) => {
+  dispatch(searchStart(prefix));
 
-  if (query.trim().length === 0) {
+  if (prefix.trim().length === 0) {
     return new Promise((resolve) => resolve(dispatch(searchDone([]))));
   }
 
-  return search(query)
+  return search(prefix)
     .then((results) => dispatch(searchDone(results)))
     .catch((error) => dispatch(searchError(error)));
 };

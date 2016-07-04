@@ -15,16 +15,15 @@
     "node": "registry:env/node#6.0.0+20160622202520",
     "react": "registry:dt/react#0.14.0+20160630100702",
     "react-dom": "registry:dt/react-dom#0.14.0+20160412154040",
-    "react-redux": "registry:dt/react-redux#4.4.0+20160501125835",
-    "redux": "registry:dt/redux#3.3.1+20160326112656",
+    "react-redux": "registry:dt/react-redux#4.4.0+20160703120921",
+    "redux": "registry:dt/redux#3.5.2+20160703092728",
     "redux-actions": "registry:dt/redux-actions#0.8.0+20160521154116",
-    "redux-thunk": "registry:dt/redux-thunk#2.0.1+20160317120654"
+    "redux-thunk": "registry:dt/redux-thunk#2.1.0+20160703120921"
   },
   "globalDevDependencies": {
     "expect": "registry:global/expect#1.13.4+20160211003958",
-    "jquery": "registry:dt/jquery#1.10.0+20160701124751",
+    "jquery": "registry:dt/jquery#1.10.0+20160704162008",
     "jsdom": "registry:dt/jsdom#2.0.0+20160316155526",
-    "mocha": "registry:dt/mocha#2.2.5+20160619032855",
-    "redux-mock-store": "registry:dt/redux-mock-store#0.0.6+20160514173414"
+    "mocha": "registry:dt/mocha#2.2.5+20160619032855"
   }
 }

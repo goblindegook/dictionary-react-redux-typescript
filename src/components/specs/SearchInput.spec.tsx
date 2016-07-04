@@ -21,11 +21,11 @@ describe("Component", () => {
 
     it("invokes onChange callbacks", () => {
       const onChange = sinon.spy();
+      const event = { target: { value: 'test' } };
       const wrapper = shallow(<SearchInput {...{onChange}} />);
-
-      wrapper.find("input").simulate("change");
-
+      wrapper.find("input").simulate("change", event);
       expect(onChange.callCount).toBe(1);
+      expect(onChange.calledWith(event)).toBe(true);
     });
   });
 });

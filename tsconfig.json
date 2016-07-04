@@ -20,7 +20,7 @@
     "sourceMap": true
   },
   "filesGlob": [
-    "./index.d.ts",
+    "./src/index.d.ts",
     "./src/**/*.ts",
     "./src/**/*.tsx",
     "./typings/**/*.ts",

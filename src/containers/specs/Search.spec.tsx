@@ -5,17 +5,19 @@ import { Provider } from "react-redux";
 import * as redux from "redux";
 import thunk from "redux-thunk";
 import { mount, shallow } from "enzyme";
+import configureStore from "redux-mock-store";
 
 import Search from "../Search";
 import { createEntry } from "../../api/Entry";
 
 describe("Container", () => {
-  // TODO: redux-mock-store
   xdescribe("<Search />", () => {
     let wrapper;
     let state;
+    let mockStore;
+    let store;
 
-    before(() => {
+    beforeEach(() => {
       state = {
         search: {
           entries: [
@@ -28,10 +30,12 @@ describe("Container", () => {
         },
       };
 
-      const mockStore: any = {};
+      const middlewares = [ thunk ];
+      mockStore = configureStore(middlewares);
+      store = mockStore(state);
 
       wrapper = mount(
-        <Provider store={mockStore}>
+        <Provider store={store}>
           <Search />
         </Provider>
       );

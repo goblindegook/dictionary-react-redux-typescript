@@ -6,6 +6,8 @@ import searchReducer from "../search";
 
 describe("Reducers", () => {
   describe("Search", () => {
+    const error = new Error("test");
+    const prefix = "test";
     let initialState;
 
     beforeEach(() => {
@@ -22,7 +24,7 @@ describe("Reducers", () => {
     });
 
     it("handles SEARCH_START actions", () => {
-      const prefix = "test";
+      initialState.prefix = prefix;
       const action = searchStart(prefix);
       const actualState = searchReducer(initialState, action);
 
@@ -32,6 +34,7 @@ describe("Reducers", () => {
     });
 
     it("handles SEARCH_DONE actions", () => {
+      initialState.prefix = prefix;
       const entries = [
         createEntry("one", "one", "one"),
         createEntry("two", "two", "two"),
@@ -43,16 +46,18 @@ describe("Reducers", () => {
       expect(actualState).toNotBe(initialState);
       expect(actualState.isLoading).toBe(false);
       expect(actualState.entries).toEqual(entries);
+      expect(actualState.prefix).toBe(prefix);
     });
 
     it("handles SEARCH_ERROR actions", () => {
-      const error = new Error("test");
+      initialState.prefix = prefix;
       const action = searchError(error);
       const actualState = searchReducer(initialState, action);
 
       expect(actualState).toNotBe(initialState);
       expect(actualState.isLoading).toBe(false);
       expect(actualState.entries).toEqual([]);
+      expect(actualState.prefix).toBe(prefix);
     });
   });
 });
