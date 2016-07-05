@@ -29,20 +29,21 @@ class Search extends React.Component<ISearchProps, {}> {
    * @return {JSX.Element} Rendered search container.
    */
   public render() {
-    const isLoading = this.props.isLoading;
-    let content;
+    let content = undefined;
 
-    if (this.props.isLoading) {
-      content = <LoadingIndicator />;
-    } else if (this.props.entries.length === 0) {
-      content = <NotFound />;
-    } else {
-      content = (
-        <EntryList
-          entries={this.props.entries}
-          onClickEntry={this.props.onClickEntry}
-        />
-      );
+    if (this.props.prefix.trim().length > 0) {
+      if (this.props.isLoading) {
+        content = <LoadingIndicator />;
+      } else if (this.props.entries.length === 0) {
+        content = <NotFound />;
+      } else {
+        content = (
+          <EntryList
+            entries={this.props.entries}
+            onClickEntry={this.props.onClickEntry}
+          />
+        );
+      }
     }
 
     return (

@@ -4,22 +4,23 @@ import * as ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import { mount, shallow } from "enzyme";
-
 import Definition from "../Definition";
 
+const configureStore = require("redux-mock-store");
+const middlewares = [ thunk ];
+const mockStore = configureStore(middlewares);
+
 describe("Container", () => {
-  // TODO: redux-mock-store
-  xdescribe("<Definition />", () => {
-    let wrapper;
+  describe("<Definition />", () => {
     let state;
+    let store;
+    let wrapper;
 
     before(() => {
       state = {};
 
-      const mockStore: any = {};
-
       wrapper = mount(
-        <Provider store={mockStore}>
+        <Provider store={mockStore(state)}>
           <Definition />
         </Provider>
       );

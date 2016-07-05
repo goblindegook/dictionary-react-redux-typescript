@@ -1,5 +1,7 @@
 dist/
 node_modules/
 tmp/
-typings/
+typings/*
+!typings/custom/
 .DS_Store
+*.log
