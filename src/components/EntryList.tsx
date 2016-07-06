@@ -6,8 +6,7 @@ import { IEntry } from "../api/Entry";
 
 export interface IEntryListProps extends React.Props<EntryList> {
   className?: string;
-  entries?: IEntry[];
-  onClickEntry?(Event): void;
+  entries: IEntry[];
 }
 
 export default class EntryList extends React.Component<IEntryListProps, {}> {
@@ -23,8 +22,7 @@ export default class EntryList extends React.Component<IEntryListProps, {}> {
           (entry, index): React.ReactElement<EntryListItem> => (
             <EntryListItem
               key={entry.id}
-              label={entry.word}
-              onClick={this.props.onClickEntry}
+              entry={entry}
             />
           )
         )}

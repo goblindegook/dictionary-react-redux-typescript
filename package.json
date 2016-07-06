@@ -50,6 +50,7 @@
     "zombie": "^4.2.1"
   },
   "dependencies": {
+    "classnames": "^2.2.5",
     "es6-promise": "^3.2.1",
     "es6-shim": "^0.35.1",
     "http-proxy-middleware": "^0.16.0",

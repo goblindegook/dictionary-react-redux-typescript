@@ -18,25 +18,19 @@ describe("Component", () => {
     });
 
     it("should render", () => {
-      const wrapper = shallow(<EntryList />);
+      const wrapper = shallow(<EntryList {...{entries}} />);
       expect(wrapper.is("ul")).toBe(true);
     });
 
     it("should render <EntryList /> with className", () => {
       const className: string = "test";
-      const wrapper = shallow(<EntryList {...{className}} />);
+      const wrapper = shallow(<EntryList {...{className, entries}} />);
       expect(wrapper.hasClass(className)).toBe(true);
     });
 
     it("should contain all entries inside <EntryListItem /> components", () => {
       const wrapper = shallow(<EntryList {...{entries}} />);
       expect(wrapper.find("EntryListItem").length).toBe(entries.length);
-    });
-
-    it("should pass onClick handlers to <EntryListItem /> components", () => {
-      const onClick = sinon.spy();
-      const wrapper = shallow(<EntryList entries={entries} onClickEntry={onClick} />);
-      expect(wrapper.find({onClick}).length).toBe(entries.length);
     });
   });
 });

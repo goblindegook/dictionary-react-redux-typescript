@@ -19,7 +19,6 @@ export interface ISearchProps extends React.Props<any> {
   };
   prefix?: string;
   onChange?: (event: Event) => void;
-  onClickEntry?: (...args: any[]) => void;
 }
 
 class Search extends React.Component<ISearchProps, {}> {
@@ -29,7 +28,7 @@ class Search extends React.Component<ISearchProps, {}> {
    * @return {JSX.Element} Rendered search container.
    */
   public render() {
-    let content = undefined;
+    let content: React.ReactElement<any> = undefined;
 
     if (this.props.prefix.trim().length > 0) {
       if (this.props.isLoading) {
@@ -38,10 +37,7 @@ class Search extends React.Component<ISearchProps, {}> {
         content = <NotFound />;
       } else {
         content = (
-          <EntryList
-            entries={this.props.entries}
-            onClickEntry={this.props.onClickEntry}
-          />
+          <EntryList entries={this.props.entries} />
         );
       }
     }
@@ -67,10 +63,7 @@ export default connect(
   (dispatch) => ({
     onChange: (event) => {
       // TODO: Debounce
-      dispatch(searchThunk(event.target.value) as any as any);
-    },
-    onClickEntry: (...args) => {
-      console.log(args); // TODO
+      dispatch(searchThunk(event.target.value) as (dispatch: any) => any);
     },
   })
 )(Search as React.ComponentClass<any>);

@@ -9,10 +9,10 @@ import { searchStart, searchDone, searchError } from "../../actions/search";
 
 describe("Thunk", () => {
   describe("Search", () => {
-    let prefix;
+    let prefix: string;
     let thunk;
     let mockDispatch;
-    let mockRequest;
+    let mockRequest: nock.Scope;
     let mockResult;
 
     beforeEach(() => {
@@ -74,7 +74,8 @@ describe("Thunk", () => {
 
       return thunk(mockDispatch)
         .then(() => {
-          expect(mockDispatch.secondCall.args[0].type).toBe("SEARCH_DONE");
+          const action: Redux.Action = mockDispatch.secondCall.args[0];
+          expect(action.type).toBe("SEARCH_DONE");
         });
     });
 
@@ -83,7 +84,8 @@ describe("Thunk", () => {
 
       return thunk(mockDispatch)
         .then(() => {
-          expect(mockDispatch.secondCall.args[0].type).toBe("SEARCH_DONE");
+          const action: Redux.Action = mockDispatch.secondCall.args[0];
+          expect(action.type).toBe("SEARCH_DONE");
         });
     });
   });

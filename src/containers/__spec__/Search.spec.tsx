@@ -6,6 +6,7 @@ import * as redux from "redux";
 import thunk from "redux-thunk";
 import { mount, shallow } from "enzyme";
 import Search from "../Search";
+import { searchStart } from "../../actions/search";
 import { createEntry } from "../../api/Entry";
 
 const configureStore = require("redux-mock-store");
@@ -31,8 +32,10 @@ describe("Container", () => {
         },
       };
 
+      store = mockStore(state);
+
       wrapper = mount(
-        <Provider store={mockStore(state)}>
+        <Provider store={store}>
           <Search />
         </Provider>
       );
@@ -58,8 +61,10 @@ describe("Container", () => {
         it(doesOrDoesNotDisplay + " an <EntryList /> component", () => {
           state.search.prefix = prefix;
 
+          store = mockStore(state);
+
           wrapper = mount(
-            <Provider store={mockStore(state)}>
+            <Provider store={store}>
               <Search />
             </Provider>
           );
@@ -70,6 +75,8 @@ describe("Container", () => {
         it(doesOrDoesNotDisplay + " a loading indicator", () => {
           state.search.isLoading = true;
           state.search.prefix = prefix;
+
+          store = mockStore(state);
 
           wrapper = mount(
             <Provider store={mockStore(state)}>
@@ -85,6 +92,8 @@ describe("Container", () => {
           state.search.entries = [];
           state.search.prefix = prefix;
 
+          store = mockStore(state);
+
           wrapper = mount(
             <Provider store={mockStore(state)}>
               <Search />
@@ -96,8 +105,18 @@ describe("Container", () => {
       });
     });
 
-    xit("dispatches a search thunk on query", () => {
-      // TODO
+    it("dispatches a SEARCH_START via thunk on query", () => {
+      const prefix = "test";
+
+      wrapper.find('input').simulate("change", {
+        target: {
+          value: prefix,
+        },
+      });
+
+      const actions = store.getActions();
+
+      expect(actions[0]).toEqual(searchStart(prefix));
     });
   });
 });
