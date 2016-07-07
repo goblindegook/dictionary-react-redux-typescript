@@ -32,33 +32,30 @@ describe("Thunk", () => {
       expect(typeof thunk).toBe("function");
     });
 
-    it("dispatches a SEARCH_START action first", () => {
+    it("dispatches a SEARCH_START action first", async () => {
       mockRequest.reply(200, mockResult);
 
       const action = searchStart(prefix);
 
-      return thunk(mockDispatch)
-        .then(() => {
-          expect(mockDispatch.firstCall.args[0]).toEqual(action);
-        });
+      await thunk(mockDispatch);
+
+      expect(mockDispatch.firstCall.args[0]).toEqual(action);
     });
 
-    it("dispatches a SEARCH_DONE action on success", () => {
+    it("dispatches a SEARCH_DONE action on success", async () => {
       mockRequest.reply(200, mockResult);
 
-      return thunk(mockDispatch)
-        .then(() => {
-          expect(mockDispatch.secondCall.args[0].type).toBe("SEARCH_DONE");
-        });
+      await thunk(mockDispatch);
+
+      expect(mockDispatch.secondCall.args[0].type).toBe("SEARCH_DONE");
     });
 
-    it("dispatches a SEARCH_ERROR action on error", () => {
+    it("dispatches a SEARCH_ERROR action on error", async () => {
       mockRequest.reply(500);
 
-      return thunk(mockDispatch)
-        .then(() => {
-          expect(mockDispatch.secondCall.args[0].type).toBe("SEARCH_ERROR");
-        });
+      await thunk(mockDispatch);
+
+      expect(mockDispatch.secondCall.args[0].type).toBe("SEARCH_ERROR");
     });
   });
 
@@ -69,24 +66,22 @@ describe("Thunk", () => {
       mockDispatch = sinon.spy();
     });
 
-    it("dispatches a SEARCH_DONE action when empty", () => {
+    it("dispatches a SEARCH_DONE action when empty", async () => {
       const thunk = searchThunk("");
 
-      return thunk(mockDispatch)
-        .then(() => {
-          const action: Redux.Action = mockDispatch.secondCall.args[0];
-          expect(action.type).toBe("SEARCH_DONE");
-        });
+      await thunk(mockDispatch);
+
+      const action: Redux.Action = mockDispatch.secondCall.args[0];
+      expect(action.type).toBe("SEARCH_DONE");
     });
 
-    it("dispatches a SEARCH_DONE action when it's whitespace", () => {
+    it("dispatches a SEARCH_DONE action when it's whitespace", async () => {
       const thunk = searchThunk(" ");
 
-      return thunk(mockDispatch)
-        .then(() => {
-          const action: Redux.Action = mockDispatch.secondCall.args[0];
-          expect(action.type).toBe("SEARCH_DONE");
-        });
+      await thunk(mockDispatch);
+
+      const action: Redux.Action = mockDispatch.secondCall.args[0];
+      expect(action.type).toBe("SEARCH_DONE");
     });
   });
 });

@@ -10,23 +10,21 @@ const rootUrl = "http://localhost:3000/api/search-json";
  *
  * @todo Plug this into an actual API.
  */
-export function search(prefix: string): Promise<IEntry[]> {
+export async function search(prefix: string): Promise<IEntry[]> {
   const indices = {};
 
-  return fetch(`${rootUrl}?prefix=${prefix}`, { mode: "cors" })
-    .then((response) => {
-      if (!response.status || response.status.toString().charAt(0) !== "2") {
-        throw new Error(response.statusText);
-      }
+  const response = await fetch(`${rootUrl}?prefix=${prefix}`, { mode: "cors" });
 
-      return response.json();
-    })
-    .then((results) => results.list.map(
-      (entry: string) => {
-        indices[entry] = 1 + (indices[entry] || 0);
-        return createEntry(entry, `${entry}:${indices[entry]}`);
-      }
-    ));
+  if (!response.status || response.status.toString().charAt(0) !== "2") {
+    throw new Error(response.statusText);
+  }
+
+  const results = await response.json();
+
+  return results.list.map((entry: string) => {
+    indices[entry] = 1 + (indices[entry] || 0);
+    return createEntry(entry, `${entry}:${indices[entry]}`);
+  });
 }
 
 /**
@@ -36,19 +34,16 @@ export function search(prefix: string): Promise<IEntry[]> {
  *
  * @todo Plug this into an actual API.
  */
-export function define(id: string): Promise<IEntry[]> {
-  return fetch(`${rootUrl}/${id}`, { mode: "cors" })
-    .then((response) => {
-      if (!response.status || response.status.toString().charAt(0) !== "2") {
-        throw new Error(response.statusText);
-      }
+export async function define(id: string): Promise<IEntry[]> {
+  const response = await fetch(`${rootUrl}/${id}`, { mode: "cors" });
 
-      return response.json();
-    })
-    .then((results) => {
-      const entries = results.superEntry ? results.superEntry : [ results ];
-      return entries.map(
-        (result) => createEntry(id.split(":")[0], result.entry["@id"], result.entry)
-      );
-    });
+  if (!response.status || response.status.toString().charAt(0) !== "2") {
+    throw new Error(response.statusText);
+  }
+
+  const results = await response.json();
+  const entries = results.superEntry ? results.superEntry : [ results ];
+
+  return entries.map((result) =>
+    createEntry(id.split(":")[0], result.entry["@id"], result.entry));
 }

@@ -19,26 +19,24 @@ describe("Dictionary API", () => {
         .get("/api/search-json");
     });
 
-    it("returns a list of entries on success", (done) => {
+    it("returns a list of entries on success", async () => {
       const mockResult = readFixture("search-a.json");
 
       mockRequest.query({prefix: "a"}).reply(200, mockResult);
 
-      search("a")
-        .then((results: IEntry[]) => {
-          expect(results.length).toEqual(mockResult.list.length);
-        })
-        .then(done);
+      const results = await search("a");
+      expect(results.length).toEqual(mockResult.list.length);
     });
 
-    it("returns an error on failure", (done) => {
+    it("returns an error on failure", async () => {
       mockRequest.query({prefix: "error"}).reply(500);
 
-      search("error")
-        .catch((error: Error) => {
-          expect(error).toExist();
-        })
-        .then(done);
+      try {
+        await search("error");
+
+      } catch(error) {
+        expect(error).toExist();
+      }
     });
   });
 
@@ -49,7 +47,7 @@ describe("Dictionary API", () => {
       mockRequest = nock(/.*/);
     });
 
-    it("returns a single entry on success", (done) => {
+    it("returns a single entry on success", async () => {
       const word = "b";
 
       const mockResult = readFixture("define-b.json");
@@ -58,47 +56,43 @@ describe("Dictionary API", () => {
         .get("/api/search-json/" + word)
         .reply(200, mockResult);
 
-      define("b")
-        .then((results: IEntry[]) => {
-          results.forEach((result) => {
-            expect(result.word).toEqual(word);
-            expect(result.id).toEqual(mockResult.entry["@id"]);
-            expect(result.content).toEqual(mockResult.entry);
-          });
-        })
-        .then(done);
+      const results = await define("b");
+
+      results.forEach((result) => {
+        expect(result.word).toEqual(word);
+        expect(result.id).toEqual(mockResult.entry["@id"]);
+        expect(result.content).toEqual(mockResult.entry);
+      });
     });
 
-    it("returns multiple entries on success", (done) => {
+    it("returns multiple entries on success", async () => {
       const word = "a";
-
       const mockResult = readFixture("define-a.json");
 
       mockRequest
         .get("/api/search-json/" + word)
         .reply(200, mockResult);
 
-      define("a")
-        .then((results: IEntry[]) => {
-          results.forEach((result, index) => {
-            expect(result.word).toEqual(word);
-            expect(result.id).toEqual(mockResult.superEntry[index].entry["@id"]);
-            expect(result.content).toEqual(mockResult.superEntry[index].entry);
-          });
-        })
-        .then(done);
+      const results = await define("a");
+
+      results.forEach((result, index) => {
+        expect(result.word).toEqual(word);
+        expect(result.id).toEqual(mockResult.superEntry[index].entry["@id"]);
+        expect(result.content).toEqual(mockResult.superEntry[index].entry);
+      });
     });
 
-    it("returns an Not Found error on failure", (done) => {
+    it("returns an Not Found error on failure", async () => {
       mockRequest
         .get("/api/search-json/error")
         .reply(404);
 
-      define("error")
-        .catch((error: Error) => {
-          expect(error.message).toContain("Not Found");
-        })
-        .then(done);
+      try {
+        await define("error");
+
+      } catch (error) {
+        expect(error.message.match(/Not Found/)).toExist();        
+      }
     });
   });
 });
