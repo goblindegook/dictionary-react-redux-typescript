@@ -1,6 +1,13 @@
 import * as expect from "expect";
 
-import { searchStart, searchDone, searchError } from "../search";
+import {
+  SEARCH_START,
+  SEARCH_DONE,
+  SEARCH_ERROR,
+  searchStart,
+  searchDone,
+  searchError
+} from "../search";
 
 describe("Action", () => {
   describe("Search", () => {
@@ -8,7 +15,7 @@ describe("Action", () => {
       const query = "test";
       const action = {
         payload: query,
-        type: "SEARCH_START",
+        type: SEARCH_START,
       };
 
       expect(searchStart(query)).toEqual(action);
@@ -18,7 +25,7 @@ describe("Action", () => {
       const results = ["test"];
       const action = {
         payload: results,
-        type: "SEARCH_DONE",
+        type: SEARCH_DONE,
       };
 
       expect(searchDone(results)).toEqual(action);
@@ -29,7 +36,7 @@ describe("Action", () => {
       const action = {
         error: true,
         payload: error,
-        type: "SEARCH_ERROR",
+        type: SEARCH_ERROR,
       };
 
       expect(searchError(error)).toEqual(action);

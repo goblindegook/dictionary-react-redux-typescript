@@ -1,14 +1,17 @@
 import { createStore, applyMiddleware, compose } from "redux";
-import thunk from "redux-thunk";
+import createSagaMiddleware from "redux-saga";
 import rootReducer from "./reducers";
+import sagas from "./sagas";
 
 /* tslint:disable:no-string-literal */
 const devtools = global["devToolsExtension"] || (() => noop => noop);
 /* tslint:enable:no-string-literal */
 
 export default function configureStore(initialState: any = {}) {
+  const sagaMiddleware = createSagaMiddleware();
+
   const middlewares = [
-    thunk,
+    sagaMiddleware,
   ];
 
   const store = createStore(
@@ -19,6 +22,8 @@ export default function configureStore(initialState: any = {}) {
       devtools()
     )
   );
+
+  sagaMiddleware.run(sagas);
 
   // Hot reload reducers:
   // https://stackoverflow.com/questions/34243684/make-redux-reducers-and-other-non-components-hot-loadable

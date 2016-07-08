@@ -3,14 +3,13 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import * as redux from "redux";
-import thunk from "redux-thunk";
 import { mount, shallow } from "enzyme";
 import Search from "../Search";
 import { searchStart } from "../../actions/search";
 import { createEntry } from "../../api/Entry";
 
 const configureStore = require("redux-mock-store");
-const middlewares = [ thunk ];
+const middlewares = [];
 const mockStore = configureStore(middlewares);
 
 describe("Container", () => {
@@ -105,7 +104,7 @@ describe("Container", () => {
       });
     });
 
-    it("dispatches a SEARCH_START via thunk on query", () => {
+    it("dispatches a SEARCH_START on query", () => {
       const prefix = "test";
 
       wrapper.find('input').simulate("change", {

@@ -9,7 +9,6 @@ import EntryList from "../components/EntryList";
 import LoadingIndicator from "../components/LoadingIndicator";
 import NotFound from "../components/NotFound";
 import SearchInput from "../components/SearchInput";
-import searchThunk from "../thunks/search";
 
 export interface ISearchProps extends React.Props<any> {
   entries?: IEntry[];
@@ -61,9 +60,6 @@ export default connect(
     prefix: state.search.prefix,
   }),
   (dispatch) => ({
-    onChange: (event) => {
-      // TODO: Debounce
-      dispatch(searchThunk(event.target.value) as (dispatch: any) => any);
-    },
+    onChange: (event) => dispatch(searchStart(event.target.value)),
   })
 )(Search as React.ComponentClass<any>);

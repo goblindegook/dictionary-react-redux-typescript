@@ -2,12 +2,11 @@ import * as expect from "expect";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { Provider } from "react-redux";
-import thunk from "redux-thunk";
 import { mount, shallow } from "enzyme";
 import Definition from "../Definition";
 
 const configureStore = require("redux-mock-store");
-const middlewares = [ thunk ];
+const middlewares = [];
 const mockStore = configureStore(middlewares);
 
 describe("Container", () => {

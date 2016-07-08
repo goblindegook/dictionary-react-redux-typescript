@@ -16,8 +16,7 @@
     "react-dom": "registry:dt/react-dom#0.14.0+20160412154040",
     "react-redux": "registry:dt/react-redux#4.4.0+20160703120921",
     "redux": "registry:dt/redux#3.5.2+20160703092728",
-    "redux-actions": "registry:dt/redux-actions#0.8.0+20160521154116",
-    "redux-thunk": "registry:dt/redux-thunk#2.1.0+20160703120921"
+    "redux-actions": "registry:dt/redux-actions#0.8.0+20160521154116"
   },
   "globalDevDependencies": {
     "expect": "registry:global/expect#1.13.4+20160211003958",

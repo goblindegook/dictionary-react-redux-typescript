@@ -48,9 +48,8 @@ describe("Dictionary API", () => {
     });
 
     it("returns a single entry on success", async () => {
-      const word = "b";
-
       const mockResult = readFixture("define-b.json");
+      const word = "b";
 
       mockRequest
         .get("/api/search-json/" + word)
@@ -91,7 +90,7 @@ describe("Dictionary API", () => {
         await define("error");
 
       } catch (error) {
-        expect(error.message.match(/Not Found/)).toExist();        
+        expect(error.message.match(/Not Found/)).toExist();
       }
     });
   });

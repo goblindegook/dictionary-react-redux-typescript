@@ -9,8 +9,7 @@ import EntryDefinition from "../components/EntryDefinition";
 interface IDefinitionProps extends React.Props<Definition> {
   entry?: IEntry;
   params?: {
-    word?: string;
-    index?: number;
+    id?: string;
   };
 }
 
@@ -27,7 +26,7 @@ class Definition extends React.Component<IDefinitionProps, {}> {
   public render() {
     return (
       <section className="definition">
-        <EntryDefinition title={this.props.params && this.props.params.word} />
+        <EntryDefinition title={this.props.params && this.props.params.id} />
       </section>
     );
   }
