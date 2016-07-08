@@ -7,13 +7,16 @@ export function* fetchSearchResults(action): IterableIterator<any> {
   const prefix: string = action.payload;
 
   try {
+    let results;
+
     if (prefix.trim().length) {
       yield call(delay, 200);
-      const results = yield call(search, prefix);
-      yield put(searchDone(results));
+      results = yield call(search, prefix);
     } else {
-      yield put(searchDone([]));
+      results = [];
     }
+    
+    yield put(searchDone(results));
    } catch (e) {
       yield put(searchError(e));
    }
