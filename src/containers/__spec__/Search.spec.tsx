@@ -4,13 +4,10 @@ import * as ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import * as redux from "redux";
 import { mount, shallow } from "enzyme";
-import Search from "../Search";
+import createMockStore from './helpers/createMockStore';
 import { searchStart } from "../../actions/search";
 import { createEntry } from "../../api/Entry";
-
-const configureStore = require("redux-mock-store");
-const middlewares = [];
-const mockStore = configureStore(middlewares);
+import Search from "../Search";
 
 describe("Container", () => {
   describe("<Search />", () => {
@@ -31,7 +28,7 @@ describe("Container", () => {
         },
       };
 
-      store = mockStore(state);
+      store = createMockStore(state);
 
       wrapper = mount(
         <Provider store={store}>
@@ -60,7 +57,7 @@ describe("Container", () => {
         it(doesOrDoesNotDisplay + " an <EntryList /> component", () => {
           state.search.prefix = prefix;
 
-          store = mockStore(state);
+          store = createMockStore(state);
 
           wrapper = mount(
             <Provider store={store}>
@@ -75,10 +72,10 @@ describe("Container", () => {
           state.search.isLoading = true;
           state.search.prefix = prefix;
 
-          store = mockStore(state);
+          store = createMockStore(state);
 
           wrapper = mount(
-            <Provider store={mockStore(state)}>
+            <Provider store={store}>
               <Search />
             </Provider>
           );
@@ -91,10 +88,10 @@ describe("Container", () => {
           state.search.entries = [];
           state.search.prefix = prefix;
 
-          store = mockStore(state);
+          store = createMockStore(state);
 
           wrapper = mount(
-            <Provider store={mockStore(state)}>
+            <Provider store={store}>
               <Search />
             </Provider>
           );

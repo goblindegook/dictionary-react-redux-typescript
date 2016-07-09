@@ -5,7 +5,7 @@ import { delay } from 'redux-saga'
 import { readFileSync } from "fs";
 
 import { search } from "../../api/DictionaryAPI";
-import searchSaga, { fetchSearchResults } from "../search";
+import searchSaga, { searchTask } from "../search";
 
 import {
   SEARCH_START,
@@ -27,18 +27,20 @@ describe("Search saga", () => {
 
   it("forks a fetch result function generator", () => {
     const result = sagaIterator.next();
-    expect(result.value).toEqual(fork(fetchSearchResults, undefined));
+    expect(result.value).toEqual(fork(searchTask, undefined));
     expect(result.done).toBe(false);
   });
+});
 
+describe("Search saga worker", () => {
   const conditions = ["success", "error"];
 
   conditions.forEach((condition) => {
     describe(`with ${condition}`, () => {
       const prefix = "a";
-      const fetchIterator = fetchSearchResults(searchStart(prefix));
+      const fetchIterator = searchTask(searchStart(prefix));
 
-      it("has a 200 ms delay", () => {
+      it("has a 200ms delay", () => {
         const result = fetchIterator.next();
         expect(result.value).toEqual(call(delay, 200));
         expect(result.done).toBe(false);
@@ -78,14 +80,7 @@ describe("Search saga", () => {
 
   prefixes.forEach((prefix) => {
     describe(`with a "${prefix}" prefix`, () => {
-      const sagaIterator = searchSaga();
-      const fetchIterator = fetchSearchResults(searchStart(prefix));
-
-      it("is started by a SEARCH_START action", () => {
-        const result = sagaIterator.next();
-        expect(result.value).toEqual(take(SEARCH_START));
-        expect(result.done).toBe(false);
-      });
+      const fetchIterator = searchTask(searchStart(prefix));
 
       it("dispatches a SEARCH_DONE action", () => {
         const result = fetchIterator.next();

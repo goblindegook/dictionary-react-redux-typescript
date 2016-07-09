@@ -3,11 +3,8 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { mount, shallow } from "enzyme";
+import createMockStore from './helpers/createMockStore';
 import Definition from "../Definition";
-
-const configureStore = require("redux-mock-store");
-const middlewares = [];
-const mockStore = configureStore(middlewares);
 
 describe("Container", () => {
   describe("<Definition />", () => {
@@ -18,8 +15,10 @@ describe("Container", () => {
     before(() => {
       state = {};
 
+      const store = createMockStore(state);
+
       wrapper = mount(
-        <Provider store={mockStore(state)}>
+        <Provider store={store}>
           <Definition />
         </Provider>
       );
