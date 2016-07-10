@@ -2,16 +2,16 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { connect } from "react-redux";
 import { createSelector } from "reselect";
-
 import { IEntry } from "../api/Entry";
 import { searchStart } from "../actions/search";
 import EntryList from "../components/EntryList";
 import LoadingIndicator from "../components/LoadingIndicator";
-import NotFound from "../components/NotFound";
+import Error from "../components/Error";
 import SearchInput from "../components/SearchInput";
 
 export interface ISearchProps extends React.Props<any> {
   entries?: IEntry[];
+  error?: Error;
   isLoading?: Boolean;
   params?: {
     prefix?: string;
@@ -32,8 +32,10 @@ class Search extends React.Component<ISearchProps, {}> {
     if (this.props.prefix.trim().length > 0) {
       if (this.props.isLoading) {
         content = <LoadingIndicator />;
+      } else if (this.props.error) {
+        content = <Error message={this.props.error["message"]} />;
       } else if (this.props.entries.length === 0) {
-        content = <NotFound />;
+        content = <Error message="Nothing found" />;
       } else {
         content = (
           <EntryList entries={this.props.entries} />
@@ -56,6 +58,7 @@ class Search extends React.Component<ISearchProps, {}> {
 export default connect(
   (state) => ({
     entries: state.search.entries,
+    error: state.search.error,
     isLoading: state.search.isLoading,
     prefix: state.search.prefix,
   }),

@@ -1,5 +1,5 @@
 import createSagaMiddleware from "redux-saga";
-import sagas from "../../../sagas";
+import sagas from "../../sagas";
 const configureStore = require("redux-mock-store");
 
 export default function createMockStore(state) {

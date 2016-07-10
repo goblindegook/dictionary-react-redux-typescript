@@ -1,5 +1,4 @@
 import * as expect from "expect";
-
 import { searchStart, searchDone, searchError } from "../../actions/search";
 import { createEntry } from "../../api/Entry";
 import searchReducer from "../search";
@@ -14,6 +13,7 @@ describe("Search reducer", () => {
       entries: [],
       isLoading: false,
       prefix: "",
+      error: null,
     };
   });
 
@@ -27,7 +27,7 @@ describe("Search reducer", () => {
     const action = searchStart(prefix);
     const actualState = searchReducer(initialState, action);
 
-    expect(actualState).toNotBe(initialState);
+    expect(actualState).toNotEqual(initialState);
     expect(actualState.isLoading).toBe(true);
     expect(actualState.prefix).toBe(prefix);
   });
@@ -42,10 +42,11 @@ describe("Search reducer", () => {
     const action = searchDone(entries);
     const actualState = searchReducer(initialState, action);
 
-    expect(actualState).toNotBe(initialState);
+    expect(actualState).toNotEqual(initialState);
     expect(actualState.isLoading).toBe(false);
     expect(actualState.entries).toEqual(entries);
     expect(actualState.prefix).toBe(prefix);
+    expect(actualState.error).toBe(null);
   });
 
   it("handles SEARCH_ERROR actions", () => {
@@ -53,9 +54,10 @@ describe("Search reducer", () => {
     const action = searchError(error);
     const actualState = searchReducer(initialState, action);
 
-    expect(actualState).toNotBe(initialState);
+    expect(actualState).toNotEqual(initialState);
     expect(actualState.isLoading).toBe(false);
     expect(actualState.entries).toEqual([]);
     expect(actualState.prefix).toBe(prefix);
+    expect(actualState.error).toBe(error);
   });
 });

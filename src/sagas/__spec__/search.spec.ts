@@ -46,14 +46,14 @@ describe("Search saga worker", () => {
         expect(result.done).toBe(false);
       });
 
-      it("searches the API", () => {
+      it("calls a remote API prefix search", () => {
         const result = fetchIterator.next();
         expect(result.value).toEqual(call(search, prefix));
         expect(result.done).toBe(false);
       });
 
       if (condition === "success") {
-        it("dispatches a SEARCH_DONE action", () => {
+        it("yields a SEARCH_DONE action", () => {
           const result = fetchIterator.next();
           expect(result.value).toEqual(put(searchDone()));
           expect(result.done).toBe(false);
@@ -61,7 +61,7 @@ describe("Search saga worker", () => {
       }
 
       if (condition === "error") {
-        it("dispatches a SEARCH_ERROR action", () => {
+        it("yields a SEARCH_ERROR action", () => {
           const error = new Error();
           const result = fetchIterator.throw(error);
           expect(result.value).toEqual(put(searchError(error)));
@@ -82,7 +82,7 @@ describe("Search saga worker", () => {
     describe(`with a "${prefix}" prefix`, () => {
       const fetchIterator = searchTask(searchStart(prefix));
 
-      it("dispatches a SEARCH_DONE action", () => {
+      it("yields a SEARCH_DONE action", () => {
         const result = fetchIterator.next();
         expect(result.value).toEqual(put(searchDone([])));
         expect(result.done).toBe(false);

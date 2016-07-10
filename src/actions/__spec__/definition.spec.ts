@@ -1,13 +1,13 @@
 import * as expect from "expect";
 
 import {
-  DEFINE_START,
-  DEFINE_DONE,
-  DEFINE_ERROR,
-  defineStart,
-  defineDone,
-  defineError
-} from "../define";
+  DEFINITION_START,
+  DEFINITION_DONE,
+  DEFINITION_ERROR,
+  definitionStart,
+  definitionDone,
+  definitionError
+} from "../definition";
 
 describe("Action", () => {
   describe("Define", () => {
@@ -15,20 +15,20 @@ describe("Action", () => {
       const query = "test";
       const action = {
         payload: query,
-        type: DEFINE_START,
+        type: DEFINITION_START,
       };
 
-      expect(defineStart(query)).toEqual(action);
+      expect(definitionStart(query)).toEqual(action);
     });
 
     it("completes a definition lookup", () => {
       const results = ["test"];
       const action = {
         payload: results,
-        type: DEFINE_DONE,
+        type: DEFINITION_DONE,
       };
 
-      expect(defineDone(results)).toEqual(action);
+      expect(definitionDone(results)).toEqual(action);
     });
 
     it("completes a definition lookup with error", () => {
@@ -36,10 +36,10 @@ describe("Action", () => {
       const action = {
         error: true,
         payload: error,
-        type: DEFINE_ERROR,
+        type: DEFINITION_ERROR,
       };
 
-      expect(defineError(error)).toEqual(action);
+      expect(definitionError(error)).toEqual(action);
     });
   });
 });

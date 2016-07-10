@@ -1,6 +1,10 @@
 import { combineReducers } from "redux";
+import { definitionReducer } from "./definition";
 import { searchReducer } from "./search";
 
-export default combineReducers({
+const rootReducer = combineReducers({
+  definition: definitionReducer,
   search: searchReducer,
 });
+
+export default rootReducer;
