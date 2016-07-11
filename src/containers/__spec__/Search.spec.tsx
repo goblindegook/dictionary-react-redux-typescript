@@ -133,5 +133,52 @@ describe("Container", () => {
 
       expect(actions[0]).toEqual(searchStart(prefix));
     });
+
+    it("sets the SearchInput text to the prefix parameter", () => {
+      const prefix = "parâmetro";
+      const params = { prefix };
+
+      state.search.prefix = "";
+
+      store = createMockStore(state);
+
+      wrapper = mount(
+        <Provider store={store}>
+          <Search {...{params}} />
+        </Provider>
+      );
+
+      expect(wrapper.find("SearchInput").props().text).toBe(prefix);
+    });
+
+    it("dispatches a SEARCH_START on mount from id parameter", () => {
+      const prefix = "parâmetro";
+      const params = { prefix };
+
+      wrapper = mount(
+        <Provider store={store}>
+          <Search {...{params}} />
+        </Provider>
+      );
+
+      const actions = store.getActions();
+      expect(actions[0]).toEqual(searchStart(prefix));
+    });
+
+    xit("sets the URL for the current search when pressing the Enter key", () => {
+      const prefix = "test";
+
+      wrapper.find('input').simulate("change", {
+        target: {
+          value: prefix,
+        },
+      });
+
+      wrapper.find('input').simulate("keyup", {
+        keyCode: 13,
+      });
+
+      expect(window.location.pathname).toBe("/search/" + prefix);
+    });
   });
 });

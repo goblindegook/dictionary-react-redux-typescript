@@ -4,7 +4,8 @@ import * as ReactDOM from "react-dom";
 export interface ISearchInputProps extends React.Props<SearchInput> {
   className?: string;
   text?: string;
-  onChange?(Event): void;
+  onChange?(event: React.FormEvent): void;
+  onSubmit?(prefix: String): void;
 }
 
 export default class SearchInput extends React.Component<ISearchInputProps, {}> {
@@ -20,6 +21,11 @@ export default class SearchInput extends React.Component<ISearchInputProps, {}> 
         className={this.props.className}
         value={this.props.text}
         onChange={this.props.onChange}
+        onKeyUp={(event) => {
+          if (event.keyCode === 13) {
+            this.props.onSubmit(this.props.text);
+          }
+        }}
       />
     );
   }

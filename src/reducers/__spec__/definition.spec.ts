@@ -9,7 +9,7 @@ describe("Definition reducer", () => {
 
   beforeEach(() => {
     initialState = {
-      entry: null,
+      entries: [],
       error: null,
       isLoading: false,
     };
@@ -29,13 +29,13 @@ describe("Definition reducer", () => {
   });
 
   it("handles DEFINITION_DONE actions", () => {
-    const entry = createEntry("one", "one", "one");
-    const action = definitionDone(entry);
+    const entries = [ createEntry("one", "one", "one") ];
+    const action = definitionDone(entries);
     const actualState = definitionReducer(initialState, action);
 
     expect(actualState).toNotEqual(initialState);
     expect(actualState.isLoading).toBe(false);
-    expect(actualState.entry).toEqual(entry);
+    expect(actualState.entries).toEqual(entries);
     expect(actualState.error).toBe(null);
   });
 
@@ -46,7 +46,7 @@ describe("Definition reducer", () => {
 
     expect(actualState).toNotEqual(initialState);
     expect(actualState.isLoading).toBe(false);
-    expect(actualState.entry).toEqual(null);
+    expect(actualState.entries).toEqual([]);
     expect(actualState.error).toBe(error);
   });
 });

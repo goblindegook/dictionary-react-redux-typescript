@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import { mount, shallow } from "enzyme";
 import createMockStore from '../../__spec__/helpers/createMockStore';
 import { definitionStart } from "../../actions/definition";
+import { createEntry } from "../../api/Entry";
 import Definition from "../Definition";
 
 describe("Container", () => {
@@ -16,11 +17,12 @@ describe("Container", () => {
     before(() => {
       state = {
         definition: {
-          entry: null,
+          entries: [],
           error: null,
           isLoading: false,
         },
       };
+
       store = createMockStore(state);
 
       wrapper = mount(
@@ -34,8 +36,21 @@ describe("Container", () => {
       expect(wrapper.find(Definition).length).toBe(1);
     });
 
-    it("contains a single <EntryDefinition /> component", () => {
-      expect(wrapper.find("EntryDefinition").length).toBe(1);
+    it("contains an <EntryDefinition /> component per entry", () => {
+      state.definition.entries = [
+        createEntry("a", "a:1", "one"),
+        createEntry("a", "a:2", "two"),
+        createEntry("a", "a:3", "three"),
+      ];
+      store = createMockStore(state);
+
+      wrapper = mount(
+        <Provider store={store}>
+          <Definition />
+        </Provider>
+      );
+
+      expect(wrapper.find("EntryDefinition").length).toBe(state.definition.entries.length);
       expect(wrapper.find("Error").length).toBe(0);
       expect(wrapper.find("LoadingIndicator").length).toBe(0);
     });

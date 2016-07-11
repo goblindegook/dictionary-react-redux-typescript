@@ -27,5 +27,15 @@ describe("Component", () => {
       expect(onChange.callCount).toBe(1);
       expect(onChange.calledWith(event)).toBe(true);
     });
+
+    it("invokes onSubmit callbacks with field value when pressing the Enter key", () => {
+      const onSubmit = sinon.spy();
+      const text = "test";
+      const wrapper = shallow(<SearchInput {...{onSubmit, text}} />);
+      const event = { keyCode: 13 };
+      wrapper.find("input").simulate("keyup", event);
+      expect(onSubmit.callCount).toBe(1);
+      expect(onSubmit.calledWith(text)).toBe(true);
+    });
   });
 });

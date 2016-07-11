@@ -7,10 +7,10 @@ export function* definitionTask(action): IterableIterator<any> {
   const id: string = action.payload;
 
   try {
-    const results = yield call(define, id);
-    yield put(definitionDone(results));
-   } catch (e) {
-      yield put(definitionError(e));
+    const entries = yield call(define, id);
+    yield put(definitionDone(entries));
+  } catch (error) {
+      yield put(definitionError(error));
    }
 }
 

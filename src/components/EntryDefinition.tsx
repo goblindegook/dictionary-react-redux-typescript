@@ -16,6 +16,7 @@ export default class EntryDefinition extends React.Component<IEntryDefinitionPro
    * @return {JSX.Element} Rendered EntryDefinition component.
    */
   public render() {
+    // console.log(this.props.entry);
     return (
       <article className={this.props.className}>
         <h2>{this.props.title}</h2>

@@ -15,9 +15,9 @@ export function* searchTask(action): IterableIterator<any> {
     }
 
     yield put(searchDone(results));
-   } catch (e) {
-      yield put(searchError(e));
-   }
+  } catch (error) {
+    yield put(searchError(error));
+  }
 }
 
 export default function* searchSaga() {

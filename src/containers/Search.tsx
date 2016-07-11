@@ -1,6 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { connect } from "react-redux";
+import { browserHistory } from "react-router";
 import { createSelector } from "reselect";
 import { IEntry } from "../api/Entry";
 import { searchStart } from "../actions/search";
@@ -12,24 +13,41 @@ import SearchInput from "../components/SearchInput";
 export interface ISearchProps extends React.Props<any> {
   entries?: IEntry[];
   error?: Error;
-  isLoading?: Boolean;
+  isLoading?: boolean;
   params?: {
     prefix?: string;
   };
   prefix?: string;
-  onChange?: (event: Event) => void;
+  onChange?: (event: React.FormEvent) => void;
+  onLoad?: (prefix: string) => void;
+  onSubmit?: (prefix: string) => void;
 }
 
 class Search extends React.Component<ISearchProps, {}> {
+  /**
+   * [componentDidMount description]
+   */
+  public componentDidMount() {
+    const prefix = this.props.params && this.props.params.prefix;
+
+    if (prefix) {
+      this.props.onLoad(prefix);
+    }
+  }
+
   /**
    * Render search container.
    *
    * @return {JSX.Element} Rendered search container.
    */
   public render() {
+    const prefixParam = this.props.params && this.props.params.prefix;
+    const prefixProp = this.props.prefix;
+    const prefix = prefixProp || prefixParam || "";
+
     let content: React.ReactElement<any> = undefined;
 
-    if (this.props.prefix.trim().length > 0) {
+    if (prefix.trim().length > 0) {
       if (this.props.isLoading) {
         content = <LoadingIndicator />;
       } else if (this.props.error) {
@@ -47,7 +65,8 @@ class Search extends React.Component<ISearchProps, {}> {
       <section className="search">
         <SearchInput
           onChange={this.props.onChange}
-          text={this.props.prefix}
+          onSubmit={this.props.onSubmit}
+          text={prefix}
         />
         {content}
       </section>
@@ -64,5 +83,7 @@ export default connect(
   }),
   (dispatch) => ({
     onChange: (event) => dispatch(searchStart(event.target.value)),
+    onLoad: (prefix) => dispatch(searchStart(prefix)),
+    onSubmit: (prefix) => browserHistory.push("/search/" + prefix),
   })
 )(Search as React.ComponentClass<any>);
