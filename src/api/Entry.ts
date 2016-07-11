@@ -11,7 +11,7 @@ export interface IEntry {
  * @param  {any}           content [description]
  * @return {IEntry}                [description]
  */
-export function createEntry(word: string, id: string = word, content?: any): IEntry {
+export function createEntry(word: string, id: string = word, content?: {}): IEntry {
   return {
     content,
     id,

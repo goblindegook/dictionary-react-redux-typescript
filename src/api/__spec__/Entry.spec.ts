@@ -27,9 +27,40 @@ describe("Entry creator", () => {
     let word;
 
     before(() => {
-      content = { anything: "anything" };
-      id = "test:1";
-      word = "test";
+      word = "a";
+      id = "a:1";
+      content = {
+        "@n": "1",
+        "@id": "a:1",
+        "@type": "hom",
+        "form": {
+          "orth": "A",
+          "pron": "á"
+        },
+        "sense": [
+          {
+            "gramGrp": "m.",
+            "def": "Primeira letra do alfabeto português."
+          },
+          {
+            "@ast": "1",
+            "usg": {
+              "@type": "dom",
+              "#text": "Mús."
+            },
+            "def": "Primeira nota da escala na denominação alfabética dos sons."
+          },
+          {
+            "gramGrp": "Adj.",
+            "def": "Primeiro, (falando-se de um número ou de um objecto que faz parte de uma série)."
+          },
+          {
+            "@ast": "1",
+            "gramGrp": "Adj.",
+            "def": "Que é de primeira classe, (falando-se de carruagens de caminho de ferro)."
+          }
+        ]
+      };
 
       entry = createEntry(word, id, content);
     });
@@ -43,7 +74,7 @@ describe("Entry creator", () => {
     });
 
     it("has content", () => {
-      expect(entry.content).toBe(content);
+      expect(entry.content).toEqual(content);
     });
   });
 });
