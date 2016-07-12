@@ -4,7 +4,7 @@ import * as path from "path";
 import { readFileSync } from "fs";
 
 import { search, define } from "../DictionaryAPI";
-import { IDictionaryEntry } from "../Entry";
+import { IEntry } from "../Entry";
 
 function readFixture(filename: string): any {
   return JSON.parse(readFileSync(path.resolve(__dirname, "fixtures", filename)).toString());

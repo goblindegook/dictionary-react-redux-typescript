@@ -1,16 +1,42 @@
 import * as fetch from "isomorphic-fetch";
-import { createEntry, IDictionaryEntry } from "./Entry";
+import { createEntry, IEntry } from "./Entry";
+
+export interface IRawSense {
+  "@ast"?: string;
+  def: string;
+  gramGrp: string;
+  usg?: {
+    "@type": string;
+    "#text": string;
+  };
+}
+
+export interface IRawEntry {
+  "@ast"?: string;
+  "@id": string;
+  "@n"?: string;
+  "@type"?: string;
+  etym?: {
+    "@orig": string;
+    "#text": string;
+  },
+  form: {
+    orth: string;
+    pron?: string;
+  };
+  sense: IRawSense[];
+}
 
 const rootUrl = "http://localhost:3000/api/search-json";
 
 /**
  * [search description]
  * @param  {string}                         prefix [description]
- * @return {Promise<IDictionaryEntry[]>}       [description]
+ * @return {Promise<IEntry[]>}       [description]
  *
  * @todo Plug this into an actual API.
  */
-export async function search(prefix: string): Promise<IDictionaryEntry[]> {
+export async function search(prefix: string): Promise<IEntry[]> {
   const indices = {};
 
   const response = await fetch(`${rootUrl}?prefix=${prefix}`, { mode: "cors" });
@@ -30,11 +56,11 @@ export async function search(prefix: string): Promise<IDictionaryEntry[]> {
 /**
  * [define description]
  * @param  {string}                       id [description]
- * @return {Promise<IDictionaryEntry>}      [description]
+ * @return {Promise<IEntry>}      [description]
  *
  * @todo Plug this into an actual API.
  */
-export async function define(id: string): Promise<IDictionaryEntry[]> {
+export async function define(id: string): Promise<IEntry[]> {
   const response = await fetch(`${rootUrl}/${id}`, { mode: "cors" });
 
   if (!response.status || response.status.toString().charAt(0) !== "2") {

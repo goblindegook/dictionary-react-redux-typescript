@@ -15,8 +15,8 @@ describe("Entry creator", () => {
       expect(entry.word).toBe(word);
     });
 
-    it("has no senses", () => {
-      expect(entry.getSenses()).toEqual([]);
+    it("has no sense", () => {
+      expect(entry.senses).toEqual([]);
     });
   });
 
@@ -33,6 +33,10 @@ describe("Entry creator", () => {
         "@n": "1",
         "@id": "a:1",
         "@type": "hom",
+        etym: {
+          "@orig": "a",
+          "#text": "a",
+        },
         form: {
           orth: "A",
           pron: "á",
@@ -77,42 +81,55 @@ describe("Entry creator", () => {
       expect(entry.raw).toEqual(raw);
     });
 
+    it("returns etymology", () => {
+      expect(entry.etymology).toBe(raw.etym["#text"]);
+    });
+
     it("returns orthography", () => {
-      const orth = entry.getOrthography();
-      expect(orth).toBe(raw.form.orth);
+      expect(entry.spelling).toBe(raw.form.orth);
     });
 
     it("returns orthography on null entry", () => {
       entry = createEntry(word, id, null);
-      const nullOrth = entry.getOrthography();
-      expect(nullOrth).toBe(word);
+      expect(entry.spelling).toBe(word);
     });
 
     it("returns pronunciation", () => {
-      const pron = entry.getPronunciation();
-      expect(pron).toBe(raw.form.pron);
+      expect(entry.pronunciation).toBe(raw.form.pron);
     });
 
     it("returns the entry index", () => {
-      const n = entry.getIndex();
-      expect(n).toBe(parseInt(raw["@n"], 10));
+      expect(entry.index).toBe(parseInt(raw["@n"], 10));
     });
 
     it("returns the entry ID", () => {
-      id = entry.getId();
-      expect(id).toBe(raw["@id"]);
+      expect(entry.id).toBe(raw["@id"]);
     });
 
     it("returns the entry ID on null entry", () => {
       entry = createEntry(word, id, null);
-      const nullId = entry.getId();
-      expect(nullId).toBe(id);
+      expect(entry.id).toBe(id);
     });
 
     it("returns senses", () => {
-      const senses = entry.getSenses();
-      senses.forEach((sense, i) => {
-        expect(sense).toEqual(raw.sense[i]);
+      expect(entry.senses.length).toEqual(raw.sense.length);
+    });
+
+    it("returns sense definitions", () => {
+      entry.senses.forEach((sense, i) => {
+        expect(sense.definition).toEqual(raw.sense[i].def);
+      });
+    });
+
+    it("returns sense grammar groups", () => {
+      entry.senses.forEach((sense, i) => {
+        expect(sense.grammarGroup).toEqual(raw.sense[i].gramGrp);
+      });
+    });
+
+    it("returns sense usages", () => {
+      entry.senses.forEach((sense, i) => {
+        expect(sense.usage).toEqual(raw.sense[i].usg && raw.sense[i].usg["#text"]);
       });
     });
   });

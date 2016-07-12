@@ -1,15 +1,15 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
-import { IDictionaryEntry } from "../api/Entry";
+import { IEntry } from "../api/Entry";
 
-export interface IDictionaryEntryDefinitionProps extends React.Props<EntryDefinition> {
+export interface IEntryDefinitionProps extends React.Props<EntryDefinition> {
   className?: string;
-  entry?: IDictionaryEntry;
+  entry?: IEntry;
   title?: string;
 }
 
-export default class EntryDefinition extends React.Component<IDictionaryEntryDefinitionProps, {}> {
+export default class EntryDefinition extends React.Component<IEntryDefinitionProps, {}> {
   /**
    * Render EntryDefinition component.
    *
@@ -28,27 +28,25 @@ export default class EntryDefinition extends React.Component<IDictionaryEntryDef
       );
     }
 
-    const orth = entry.getOrthography();
-    const n = entry.getIndex();
-    const pron = entry.getPronunciation();
-    const id = entry.getId();
-
     return (
       <article className={this.props.className}>
         <h2>
-          <span className="orth">{orth}</span>
-          {n && <sup className="n">{n}</sup>}
-          {pron && <span className="pron">{pron}</span>}
+          <span className="orth">{entry.spelling}</span>
+          {entry.index && <sup className="n">{entry.index}</sup>}
+          {entry.pronunciation && <span className="pron">{entry.pronunciation}</span>}
         </h2>
         <ul>
-          {entry.getSenses().map((sense, index) => (
-            <li className="sense" key={`${id}:${index}`}>
-              {sense.gramGrp && <div className="gramGrp">{sense.gramGrp}</div>}
-              {sense.usg && sense.usg["#text"] && <div className="usg">{sense.usg["#text"]}</div>}
-              <p className="def">{sense.def}</p>
+          {entry.senses.map((sense, index) => (
+            <li className="sense" key={`${entry.id}:${index}`}>
+              <div className="meta">
+                <span className="gramGrp">{sense.grammarGroup}</span>
+                {sense.usage && <span className="usg">{sense.usage}</span>}
+              </div>
+              <p className="def">{sense.definition}</p>
             </li>
           ))}
         </ul>
+        <p className="etym">{entry.etymology}</p>
       </article>
     );
   }

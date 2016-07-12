@@ -3,14 +3,14 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { shallow, mount } from "enzyme";
 
-import { createEntry, IDictionaryEntry } from "../../api/Entry";
+import { createEntry, IEntry } from "../../api/Entry";
 import EntryListItem from "../EntryListItem";
 
 describe("Component", () => {
   describe("<EntryListItem />", () => {
     let word: string;
     let id: string;
-    let entry: IDictionaryEntry;
+    let entry: IEntry;
 
     beforeEach(() => {
       word = "word";

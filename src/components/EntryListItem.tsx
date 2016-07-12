@@ -1,16 +1,16 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { Link } from "react-router";
-import { IDictionaryEntry } from "../api/Entry";
+import { IEntry } from "../api/Entry";
 
-export interface IDictionaryEntryListItemProps extends React.Props<EntryListItem> {
+export interface IEntryListItemProps extends React.Props<EntryListItem> {
   className?: string;
-  entry: IDictionaryEntry;
+  entry: IEntry;
 }
 
 // TODO: Remove onClick handler, use router Link.
 
-export default class EntryListItem extends React.Component<IDictionaryEntryListItemProps, {}> {
+export default class EntryListItem extends React.Component<IEntryListItemProps, {}> {
   /**
    * Render EntryListItem component.
    *

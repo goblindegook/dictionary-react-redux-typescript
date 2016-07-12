@@ -1,9 +1,9 @@
 import { handleActions, Action } from "redux-actions";
 import { SEARCH_START, SEARCH_DONE, SEARCH_ERROR } from "../actions/search";
-import { IDictionaryEntry } from "../api/Entry";
+import { IEntry } from "../api/Entry";
 
 interface ISearchState {
-  entries?: IDictionaryEntry[];
+  entries?: IEntry[];
   error?: Error;
   isLoading?: boolean;
   prefix?: string;

@@ -1,14 +1,14 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import EntryListItem from "./EntryListItem";
-import { IDictionaryEntry } from "../api/Entry";
+import { IEntry } from "../api/Entry";
 
-export interface IDictionaryEntryListProps extends React.Props<EntryList> {
+export interface IEntryListProps extends React.Props<EntryList> {
   className?: string;
-  entries: IDictionaryEntry[];
+  entries: IEntry[];
 }
 
-export default class EntryList extends React.Component<IDictionaryEntryListProps, {}> {
+export default class EntryList extends React.Component<IEntryListProps, {}> {
   /**
    * Render EntryList component.
    *

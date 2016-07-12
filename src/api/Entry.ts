@@ -1,33 +1,28 @@
+import { IRawEntry, IRawSense } from "./DictionaryAPI";
+
 export interface ISense {
-  "@ast"?: string;
-  def: string;
-  gramGrp?: string;
-  usg?: {
-    "@type"?: string;
-    "#text"?: string;
-  };
+  definition: string;
+  grammarGroup: string;
+  usage?: string;
 }
 
 export interface IEntry {
-  "@id": string;
-  "@n": string;
-  "@type"?: string;
-  form: {
-    orth: string;
-    pron?: string;
-  };
-  sense: ISense[];
+  etymology?: string;
+  id: string;
+  index: number;
+  pronunciation?: string;
+  raw?: IRawEntry;
+  senses: ISense[];
+  spelling: string;
+  word: string;
 }
 
-export interface IDictionaryEntry {
-  raw?: IEntry;
-  getId: () => string;
-  getIndex: () => number;
-  getOrthography: () => string;
-  getPronunciation: () => string;
-  getSenses: () => ISense[];
-  id: string;
-  word: string;
+function createSense(sense: IRawSense): ISense {
+  return {
+    definition: sense.def,
+    grammarGroup: sense.gramGrp,
+    usage: sense.usg && sense.usg["#text"],
+  };
 }
 
 /**
@@ -35,38 +30,17 @@ export interface IDictionaryEntry {
  * @param  {string}        word    [description]
  * @param  {number|string} id      [description]
  * @param  {any}           content [description]
- * @return {IDictionaryEntry}      [description]
+ * @return {IEntry}      [description]
  */
-export function createEntry(word: string, id: string = word, entry?: IEntry): IDictionaryEntry {
-
-  function getId() {
-    return entry && entry["@id"] || id;
-  }
-
-  function getIndex() {
-    return entry && entry["@n"] && parseInt(entry["@n"], 10);
-  }
-
-  function getOrthography() {
-    return entry && entry.form && entry.form.orth || word;
-  }
-
-  function getPronunciation() {
-    return entry && entry.form && entry.form.pron || "";
-  }
-
-  function getSenses() {
-    return entry && entry.sense || [];
-  }
-
+export function createEntry(word: string, rawId: string = word, entry?: IRawEntry): IEntry {
   return {
     raw: entry,
-    getId,
-    getIndex,
-    getOrthography,
-    getPronunciation,
-    getSenses,
-    id,
+    etymology: entry && entry.etym && entry.etym["#text"],
+    index: entry && entry["@n"] && parseInt(entry["@n"], 10),
+    spelling: entry && entry.form && entry.form.orth || word,
+    pronunciation: entry && entry.form && entry.form.pron,
+    senses: entry && entry.sense.map(createSense) || [],
+    id: entry && entry["@id"] || rawId,
     word,
   };
 }
