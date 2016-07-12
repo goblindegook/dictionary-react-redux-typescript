@@ -18,6 +18,9 @@
   "license": "MIT",
   "typings": "./src/index.d.ts",
   "devDependencies": {
+    "babel-core": "^6.10.4",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.9.0",
     "css-loader": "^0.23.1",
     "enzyme": "^2.3.0",
     "expect": "^1.20.1",
@@ -50,6 +53,7 @@
     "zombie": "^4.2.1"
   },
   "dependencies": {
+    "babel-polyfill": "^6.9.1",
     "classnames": "^2.2.5",
     "http-proxy-middleware": "^0.16.0",
     "isomorphic-fetch": "^2.2.1",

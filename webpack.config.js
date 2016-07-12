@@ -2,10 +2,12 @@
 
 var path = require('path')
 var webpack = require('webpack')
+var ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 module.exports = {
   devtool: 'cheap-module-eval-source-map',
   entry: [
+    'babel-polyfill',
     'webpack-hot-middleware/client',
     './src/index'
   ],
@@ -16,7 +18,8 @@ module.exports = {
   },
   plugins: [
     new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new ExtractTextPlugin('./dist/bundle.css', { allChunks: true })
   ],
   resolve: {
     extensions: ['', '.ts', '.tsx', '.js', '.jsx']
@@ -26,6 +29,7 @@ module.exports = {
       {
         test: /\.tsx?$/,
         loaders: [
+          'babel?cacheDirectory',
           'ts?sourceMap'
         ],
         exclude: /node_modules/,
@@ -43,8 +47,8 @@ module.exports = {
         test: /\.scss$/,
         loaders: [
           'style?sourceMap',
-          'css',
-          'sass'
+          'css?importLoaders=2&sourceMap',
+          'sass?outputStyle=expanded&sourceMap=true&sourceMapContents=true'
         ],
         include: path.join(__dirname, 'src')
       }
