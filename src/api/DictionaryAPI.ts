@@ -1,16 +1,16 @@
 import * as fetch from "isomorphic-fetch";
-import { createEntry, IEntry } from "./Entry";
+import { createEntry, IDictionaryEntry } from "./Entry";
 
 const rootUrl = "http://localhost:3000/api/search-json";
 
 /**
  * [search description]
  * @param  {string}                         prefix [description]
- * @return {Promise<IEntry[]>}       [description]
+ * @return {Promise<IDictionaryEntry[]>}       [description]
  *
  * @todo Plug this into an actual API.
  */
-export async function search(prefix: string): Promise<IEntry[]> {
+export async function search(prefix: string): Promise<IDictionaryEntry[]> {
   const indices = {};
 
   const response = await fetch(`${rootUrl}?prefix=${prefix}`, { mode: "cors" });
@@ -30,11 +30,11 @@ export async function search(prefix: string): Promise<IEntry[]> {
 /**
  * [define description]
  * @param  {string}                       id [description]
- * @return {Promise<IEntry>}      [description]
+ * @return {Promise<IDictionaryEntry>}      [description]
  *
  * @todo Plug this into an actual API.
  */
-export async function define(id: string): Promise<IEntry[]> {
+export async function define(id: string): Promise<IDictionaryEntry[]> {
   const response = await fetch(`${rootUrl}/${id}`, { mode: "cors" });
 
   if (!response.status || response.status.toString().charAt(0) !== "2") {

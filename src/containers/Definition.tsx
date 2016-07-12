@@ -2,14 +2,14 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { connect } from "react-redux";
 import { createSelector } from "reselect";
-import { IEntry } from "../api/Entry";
+import { IDictionaryEntry } from "../api/Entry";
 import { definitionStart } from "../actions/definition";
 import LoadingIndicator from "../components/LoadingIndicator";
 import Error from "../components/Error";
 import EntryDefinition from "../components/EntryDefinition";
 
 interface IDefinitionProps extends React.Props<Definition> {
-  entries?: IEntry[];
+  entries?: IDictionaryEntry[];
   error?: Error;
   isLoading?: boolean;
   onLoad?: (id: string) => void;

@@ -1,9 +1,9 @@
 import { handleActions, Action } from "redux-actions";
 import { DEFINITION_START, DEFINITION_DONE, DEFINITION_ERROR } from "../actions/definition";
-import { IEntry } from "../api/Entry";
+import { IDictionaryEntry } from "../api/Entry";
 
 interface IDefinitionState {
-  entries?: IEntry[];
+  entries?: IDictionaryEntry[];
   error?: Error;
   isLoading?: boolean;
 }

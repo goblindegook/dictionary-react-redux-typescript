@@ -3,7 +3,7 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { mount, shallow } from "enzyme";
-import createMockStore from '../../__spec__/helpers/createMockStore';
+import createMockStore from "../../__spec__/helpers/createMockStore";
 import { definitionStart } from "../../actions/definition";
 import { createEntry } from "../../api/Entry";
 import Definition from "../Definition";
@@ -38,9 +38,9 @@ describe("Container", () => {
 
     it("contains an <EntryDefinition /> component per entry", () => {
       state.definition.entries = [
-        createEntry("a", "a:1", { "@n": "1", "@id": "a:1", "form": { "orth": "A", "pron": "á" } }),
-        createEntry("a", "a:2", { "@n": "2", "@id": "a:2", "form": { "orth": "A", "pron": "á" } }),
-        createEntry("a", "a:3", { "@n": "3", "@id": "a:3", "form": { "orth": "A", "pron": "á" } }),
+        createEntry("a", "a:1", { "@n": "1", "@id": "a:1", form: { orth: "A" }, sense: [] }),
+        createEntry("a", "a:2", { "@n": "2", "@id": "a:2", form: { orth: "A" }, sense: [] }),
+        createEntry("a", "a:3", { "@n": "3", "@id": "a:3", form: { orth: "A" }, sense: [] }),
       ];
       store = createMockStore(state);
 

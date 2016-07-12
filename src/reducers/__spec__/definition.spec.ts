@@ -29,7 +29,7 @@ describe("Definition reducer", () => {
   });
 
   it("handles DEFINITION_DONE actions", () => {
-    const entries = [ createEntry("one", "one", "one") ];
+    const entries = [ createEntry("a", "a:1", { "@n": "1", "@id": "a:1", form: { orth: "A" }, sense: [] }) ];
     const action = definitionDone(entries);
     const actualState = definitionReducer(initialState, action);
 

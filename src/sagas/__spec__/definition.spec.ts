@@ -1,19 +1,16 @@
 import * as expect from "expect";
 import * as sinon from "sinon";
-import { put, call, take, fork } from 'redux-saga/effects'
-import { delay } from 'redux-saga'
+import { put, call, take, fork } from "redux-saga/effects";
+import { delay } from "redux-saga";
 import { readFileSync } from "fs";
-
 import { define } from "../../api/DictionaryAPI";
 import definitionSaga, { definitionTask } from "../definition";
 
 import {
   DEFINITION_START,
-  DEFINITION_DONE,
-  DEFINITION_ERROR,
   definitionStart,
   definitionDone,
-  definitionError
+  definitionError,
 } from "../../actions/definition";
 
 describe("Definition saga", () => {

@@ -15,54 +15,54 @@ describe("Entry creator", () => {
       expect(entry.word).toBe(word);
     });
 
-    it("has undefined content", () => {
-      expect(entry.content).toBe(undefined);
+    it("has no senses", () => {
+      expect(entry.getSenses()).toEqual([]);
     });
   });
 
   describe("New entry from complete data", () => {
-    let content;
+    let raw;
     let entry;
     let id;
     let word;
 
-    before(() => {
+    beforeEach(() => {
       word = "a";
       id = "a:1";
-      content = {
+      raw = {
         "@n": "1",
         "@id": "a:1",
         "@type": "hom",
-        "form": {
-          "orth": "A",
-          "pron": "á"
+        form: {
+          orth: "A",
+          pron: "á",
         },
-        "sense": [
+        sense: [
           {
-            "gramGrp": "m.",
-            "def": "Primeira letra do alfabeto português."
+            def: "Primeira letra do alfabeto português.",
+            gramGrp: "m.",
           },
           {
             "@ast": "1",
-            "usg": {
+            def: "Primeira nota da escala na denominação alfabética dos sons.",
+            usg: {
               "@type": "dom",
-              "#text": "Mús."
+              "#text": "Mús.",
             },
-            "def": "Primeira nota da escala na denominação alfabética dos sons."
           },
           {
-            "gramGrp": "Adj.",
-            "def": "Primeiro, (falando-se de um número ou de um objecto que faz parte de uma série)."
+            def: "Primeiro, (falando-se de um número ou de um objecto que faz parte de uma série).",
+            gramGrp: "Adj.",
           },
           {
             "@ast": "1",
-            "gramGrp": "Adj.",
-            "def": "Que é de primeira classe, (falando-se de carruagens de caminho de ferro)."
-          }
-        ]
+            def: "Que é de primeira classe, (falando-se de carruagens de caminho de ferro).",
+            gramGrp: "Adj.",
+          },
+        ],
       };
 
-      entry = createEntry(word, id, content);
+      entry = createEntry(word, id, raw);
     });
 
     it("has an ID", () => {
@@ -73,8 +73,47 @@ describe("Entry creator", () => {
       expect(entry.word).toBe(word);
     });
 
-    it("has content", () => {
-      expect(entry.content).toEqual(content);
+    it("has raw content", () => {
+      expect(entry.raw).toEqual(raw);
+    });
+
+    it("returns orthography", () => {
+      const orth = entry.getOrthography();
+      expect(orth).toBe(raw.form.orth);
+    });
+
+    it("returns orthography on null entry", () => {
+      entry = createEntry(word, id, null);
+      const nullOrth = entry.getOrthography();
+      expect(nullOrth).toBe(word);
+    });
+
+    it("returns pronunciation", () => {
+      const pron = entry.getPronunciation();
+      expect(pron).toBe(raw.form.pron);
+    });
+
+    it("returns the entry index", () => {
+      const n = entry.getIndex();
+      expect(n).toBe(parseInt(raw["@n"], 10));
+    });
+
+    it("returns the entry ID", () => {
+      id = entry.getId();
+      expect(id).toBe(raw["@id"]);
+    });
+
+    it("returns the entry ID on null entry", () => {
+      entry = createEntry(word, id, null);
+      const nullId = entry.getId();
+      expect(nullId).toBe(id);
+    });
+
+    it("returns senses", () => {
+      const senses = entry.getSenses();
+      senses.forEach((sense, i) => {
+        expect(sense).toEqual(raw.sense[i]);
+      });
     });
   });
 });

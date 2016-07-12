@@ -13,7 +13,7 @@ describe("Component", () => {
 
     before(() => {
       entries = ["one", "two", "three"].map(
-        (value) => createEntry(value, value, value)
+        (value) => createEntry(value, value, { "@n": "1", "@id": "n:1", form: { orth: "n" }, sense: [] })
       );
     });
 

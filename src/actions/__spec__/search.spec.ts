@@ -6,7 +6,7 @@ import {
   SEARCH_ERROR,
   searchStart,
   searchDone,
-  searchError
+  searchError,
 } from "../search";
 
 describe("Action", () => {

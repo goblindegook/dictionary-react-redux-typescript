@@ -7,43 +7,43 @@ import EntryDefinition from "../EntryDefinition";
 
 describe("<EntryDefinition />", () => {
   let entry;
-  let rawEntry;
+  let raw;
 
   beforeEach(() => {
-    rawEntry = {
+    raw = {
       "@n": "1",
       "@id": "a:1",
       "@type": "hom",
-      "form": {
-        "orth": "A",
-        "pron": "á"
+      form: {
+        orth: "A",
+        pron: "á",
       },
-      "sense": [
+      sense: [
         {
-          "gramGrp": "m.",
-          "def": "Primeira letra do alfabeto português."
+          def: "Primeira letra do alfabeto português.",
+          gramGrp: "m.",
         },
         {
           "@ast": "1",
-          "usg": {
+          def: "Primeira nota da escala na denominação alfabética dos sons.",
+          usg: {
             "@type": "dom",
-            "#text": "Mús."
+            "#text": "Mús.",
           },
-          "def": "Primeira nota da escala na denominação alfabética dos sons."
         },
         {
-          "gramGrp": "Adj.",
-          "def": "Primeiro, (falando-se de um número ou de um objecto que faz parte de uma série)."
+          def: "Primeiro, (falando-se de um número ou de um objecto que faz parte de uma série).",
+          gramGrp: "Adj.",
         },
         {
           "@ast": "1",
-          "gramGrp": "Adj.",
-          "def": "Que é de primeira classe, (falando-se de carruagens de caminho de ferro)."
-        }
-      ]
+          def: "Que é de primeira classe, (falando-se de carruagens de caminho de ferro).",
+          gramGrp: "Adj.",
+        },
+      ],
     };
 
-    entry = createEntry("a", "a:1", rawEntry);
+    entry = createEntry("a", "a:1", raw);
   });
 
   it("renders", () => {
@@ -64,35 +64,34 @@ describe("<EntryDefinition />", () => {
   });
 
   it("renders with n", () => {
-    const n = 1;
-    const wrapper = shallow(<EntryDefinition {...{n}} />);
-    expect(wrapper.find(".n").first().text()).toBe(`${n}`);
+    const wrapper = shallow(<EntryDefinition {...{entry}} />);
+    expect(wrapper.find(".n").first().text()).toBe(raw["@n"]);
   });
 
   it("renders with entry orthography", () => {
     const wrapper = shallow(<EntryDefinition {...{entry}} />);
-    expect(wrapper.find(".orth").first().text()).toEqual(rawEntry.form.orth);
+    expect(wrapper.find(".orth").first().text()).toEqual(raw.form.orth);
   });
 
   it("renders with entry orthography", () => {
     const wrapper = shallow(<EntryDefinition {...{entry}} />);
-    expect(wrapper.find(".n").first().text()).toEqual(rawEntry["@n"]);
+    expect(wrapper.find(".n").first().text()).toEqual(raw["@n"]);
   });
 
   it("renders with entry pronunciation", () => {
     const wrapper = shallow(<EntryDefinition {...{entry}} />);
-    expect(wrapper.find(".pron").first().text()).toEqual(rawEntry.form.pron);
+    expect(wrapper.find(".pron").first().text()).toEqual(raw.form.pron);
   });
 
   it("renders with entry senses", () => {
     const wrapper = shallow(<EntryDefinition {...{entry}} />);
-    expect(wrapper.find(".sense").length).toEqual(rawEntry.sense.length);
+    expect(wrapper.find(".sense").length).toEqual(raw.sense.length);
   });
 
   xit("renders with entry definitions", () => {
     const wrapper = shallow(<EntryDefinition {...{entry}} />);
     wrapper.find(".def").forEach((definition) => {
-      expect(definition.text()).toEqual(rawEntry.sense[0].def);
+      expect(definition.text()).toEqual(raw.sense[0].def);
     });
   });
 });

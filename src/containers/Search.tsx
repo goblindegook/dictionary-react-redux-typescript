@@ -3,7 +3,7 @@ import * as ReactDOM from "react-dom";
 import { connect } from "react-redux";
 import { browserHistory } from "react-router";
 import { createSelector } from "reselect";
-import { IEntry } from "../api/Entry";
+import { IDictionaryEntry } from "../api/Entry";
 import { searchStart } from "../actions/search";
 import EntryList from "../components/EntryList";
 import LoadingIndicator from "../components/LoadingIndicator";
@@ -11,7 +11,7 @@ import Error from "../components/Error";
 import SearchInput from "../components/SearchInput";
 
 export interface ISearchProps extends React.Props<any> {
-  entries?: IEntry[];
+  entries?: IDictionaryEntry[];
   error?: Error;
   isLoading?: boolean;
   params?: {

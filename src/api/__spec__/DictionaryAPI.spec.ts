@@ -4,7 +4,7 @@ import * as path from "path";
 import { readFileSync } from "fs";
 
 import { search, define } from "../DictionaryAPI";
-import { IEntry } from "../Entry";
+import { IDictionaryEntry } from "../Entry";
 
 function readFixture(filename: string): any {
   return JSON.parse(readFileSync(path.resolve(__dirname, "fixtures", filename)).toString());
@@ -34,7 +34,7 @@ describe("Dictionary API", () => {
       try {
         await search("error");
 
-      } catch(error) {
+      } catch (error) {
         expect(error).toExist();
       }
     });
@@ -60,7 +60,7 @@ describe("Dictionary API", () => {
       results.forEach((result) => {
         expect(result.word).toEqual(word);
         expect(result.id).toEqual(mockResult.entry["@id"]);
-        expect(result.content).toEqual(mockResult.entry);
+        expect(result.raw).toEqual(mockResult.entry);
       });
     });
 
@@ -77,7 +77,7 @@ describe("Dictionary API", () => {
       results.forEach((result, index) => {
         expect(result.word).toEqual(word);
         expect(result.id).toEqual(mockResult.superEntry[index].entry["@id"]);
-        expect(result.content).toEqual(mockResult.superEntry[index].entry);
+        expect(result.raw).toEqual(mockResult.superEntry[index].entry);
       });
     });
 

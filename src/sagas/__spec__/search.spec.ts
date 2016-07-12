@@ -1,9 +1,8 @@
 import * as expect from "expect";
 import * as sinon from "sinon";
-import { put, call, take, fork } from 'redux-saga/effects'
-import { delay } from 'redux-saga'
+import { put, call, take, fork } from "redux-saga/effects";
+import { delay } from "redux-saga";
 import { readFileSync } from "fs";
-
 import { search } from "../../api/DictionaryAPI";
 import searchSaga, { searchTask } from "../search";
 
@@ -13,7 +12,7 @@ import {
   SEARCH_ERROR,
   searchStart,
   searchDone,
-  searchError
+  searchError,
 } from "../../actions/search";
 
 describe("Search saga", () => {

@@ -1,28 +1,37 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
-import { IEntry } from "../api/Entry";
+import { IDictionaryEntry } from "../api/Entry";
 
-export interface IEntryDefinitionProps extends React.Props<EntryDefinition> {
+export interface IDictionaryEntryDefinitionProps extends React.Props<EntryDefinition> {
   className?: string;
-  entry?: IEntry;
-  n?: number;
+  entry?: IDictionaryEntry;
   title?: string;
 }
 
-export default class EntryDefinition extends React.Component<IEntryDefinitionProps, {}> {
+export default class EntryDefinition extends React.Component<IDictionaryEntryDefinitionProps, {}> {
   /**
    * Render EntryDefinition component.
    *
    * @return {JSX.Element} Rendered EntryDefinition component.
    */
   public render() {
-    const entry = this.props.entry && this.props.entry.content;
-    const id: string = entry && entry["@id"];
-    const n: string & number = (entry && entry["@n"]) || this.props.n || "";
-    const orth: string = (entry && entry.form.orth) || this.props.title || "";
-    const pron: string = entry && entry.form.pron;
-    const senses: any[] = (entry && entry.sense) || [];
+    const entry = this.props.entry;
+
+    if (!entry) {
+      return (
+        <article className={this.props.className}>
+          <h2>
+            <span className="orth">{this.props.title}</span>
+          </h2>
+        </article>
+      );
+    }
+
+    const orth = entry.getOrthography();
+    const n = entry.getIndex();
+    const pron = entry.getPronunciation();
+    const id = entry.getId();
 
     return (
       <article className={this.props.className}>
@@ -32,7 +41,7 @@ export default class EntryDefinition extends React.Component<IEntryDefinitionPro
           {pron && <span className="pron">{pron}</span>}
         </h2>
         <ul>
-          {senses.map((sense, index) => (
+          {entry.getSenses().map((sense, index) => (
             <li className="sense" key={`${id}:${index}`}>
               {sense.gramGrp && <div className="gramGrp">{sense.gramGrp}</div>}
               {sense.usg && sense.usg["#text"] && <div className="usg">{sense.usg["#text"]}</div>}

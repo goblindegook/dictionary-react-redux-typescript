@@ -6,7 +6,7 @@ import {
   DEFINITION_ERROR,
   definitionStart,
   definitionDone,
-  definitionError
+  definitionError,
 } from "../definition";
 
 describe("Action", () => {
