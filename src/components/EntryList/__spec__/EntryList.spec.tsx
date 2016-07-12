@@ -4,8 +4,8 @@ import * as ReactDOM from "react-dom";
 import * as sinon from "sinon";
 import { shallow } from "enzyme";
 
-import EntryList from "../EntryList";
-import { createEntry } from "../../api/Entry";
+import EntryList from "..";
+import { createEntry } from "../../../api/Entry";
 
 describe("Component", () => {
   describe("<EntryList />", () => {

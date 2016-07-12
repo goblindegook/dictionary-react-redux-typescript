@@ -1,7 +1,9 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import EntryListItem from "./EntryListItem";
-import { IEntry } from "../api/Entry";
+import EntryListItem from "../EntryListItem";
+import { IEntry } from "../../api/Entry";
+
+// const style = require("./style.scss");
 
 export interface IEntryListProps extends React.Props<EntryList> {
   className?: string;
