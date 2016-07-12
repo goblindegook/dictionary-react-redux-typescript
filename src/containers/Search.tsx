@@ -43,7 +43,7 @@ class Search extends React.Component<ISearchProps, {}> {
   public render() {
     const prefixParam = this.props.params && this.props.params.prefix;
     const prefixProp = this.props.prefix;
-    const prefix = prefixProp || prefixParam || "";
+    const prefix = prefixProp !== null ? prefixProp : prefixParam;
 
     let content: React.ReactElement<any> = undefined;
 
