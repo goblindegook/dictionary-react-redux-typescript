@@ -12,7 +12,7 @@ const webpackHotMiddleware = require('webpack-hot-middleware')
 const React = require('react')
 const { renderToString } = require('react-dom/server')
 const { match, RouterContext } = require('react-router')
-
+const { Resolver } = require('react-resolver')
 const config = require('./webpack.config')
 const routes = require('./src/routes').default
 
@@ -40,8 +40,17 @@ app.use((req, res) => {
       res.redirect(301, redirectLocation.pathname + redirectLocation.search)
     } else if (renderProps) {
       const body = fs.readFileSync(path.join(__dirname, 'index.html')).toString()
-      const markup = renderToString(React.createElement(RouterContext, renderProps))
-      res.send(body.replace('<!-- APP -->', markup))
+      Resolver
+        .resolve(() => React.createElement(RouterContext, renderProps))
+        .then(({ Resolved, data }) => {
+          res.send(body
+            .replace('<!-- APP -->', renderToString(createElement(Resolved))
+            .replace('<!-- PAYLOAD -->', `<script>window.__REACT_RESOLVER_PAYLOAD__ = ${JSON.stringify(data)}</script>`)
+          ))
+        })
+        .catch((error) => {
+          res.status(500).send(error)
+        })
     } else {
       res.status(404).send('Not found')
     }

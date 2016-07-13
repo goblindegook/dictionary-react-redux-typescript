@@ -1,7 +1,9 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { connect } from "react-redux";
+import { resolve } from "react-resolver";
 import { createSelector } from "reselect";
+import { define } from "../api/DictionaryAPI";
 import { IEntry } from "../api/Entry";
 import { definitionStart } from "../actions/definition";
 import LoadingIndicator from "../components/LoadingIndicator";
@@ -18,6 +20,8 @@ interface IDefinitionProps extends React.Props<Definition> {
   };
 }
 
+@resolve("id", ({ location: { query }, params }) => params.id || query.id)
+@resolve("entries", ({ id }) => define(id))
 class Definition extends React.Component<IDefinitionProps, {}> {
   /**
    * [componentDidMount description]

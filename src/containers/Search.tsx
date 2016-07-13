@@ -2,7 +2,9 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { connect } from "react-redux";
 import { browserHistory } from "react-router";
+import { resolve } from "react-resolver";
 import { createSelector } from "reselect";
+import { search } from "../api/DictionaryAPI";
 import { IEntry } from "../api/Entry";
 import { searchStart } from "../actions/search";
 import EntryList from "../components/EntryList";
@@ -23,6 +25,8 @@ export interface ISearchProps extends React.Props<any> {
   onSubmit?: (prefix: string) => void;
 }
 
+@resolve("prefix", ({ location: { query }, params }) => params.prefix || query.prefix)
+@resolve("entries", ({ prefix }) => search(prefix))
 class Search extends React.Component<ISearchProps, {}> {
   /**
    * [componentDidMount description]
