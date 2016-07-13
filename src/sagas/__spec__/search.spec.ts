@@ -29,66 +29,54 @@ describe("Search saga", () => {
     expect(result.value).toEqual(fork(searchTask, undefined));
     expect(result.done).toBe(false);
   });
-});
 
-describe("Search saga worker", () => {
-  const conditions = ["success", "error"];
+  describe("worker", () => {
+    const conditions = ["success", "error"];
 
-  conditions.forEach((condition) => {
-    describe(`with ${condition}`, () => {
-      const prefix = "a";
-      const fetchIterator = searchTask(searchStart(prefix));
+    conditions.forEach((condition) => {
+      it(`executes with ${condition}`, () => {
+        const prefix = "a";
+        const fetchIterator = searchTask(searchStart(prefix));
+        let result;
 
-      it("has a 200ms delay", () => {
-        const result = fetchIterator.next();
+        result = fetchIterator.next();
         expect(result.value).toEqual(call(delay, 200));
         expect(result.done).toBe(false);
-      });
 
-      it("calls a remote API prefix search", () => {
-        const result = fetchIterator.next();
+        result = fetchIterator.next();
         expect(result.value).toEqual(call(search, prefix));
         expect(result.done).toBe(false);
-      });
 
-      if (condition === "success") {
-        it("yields a SEARCH_DONE action", () => {
-          const result = fetchIterator.next();
+        if (condition === "success") {
+          result = fetchIterator.next();
           expect(result.value).toEqual(put(searchDone()));
           expect(result.done).toBe(false);
-        });
-      }
+        }
 
-      if (condition === "error") {
-        it("yields a SEARCH_ERROR action", () => {
+        if (condition === "error") {
           const error = new Error();
-          const result = fetchIterator.throw(error);
+          result = fetchIterator.throw(error);
           expect(result.value).toEqual(put(searchError(error)));
           expect(result.done).toBe(false);
-        });
-      }
+        }
 
-      it("is done", () => {
-        const result = fetchIterator.next();
+        result = fetchIterator.next();
         expect(result.done).toBe(true);
       });
     });
-  });
 
-  const prefixes = ["", " "];
+    const prefixes = ["", " "];
 
-  prefixes.forEach((prefix) => {
-    describe(`with a "${prefix}" prefix`, () => {
-      const fetchIterator = searchTask(searchStart(prefix));
+    prefixes.forEach((prefix) => {
+      it(`executes with a "${prefix}" prefix`, () => {
+        const fetchIterator = searchTask(searchStart(prefix));
+        let result;
 
-      it("yields a SEARCH_DONE action", () => {
-        const result = fetchIterator.next();
+        result = fetchIterator.next();
         expect(result.value).toEqual(put(searchDone([])));
         expect(result.done).toBe(false);
-      });
 
-      it("is done", () => {
-        const result = fetchIterator.next();
+        result = fetchIterator.next();
         expect(result.done).toBe(true);
       });
     });
