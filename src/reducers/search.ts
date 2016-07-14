@@ -16,6 +16,7 @@ const initialState: ISearchState = {
   prefix: "",
 };
 
+/* tslint:disable:object-literal-sort-keys */
 export const searchReducer = handleActions({
 
   SEARCH_START: (state: ISearchState, action: Action<any>): ISearchState =>
@@ -38,7 +39,7 @@ export const searchReducer = handleActions({
       error: action.payload,
       isLoading: false,
     } as ISearchState),
-    
+
 }, initialState);
 
 export default searchReducer;

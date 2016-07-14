@@ -14,6 +14,7 @@ const initialState: IDefinitionState = {
   isLoading: false,
 };
 
+/* tslint:disable:object-literal-sort-keys */
 export const definitionReducer = handleActions({
 
   DEFINITION_START: (state: IDefinitionState, action: Action<any>): IDefinitionState =>

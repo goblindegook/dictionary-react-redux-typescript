@@ -34,13 +34,13 @@ function createSense(sense: IRawSense): ISense {
  */
 export function createEntry(word: string, rawId: string = word, entry?: IRawEntry): IEntry {
   return {
-    raw: entry,
     etymology: entry && entry.etym && entry.etym["#text"],
-    index: entry && entry["@n"] && parseInt(entry["@n"], 10),
-    spelling: entry && entry.form && entry.form.orth || word,
-    pronunciation: entry && entry.form && entry.form.pron,
-    senses: entry && entry.sense.map(createSense) || [],
     id: entry && entry["@id"] || rawId,
+    index: entry && entry["@n"] && parseInt(entry["@n"], 10),
+    pronunciation: entry && entry.form && entry.form.pron,
+    raw: entry,
+    senses: entry && entry.sense.map(createSense) || [],
+    spelling: entry && entry.form && entry.form.orth || word,
     word,
   };
 }

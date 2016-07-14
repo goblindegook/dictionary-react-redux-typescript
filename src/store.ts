@@ -1,5 +1,5 @@
 import { createStore, applyMiddleware, compose } from "redux";
-import createSagaMiddleware from "redux-saga";
+import createSagaMiddleware, { END } from "redux-saga";
 import rootReducer from "./reducers";
 import sagas from "./sagas";
 
@@ -21,9 +21,12 @@ export default function configureStore(initialState: any = {}) {
       applyMiddleware(...middlewares),
       devtools()
     )
-  );
+  ) as any;
 
   sagaMiddleware.run(sagas);
+
+  store.runSaga = sagaMiddleware.run;
+  store.close = () => store.dispatch(END);
 
   // Hot reload reducers:
   // https://stackoverflow.com/questions/34243684/make-redux-reducers-and-other-non-components-hot-loadable

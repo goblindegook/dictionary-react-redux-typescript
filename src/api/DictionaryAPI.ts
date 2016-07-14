@@ -19,7 +19,7 @@ export interface IRawEntry {
   etym?: {
     "@orig": string;
     "#text": string;
-  },
+  };
   form: {
     orth: string;
     pron?: string;

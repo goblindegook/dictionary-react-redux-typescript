@@ -2,6 +2,7 @@
   "name": "dictionary-react-redux-typescript",
   "version": "1.0.0",
   "description": "",
+  "repository": "git@github.com:goblindegook/dictionary-react-redux-typescript.git",
   "main": "index.js",
   "scripts": {
     "install": "typings install",
@@ -39,6 +40,7 @@
     "redux-mock-store": "^1.1.2",
     "sass-loader": "^3.2.3",
     "sinon": "^1.17.4",
+    "standard": "^7.1.2",
     "style-loader": "^0.13.1",
     "ts-loader": "^0.8.2",
     "ts-node": "^0.9.1",
@@ -62,7 +64,6 @@
     "react-addons-test-utils": "^0.14.8",
     "react-dom": "^0.14.8",
     "react-redux": "^4.4.5",
-    "react-resolver": "^3.0.2",
     "react-router": "^2.4.1",
     "redux": "^3.5.2",
     "redux-actions": "^0.10.0",

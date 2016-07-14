@@ -1,5 +1,5 @@
-import definitionSaga from './definition';
-import searchSaga from './search';
+import definitionSaga from "./definition";
+import searchSaga from "./search";
 
 export default function* rootSaga(): IterableIterator<any> {
   yield [

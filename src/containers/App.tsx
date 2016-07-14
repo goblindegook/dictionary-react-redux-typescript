@@ -2,7 +2,6 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
-
 import configureStore from "../store";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
@@ -11,7 +10,8 @@ interface IAppProps extends React.Props<App> {
   children?: React.ReactNode;
 }
 
-const store = configureStore() as any;
+const initialState = global['window'] && global['window']['__REDUX_STATE__'];
+const store = configureStore(initialState) as any;
 
 export default class App extends React.Component<IAppProps, {}> {
   /**
@@ -24,7 +24,7 @@ export default class App extends React.Component<IAppProps, {}> {
       <Provider store={store}>
         <div className="dictionary-app">
           <Header />
-          {this.props.children}
+            {this.props.children}
           <Footer />
         </div>
       </Provider>

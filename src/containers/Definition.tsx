@@ -1,11 +1,10 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { connect } from "react-redux";
-import { resolve } from "react-resolver";
-import { createSelector } from "reselect";
+import { definitionStart } from "../actions/definition";
+import { definitionTask } from "../sagas/definition";
 import { define } from "../api/DictionaryAPI";
 import { IEntry } from "../api/Entry";
-import { definitionStart } from "../actions/definition";
 import LoadingIndicator from "../components/LoadingIndicator";
 import Error from "../components/Error";
 import EntryDefinition from "../components/EntryDefinition";
@@ -20,13 +19,18 @@ interface IDefinitionProps extends React.Props<Definition> {
   };
 }
 
-@resolve("id", ({ location: { query }, params }) => params.id || query.id)
-@resolve("entries", ({ id }) => define(id))
 class Definition extends React.Component<IDefinitionProps, {}> {
+
+  static preload({ id }) {
+    return [
+      [definitionTask, definitionStart(id)],
+    ];
+  }
+
   /**
    * [componentDidMount description]
    */
-  public componentDidMount() {
+  public componentWillMount() {
     const id = this.props.params && this.props.params.id;
 
     if (id) {

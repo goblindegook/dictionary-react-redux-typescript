@@ -2,14 +2,13 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { connect } from "react-redux";
 import { browserHistory } from "react-router";
-import { resolve } from "react-resolver";
-import { createSelector } from "reselect";
-import { search } from "../api/DictionaryAPI";
-import { IEntry } from "../api/Entry";
 import { searchStart } from "../actions/search";
+import { searchTask } from "../sagas/search";
+import { IEntry } from "../api/Entry";
+import { search } from "../api/DictionaryAPI";
 import EntryList from "../components/EntryList";
-import LoadingIndicator from "../components/LoadingIndicator";
 import Error from "../components/Error";
+import LoadingIndicator from "../components/LoadingIndicator";
 import SearchInput from "../components/SearchInput";
 
 export interface ISearchProps extends React.Props<any> {
@@ -20,18 +19,23 @@ export interface ISearchProps extends React.Props<any> {
     prefix?: string;
   };
   prefix?: string;
-  onChange?: (event: React.FormEvent) => void;
-  onLoad?: (prefix: string) => void;
-  onSubmit?: (prefix: string) => void;
+  onChange: (event: React.FormEvent) => void;
+  onLoad: (prefix: string) => void;
+  onSubmit: (prefix: string) => void;
 }
 
-@resolve("prefix", ({ location: { query }, params }) => params.prefix || query.prefix)
-@resolve("entries", ({ prefix }) => search(prefix))
 class Search extends React.Component<ISearchProps, {}> {
+
+  static preload({ prefix }) {
+    return [
+      [searchTask, searchStart(prefix)],
+    ];
+  }
+
   /**
-   * [componentDidMount description]
+   * If set, fetch search results from `prefix` parameter on mount.
    */
-  public componentDidMount() {
+  public componentWillMount() {
     const prefix = this.props.params && this.props.params.prefix;
 
     if (prefix) {
