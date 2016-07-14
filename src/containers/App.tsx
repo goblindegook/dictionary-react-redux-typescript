@@ -1,17 +1,11 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { createStore } from "redux";
-import { Provider } from "react-redux";
-import configureStore from "../store";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 
 interface IAppProps extends React.Props<App> {
   children?: React.ReactNode;
 }
-
-const preloadedState = global['window'] && global['window']['__PRELOADED__'];
-const store = configureStore(preloadedState);
 
 export default class App extends React.Component<IAppProps, {}> {
   /**
@@ -21,13 +15,11 @@ export default class App extends React.Component<IAppProps, {}> {
    */
   public render() {
     return (
-      <Provider store={store}>
-        <div className="dictionary-app">
-          <Header />
-            {this.props.children}
-          <Footer />
-        </div>
-      </Provider>
+      <div className="dictionary-app">
+        <Header />
+          {this.props.children}
+        <Footer />
+      </div>
     );
   }
 }

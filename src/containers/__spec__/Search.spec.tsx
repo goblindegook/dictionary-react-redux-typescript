@@ -6,6 +6,7 @@ import * as redux from "redux";
 import { mount, shallow } from "enzyme";
 import createMockStore from '../../__spec__/helpers/createMockStore';
 import { searchStart } from "../../actions/search";
+import { searchTask } from "../../sagas/search";
 import { createEntry } from "../../api/Entry";
 import Search from "../Search";
 
@@ -36,6 +37,16 @@ describe("Container", () => {
           <Search />
         </Provider>
       );
+    });
+
+    it("preloads search results", () => {
+      const prefix = "test";
+      const preloaders = (Search as any).preload(store.dispatch, { prefix });
+
+      preloaders.forEach(preloader => {
+        expect(preloader[0]).toBe(searchTask);
+        expect(preloader[1]).toEqual(searchStart(prefix));
+      });
     });
 
     it("renders", () => {

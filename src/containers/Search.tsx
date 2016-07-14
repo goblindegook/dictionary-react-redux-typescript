@@ -26,7 +26,7 @@ export interface ISearchProps extends React.Props<any> {
 
 class Search extends React.Component<ISearchProps, {}> {
 
-  static preload({ prefix }) {
+  public static preload(dispatch, { prefix }) {
     return [
       [searchTask, searchStart(prefix)],
     ];

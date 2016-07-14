@@ -1,7 +1,6 @@
 import * as expect from "expect";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { Provider } from "react-redux";
 import { shallow } from "enzyme";
 
 import App from "../App";
@@ -12,10 +11,6 @@ describe("Container", () => {
 
     before(() => {
       wrapper = shallow(<App />);
-    });
-
-    it("is a Redux store provider", () => {
-      expect(wrapper.is(Provider)).toBe(true);
     });
 
     it("renders a <div />", () => {

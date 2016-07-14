@@ -13,7 +13,7 @@ const serialize = require('serialize-javascript')
 const React = require('react')
 const { renderToString } = require('react-dom/server')
 const { Provider } = require('react-redux')
-const { match, RouterContext } = require('react-router')
+const { browserHistory, match, RouterContext } = require('react-router')
 const { fork, join } = require('redux-saga/effects')
 const config = require('./webpack.config')
 const configureStore = require('./src/store').default
@@ -41,7 +41,13 @@ app.use('/api', proxy({
 }))
 
 app.use((req, res) => {
-  match({routes, location: req.url}, (error, redirectLocation, renderProps) => {
+  const router = {
+    history: browserHistory,
+    location: req.url,
+    routes
+  }
+
+  match(router, (error, redirectLocation, renderProps) => {
     if (error) {
       res.status(500).send(error.message)
     } else if (redirectLocation) {
@@ -49,15 +55,20 @@ app.use((req, res) => {
     } else if (renderProps) {
       const { components, params } = renderProps
       const store = configureStore({})
+
       const preloaders = components
-        .filter(component => component && component.preload)
-        .map(component => component.preload(params))
+        .filter(component => component.preload)
+        .map(component => component.preload(store.dispatch, params))
         .reduce((result, preloader) => result.concat(preloader), [])
+
+      console.log(preloaders)
 
       store.runSaga(waitAll(preloaders)).done
         .then(() => {
-          const state = serialize(store.getState())
+          const state = store.getState()
           const body = fs.readFileSync(path.join(__dirname, 'index.html')).toString()
+
+          console.log(state.search.entries)
 
           const markup = renderToString(
             React.createElement(Provider, { store },
@@ -67,7 +78,7 @@ app.use((req, res) => {
 
           res.send(body
             .replace('<!-- APP -->', markup)
-            .replace('<!-- STATE -->', `<script>window.__PRELOADED__ = ${state}</script>`)
+            .replace('<!-- STATE -->', `<script>window.__PRELOADED__ = ${serialize(state)}</script>`)
           )
         })
         .catch((error) => {

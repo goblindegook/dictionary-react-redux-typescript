@@ -6,6 +6,7 @@ import { mount, shallow } from "enzyme";
 import createMockStore from "../../__spec__/helpers/createMockStore";
 import { definitionStart } from "../../actions/definition";
 import { createEntry } from "../../api/Entry";
+import { definitionTask } from "../../sagas/definition";
 import Definition from "../Definition";
 
 describe("Container", () => {
@@ -30,6 +31,16 @@ describe("Container", () => {
           <Definition />
         </Provider>
       );
+    });
+
+    it("preloads definitions", () => {
+      const id = "test";
+      const preloaders = (Definition as any).preload(store.dispatch, { id });
+
+      preloaders.forEach(preloader => {
+        expect(preloader[0]).toBe(definitionTask);
+        expect(preloader[1]).toEqual(definitionStart(id));
+      });
     });
 
     it("renders", () => {

@@ -12,6 +12,7 @@ import EntryDefinition from "../components/EntryDefinition";
 interface IDefinitionProps extends React.Props<Definition> {
   entries?: IEntry[];
   error?: Error;
+  id?: string;
   isLoading?: boolean;
   onLoad?: (id: string) => void;
   params?: {
@@ -20,15 +21,21 @@ interface IDefinitionProps extends React.Props<Definition> {
 }
 
 class Definition extends React.Component<IDefinitionProps, {}> {
-
-  static preload({ id }) {
+  /**
+   * Definition data preloaders.
+   *
+   * @param  {Function} dispatch Redux action dispatcher.
+   * @param  {string}   {id}     Entry ID.
+   * @return {Array}             Saga workers and action objects.
+   */
+  public static preload(dispatch, { id }) {
     return [
       [definitionTask, definitionStart(id)],
     ];
   }
 
   /**
-   * [componentDidMount description]
+   * Triggers onLoad property on
    */
   public componentWillMount() {
     const id = this.props.params && this.props.params.id;
