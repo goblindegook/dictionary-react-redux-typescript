@@ -10,8 +10,8 @@ interface IAppProps extends React.Props<App> {
   children?: React.ReactNode;
 }
 
-const initialState = global['window'] && global['window']['__REDUX_STATE__'];
-const store = configureStore(initialState) as any;
+const preloadedState = global['window'] && global['window']['__PRELOADED__'];
+const store = configureStore(preloadedState);
 
 export default class App extends React.Component<IAppProps, {}> {
   /**

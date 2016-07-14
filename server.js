@@ -9,9 +9,10 @@ const proxy = require('http-proxy-middleware')
 const webpack = require('webpack')
 const webpackDevMiddleware = require('webpack-dev-middleware')
 const webpackHotMiddleware = require('webpack-hot-middleware')
+const serialize = require('serialize-javascript')
 const React = require('react')
 const { renderToString } = require('react-dom/server')
-const { Provider } = require('react-redux');
+const { Provider } = require('react-redux')
 const { match, RouterContext } = require('react-router')
 const { fork, join } = require('redux-saga/effects')
 const config = require('./webpack.config')
@@ -46,9 +47,8 @@ app.use((req, res) => {
     } else if (redirectLocation) {
       res.redirect(301, redirectLocation.pathname + redirectLocation.search)
     } else if (renderProps) {
-      const store = configureStore()
       const { components, params } = renderProps
-
+      const store = configureStore({})
       const preloaders = components
         .filter(component => component && component.preload)
         .map(component => component.preload(params))
@@ -56,8 +56,8 @@ app.use((req, res) => {
 
       store.runSaga(waitAll(preloaders)).done
         .then(() => {
+          const state = serialize(store.getState())
           const body = fs.readFileSync(path.join(__dirname, 'index.html')).toString()
-          const state = store.getState()
 
           const markup = renderToString(
             React.createElement(Provider, { store },
@@ -67,7 +67,7 @@ app.use((req, res) => {
 
           res.send(body
             .replace('<!-- APP -->', markup)
-            .replace('<!-- STATE -->', `<script>window.__REDUX_STATE__ = ${JSON.stringify(state)}</script>`)
+            .replace('<!-- STATE -->', `<script>window.__PRELOADED__ = ${state}</script>`)
           )
         })
         .catch((error) => {
