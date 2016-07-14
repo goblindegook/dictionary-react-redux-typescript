@@ -1,9 +1,9 @@
 import { takeLatest, delay } from "redux-saga";
-import { put, call } from "redux-saga/effects";
+import { call, CallEffect, put, PutEffect } from "redux-saga/effects";
 import { search } from "../api/DictionaryAPI";
 import { SEARCH_START, searchDone, searchError } from "../actions/search";
 
-export function* searchTask(action): IterableIterator<any> {
+export function* searchTask(action): IterableIterator<CallEffect | PutEffect<any>> {
   const prefix: string = action.payload;
 
   try {

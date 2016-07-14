@@ -15,17 +15,23 @@ export interface ISearchProps extends React.Props<any> {
   entries?: IEntry[];
   error?: Error;
   isLoading?: boolean;
+  onChange: (event: React.FormEvent) => void;
+  onLoad: (prefix: string) => void;
+  onSubmit: (prefix: string) => void;
   params?: {
     prefix?: string;
   };
   prefix?: string;
-  onChange: (event: React.FormEvent) => void;
-  onLoad: (prefix: string) => void;
-  onSubmit: (prefix: string) => void;
 }
 
 class Search extends React.Component<ISearchProps, {}> {
-
+  /**
+   * Search results data preloaders.
+   *
+   * @param  {Function} dispatch Redux action dispatcher.
+   * @param  {string}   {prefix} Search term prefix.
+   * @return {Array}             Saga workers and action objects.
+   */
   public static preload(dispatch, { prefix }) {
     return [
       [searchTask, searchStart(prefix)],

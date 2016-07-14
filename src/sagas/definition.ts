@@ -1,9 +1,9 @@
 import { takeEvery } from "redux-saga";
-import { put, call } from "redux-saga/effects";
+import { call, CallEffect, put, PutEffect } from "redux-saga/effects";
 import { define } from "../api/DictionaryAPI";
 import { DEFINITION_START, definitionDone, definitionError } from "../actions/definition";
 
-export function* definitionTask(action): IterableIterator<any> {
+export function* definitionTask(action): IterableIterator<CallEffect | PutEffect<any>> {
   const id: string = action.payload;
 
   try {

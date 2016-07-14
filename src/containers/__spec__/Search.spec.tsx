@@ -134,7 +134,7 @@ describe("Container", () => {
     it("dispatches a SEARCH_START on query", () => {
       const prefix = "test";
 
-      wrapper.find('input').simulate("change", {
+      wrapper.find("input").simulate("change", {
         target: {
           value: prefix,
         },

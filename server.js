@@ -54,27 +54,20 @@ app.use((req, res) => {
       res.redirect(301, redirectLocation.pathname + redirectLocation.search)
     } else if (renderProps) {
       const { components, params } = renderProps
-      const store = configureStore({})
+      const store = configureStore()
 
       const preloaders = components
         .filter(component => component.preload)
         .map(component => component.preload(store.dispatch, params))
         .reduce((result, preloader) => result.concat(preloader), [])
 
-      console.log(preloaders)
-
       store.runSaga(waitAll(preloaders)).done
         .then(() => {
           const state = store.getState()
           const body = fs.readFileSync(path.join(__dirname, 'index.html')).toString()
-
-          console.log(state.search.entries)
-
           const markup = renderToString(
             React.createElement(Provider, { store },
-              React.createElement(RouterContext, renderProps)
-            )
-          )
+              React.createElement(RouterContext, renderProps)))
 
           res.send(body
             .replace('<!-- APP -->', markup)
