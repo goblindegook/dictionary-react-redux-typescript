@@ -26,6 +26,9 @@ describe("Container", () => {
           ],
           error: null,
           isLoading: false,
+          params: {
+            prefix: "test",
+          },
           prefix: "test",
         },
       };
@@ -142,7 +145,7 @@ describe("Container", () => {
 
       const actions = store.getActions();
 
-      expect(actions[0]).toEqual(searchStart(prefix));
+      expect(actions[1]).toEqual(searchStart(prefix));
     });
 
     it("sets the SearchInput text to the prefix parameter if property null", () => {
@@ -162,26 +165,13 @@ describe("Container", () => {
       expect(wrapper.find("SearchInput").props().text).toBe(prefix);
     });
 
-    it("sets the SearchInput text to the prefix property if property an empty string", () => {
+    it("dispatches a SEARCH_START on mount with prefix parameter", () => {
       const prefix = "parâmetro";
       const params = { prefix };
 
-      state.search.prefix = "";
+      state.search.prefix = null;
 
       store = createMockStore(state);
-
-      wrapper = mount(
-        <Provider store={store}>
-          <Search {...{params}} />
-        </Provider>
-      );
-
-      expect(wrapper.find("SearchInput").props().text).toBe("");
-    });
-
-    it("dispatches a SEARCH_START on mount from id parameter", () => {
-      const prefix = "parâmetro";
-      const params = { prefix };
 
       wrapper = mount(
         <Provider store={store}>

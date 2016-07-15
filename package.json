@@ -65,6 +65,7 @@
     "react-dom": "^0.14.8",
     "react-redux": "^4.4.5",
     "react-router": "^2.4.1",
+    "react-router-redux": "^4.0.5",
     "redux": "^3.5.2",
     "redux-actions": "^0.10.0",
     "redux-saga": "^0.11.0",

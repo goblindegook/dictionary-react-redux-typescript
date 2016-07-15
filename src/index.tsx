@@ -2,6 +2,7 @@ import * as React from "react";
 import { Router, browserHistory } from "react-router";
 import { render } from "react-dom";
 import { Provider } from "react-redux";
+import { syncHistoryWithStore } from "react-router-redux";
 import configureStore from "./store";
 import routes from "./routes";
 
@@ -14,10 +15,11 @@ if (module["hot"]) {
 /* tslint:enable:no-string-literal */
 
 const store = configureStore(preloadedState);
+const history = syncHistoryWithStore(browserHistory, store);
 
 render(
   <Provider store={store}>
-    <Router history={browserHistory} routes={routes} />
+    <Router history={history} routes={routes} />
   </Provider>,
   document.getElementById("root")
 );
