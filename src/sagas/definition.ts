@@ -10,8 +10,8 @@ export function* definitionTask(action): IterableIterator<CallEffect | PutEffect
     const entries = yield call(define, id);
     yield put(definitionDone(entries));
   } catch (error) {
-      yield put(definitionError(error));
-   }
+    yield put(definitionError(error));
+  }
 }
 
 export default function* definitionSaga() {

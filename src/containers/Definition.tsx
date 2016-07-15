@@ -51,8 +51,6 @@ class Definition extends React.Component<IDefinitionProps, {}> {
    * @return {JSX.Element} Rendered search container.
    */
   public render() {
-    let content: React.ReactElement<any> = undefined;
-
     if (this.props.isLoading) {
       return (<LoadingIndicator />);
     }

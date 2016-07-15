@@ -7,8 +7,7 @@ import Search from "./containers/Search";
 export default (
   <Route path="/" component={App} >
     <IndexRoute component={Search}/>
-    <Route path="search" component={Search} />
-    <Route path="search/:prefix" component={Search} />
+    <Route path="search(/:prefix)" component={Search} />
     <Route path="define/:id" component={Definition} />
   </Route>
 );

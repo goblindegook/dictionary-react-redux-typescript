@@ -9,7 +9,7 @@ export function* searchTask(action): IterableIterator<CallEffect | PutEffect<any
   try {
     let results = [];
 
-    if (prefix.trim().length) {
+    if (prefix && prefix.trim().length) {
       yield call(delay, 200);
       results = yield call(search, prefix);
     }

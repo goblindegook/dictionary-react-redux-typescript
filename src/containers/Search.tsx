@@ -55,23 +55,21 @@ class Search extends React.Component<ISearchProps, {}> {
    * @return {JSX.Element} Rendered search container.
    */
   public render() {
-    const prefixParam = this.props.params && this.props.params.prefix;
     const prefixProp = this.props.prefix;
+    const prefixParam = this.props.params && this.props.params.prefix;
     const prefix = prefixProp !== null ? prefixProp : prefixParam;
 
     let content: React.ReactElement<any> = undefined;
 
-    if (prefix.trim().length > 0) {
+    if (prefix) {
       if (this.props.isLoading) {
         content = <LoadingIndicator />;
       } else if (this.props.error) {
         content = <Error message={this.props.error["message"]} />;
-      } else if (this.props.entries.length === 0) {
+      } else if (!this.props.entries.length) {
         content = <Error message="Nothing found" />;
       } else {
-        content = (
-          <EntryList entries={this.props.entries} />
-        );
+        content = <EntryList entries={this.props.entries} />;
       }
     }
 

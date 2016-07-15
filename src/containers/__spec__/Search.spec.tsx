@@ -61,9 +61,9 @@ describe("Container", () => {
       expect(wrapper.find("EntryListItem").length).toBe(state.search.entries.length);
     });
 
-    ["test", ""].forEach((prefix) => {
-      const contextDescription = prefix.length ? "when searching" : "when not searching";
-      const doesOrDoesNotDisplay = prefix.length ? "displays" : "does not display";
+    ["test", "0", "", null].forEach((prefix) => {
+      const contextDescription = prefix != null ? `when searching "${prefix}"` : "when not searching";
+      const doesOrDoesNotDisplay = prefix ? "displays" : "does not display";
 
       context(contextDescription, () => {
         it(doesOrDoesNotDisplay + " an <EntryList /> component", () => {
@@ -77,7 +77,7 @@ describe("Container", () => {
             </Provider>
           );
 
-          expect(wrapper.find("EntryList").length).toBe(prefix.length ? 1 : 0);
+          expect(wrapper.find("EntryList").length).toBe(prefix ? 1 : 0);
         });
 
         it(doesOrDoesNotDisplay + " a loading indicator", () => {
@@ -92,7 +92,7 @@ describe("Container", () => {
             </Provider>
           );
 
-          expect(wrapper.find("LoadingIndicator").length).toBe(prefix.length ? 1 : 0);
+          expect(wrapper.find("LoadingIndicator").length).toBe(prefix ? 1 : 0);
         });
 
         it(doesOrDoesNotDisplay + " an error on no results", () => {
@@ -108,7 +108,7 @@ describe("Container", () => {
             </Provider>
           );
 
-          expect(wrapper.find("Error").length).toBe(prefix.length ? 1 : 0);
+          expect(wrapper.find("Error").length).toBe(prefix ? 1 : 0);
         });
       });
     });
