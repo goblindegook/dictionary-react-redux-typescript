@@ -13,7 +13,7 @@ import SearchInput from "../components/SearchInput";
 
 export interface ISearchProps extends React.Props<any> {
   entries?: IEntry[];
-  error?: Error;
+  error?: Error & { message: string };
   isLoading?: boolean;
   onChange: (event: React.FormEvent) => void;
   onLoad: (prefix: string) => void;
@@ -60,7 +60,7 @@ class Search extends React.Component<ISearchProps, {}> {
       if (this.props.isLoading) {
         content = <LoadingIndicator />;
       } else if (this.props.error) {
-        content = <Error message={this.props.error["message"]} />;
+        content = <Error message={this.props.error.message} />;
       } else if (!this.props.entries.length) {
         content = <Error message="Nothing found" />;
       } else {

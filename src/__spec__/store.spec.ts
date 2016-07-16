@@ -20,7 +20,7 @@ describe("Store", () => {
         routing: {
           locationBeforeTransitions: [ null ],
         },
-        search: "search"
+        search: "search",
       };
 
       store = configureStore(state);

@@ -11,7 +11,7 @@ import EntryDefinition from "../components/EntryDefinition";
 
 interface IDefinitionProps extends React.Props<Definition> {
   entries?: IEntry[];
-  error?: Error;
+  error?: Error & { message: string };
   id?: string;
   isLoading?: boolean;
   onLoad?: (id: string) => void;
@@ -54,7 +54,7 @@ class Definition extends React.Component<IDefinitionProps, {}> {
     }
 
     if (this.props.error) {
-      return (<Error message={this.props.error["message"]} />);
+      return (<Error message={this.props.error.message} />);
     }
 
     if (!this.props.entries) {

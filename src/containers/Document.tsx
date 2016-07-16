@@ -7,11 +7,7 @@ import * as Helmet from "react-helmet";
 import serialize = require("serialize-javascript");
 
 interface IDocumentProps extends React.Props<Document> {
-  app: React.ReactElement<any>;
-  assets?: {
-    [key: string]: any;
-  };
-  server?: Boolean;
+  app?: React.ReactElement<any>;
   store: any;
 }
 
@@ -22,7 +18,7 @@ export default class Document extends React.Component<IDocumentProps, {}> {
    * @return {JSX.Element} Rendered application container.
    */
   public render() {
-    const app = renderToString(this.props.app);
+    const app = this.props.app ? renderToString(this.props.app) : "";
     const state = this.props.store.getState();
 
     return (
@@ -38,8 +34,8 @@ export default class Document extends React.Component<IDocumentProps, {}> {
             dangerouslySetInnerHTML={{__html: app}}
           />
           <script dangerouslySetInnerHTML={{
-            __html: `window.__PRELOADED__=${serialize(state)};`
-          }} />
+            __html: `window.__PRELOADED__=${serialize(state)};`,
+          }} id="preloaded" />
           <script src="/static/bundle.js"></script>
         </body>
       </html>

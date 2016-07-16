@@ -2,8 +2,6 @@
 
 require('ts-node/register')
 
-const fs = require('fs')
-const path = require('path')
 const Express = require('express')
 const proxy = require('http-proxy-middleware')
 const webpack = require('webpack')
