@@ -8,13 +8,15 @@
   "devDependencies": {
     "enzyme": "registry:npm/enzyme#2.2.0+20160322031343",
     "nock": "registry:npm/nock#0.7.0+20160712184133",
-    "sinon": "registry:npm/sinon#1.16.0+20160427193336"
+    "sinon": "registry:npm/sinon#1.16.0+20160427193336",
+    "webpack": "registry:npm/webpack#1.12.9+20160418172948"
   },
   "globalDependencies": {
     "isomorphic-fetch": "registry:dt/isomorphic-fetch#0.0.0+20160524142046",
     "node": "registry:env/node#6.0.0+20160622202520",
     "react": "registry:dt/react#0.14.0+20160630100702",
     "react-dom": "registry:dt/react-dom#0.14.0+20160412154040",
+    "react-helmet": "registry:dt/react-helmet#0.0.0+20160619032521",
     "react-redux": "registry:dt/react-redux#4.4.0+20160703120921",
     "redux": "registry:dt/redux#3.5.2+20160703092728",
     "redux-actions": "registry:dt/redux-actions#0.8.0+20160521154116"

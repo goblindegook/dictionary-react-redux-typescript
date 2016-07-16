@@ -37,11 +37,9 @@ class Definition extends React.Component<IDefinitionProps, {}> {
   /**
    * Triggers onLoad property on
    */
-  public componentWillMount() {
-    const id = this.props.params && this.props.params.id;
-
-    if (id) {
-      this.props.onLoad(id);
+  public componentDidMount() {
+    if (this.props.id) {
+      this.props.onLoad(this.props.id);
     }
   }
 
@@ -74,9 +72,10 @@ class Definition extends React.Component<IDefinitionProps, {}> {
 }
 
 export default connect(
-  (state) => ({
+  (state, props: any) => ({
     entries: state.definition.entries,
     error: state.definition.error,
+    id: state.definition.id || props.params && props.params.id,
     isLoading: state.definition.isLoading,
   }),
   (dispatch) => ({

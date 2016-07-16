@@ -9,116 +9,114 @@ import { createEntry } from "../../api/Entry";
 import { definitionTask } from "../../sagas/definition";
 import Definition from "../Definition";
 
-describe("Container", () => {
-  describe("<Definition />", () => {
-    let state;
-    let store;
-    let wrapper;
+describe("<Definition />", () => {
+  let state;
+  let store;
+  let wrapper;
 
-    before(() => {
-      state = {
-        definition: {
-          entries: [],
-          error: null,
-          isLoading: false,
-        },
-      };
+  before(() => {
+    state = {
+      definition: {
+        entries: [],
+        error: null,
+        isLoading: false,
+      },
+    };
 
-      store = createMockStore(state);
+    store = createMockStore(state);
 
-      wrapper = mount(
-        <Provider store={store}>
-          <Definition />
-        </Provider>
-      );
+    wrapper = mount(
+      <Provider store={store}>
+        <Definition />
+      </Provider>
+    );
+  });
+
+  it("preloads definitions", () => {
+    const id = "test";
+    const preloaders = (Definition as any).preload(store.dispatch, { id });
+
+    preloaders.forEach(preloader => {
+      expect(preloader[0]).toBe(definitionTask);
+      expect(preloader[1]).toEqual(definitionStart(id));
     });
+  });
 
-    it("preloads definitions", () => {
-      const id = "test";
-      const preloaders = (Definition as any).preload(store.dispatch, { id });
+  it("renders", () => {
+    expect(wrapper.find(Definition).length).toBe(1);
+  });
 
-      preloaders.forEach(preloader => {
-        expect(preloader[0]).toBe(definitionTask);
-        expect(preloader[1]).toEqual(definitionStart(id));
-      });
-    });
+  it("contains an <EntryDefinition /> component per entry", () => {
+    state.definition.entries = [
+      createEntry("a", "a:1", { "@n": "1", "@id": "a:1", form: { orth: "A" }, sense: [] }),
+      createEntry("a", "a:2", { "@n": "2", "@id": "a:2", form: { orth: "A" }, sense: [] }),
+      createEntry("a", "a:3", { "@n": "3", "@id": "a:3", form: { orth: "A" }, sense: [] }),
+    ];
+    store = createMockStore(state);
 
-    it("renders", () => {
-      expect(wrapper.find(Definition).length).toBe(1);
-    });
+    wrapper = mount(
+      <Provider store={store}>
+        <Definition />
+      </Provider>
+    );
 
-    it("contains an <EntryDefinition /> component per entry", () => {
-      state.definition.entries = [
-        createEntry("a", "a:1", { "@n": "1", "@id": "a:1", form: { orth: "A" }, sense: [] }),
-        createEntry("a", "a:2", { "@n": "2", "@id": "a:2", form: { orth: "A" }, sense: [] }),
-        createEntry("a", "a:3", { "@n": "3", "@id": "a:3", form: { orth: "A" }, sense: [] }),
-      ];
-      store = createMockStore(state);
+    expect(wrapper.find("EntryDefinition").length).toBe(state.definition.entries.length);
+    expect(wrapper.find("Error").length).toBe(0);
+    expect(wrapper.find("LoadingIndicator").length).toBe(0);
+  });
 
-      wrapper = mount(
-        <Provider store={store}>
-          <Definition />
-        </Provider>
-      );
+  it("does not dispatch actions on mount without an id parameter", () => {
+    const actions = store.getActions();
+    expect(actions.length).toBe(0);
+  });
 
-      expect(wrapper.find("EntryDefinition").length).toBe(state.definition.entries.length);
-      expect(wrapper.find("Error").length).toBe(0);
-      expect(wrapper.find("LoadingIndicator").length).toBe(0);
-    });
+  it("dispatches a DEFINE_START on mount from id parameter", () => {
+    const id = "parâmetro:1";
+    const params = { id };
 
-    it("does not dispatch actions on mount without an id parameter", () => {
-      const actions = store.getActions();
-      expect(actions.length).toBe(0);
-    });
+    wrapper = mount(
+      <Provider store={store}>
+        <Definition {...{params}} />
+      </Provider>
+    );
 
-    it("dispatches a DEFINE_START on mount from id parameter", () => {
-      const id = "parâmetro:1";
-      const params = { id };
+    const actions = store.getActions();
+    expect(actions[0]).toEqual(definitionStart(id));
+  });
 
-      wrapper = mount(
-        <Provider store={store}>
-          <Definition {...{params}} />
-        </Provider>
-      );
+  it("displays a loading indicator", () => {
+    state.definition.isLoading = true;
 
-      const actions = store.getActions();
-      expect(actions[0]).toEqual(definitionStart(id));
-    });
+    store = createMockStore(state);
 
-    it("displays a loading indicator", () => {
-      state.definition.isLoading = true;
+    wrapper = mount(
+      <Provider store={store}>
+        <Definition />
+      </Provider>
+    );
 
-      store = createMockStore(state);
+    expect(wrapper.find("EntryDefinition").length).toBe(0);
+    expect(wrapper.find("Error").length).toBe(0);
+    expect(wrapper.find("LoadingIndicator").length).toBe(1);
+  });
 
-      wrapper = mount(
-        <Provider store={store}>
-          <Definition />
-        </Provider>
-      );
+  it("displays a warning on error", () => {
+    const message = "Error message";
 
-      expect(wrapper.find("EntryDefinition").length).toBe(0);
-      expect(wrapper.find("Error").length).toBe(0);
-      expect(wrapper.find("LoadingIndicator").length).toBe(1);
-    });
+    state.definition.isLoading = false;
+    state.definition.error = new Error(message);
 
-    it("displays a warning on error", () => {
-      const message = "Error message";
+    store = createMockStore(state);
 
-      state.definition.isLoading = false;
-      state.definition.error = new Error(message);
+    wrapper = mount(
+      <Provider store={store}>
+        <Definition />
+      </Provider>
+    );
 
-      store = createMockStore(state);
-
-      wrapper = mount(
-        <Provider store={store}>
-          <Definition />
-        </Provider>
-      );
-
-      expect(wrapper.find("EntryDefinition").length).toBe(0);
-      expect(wrapper.find("Error").length).toBe(1);
-      expect(wrapper.find("Error").props().message).toBe(message);
-      expect(wrapper.find("LoadingIndicator").length).toBe(0);
-    });
+    expect(wrapper.find("EntryDefinition").length).toBe(0);
+    expect(wrapper.find("Error").length).toBe(1);
+    expect(wrapper.find("Error").props().message).toBe(message);
+    expect(wrapper.find("LoadingIndicator").length).toBe(0);
   });
 });

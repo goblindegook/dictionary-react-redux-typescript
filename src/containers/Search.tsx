@@ -41,8 +41,10 @@ class Search extends React.Component<ISearchProps, {}> {
   /**
    * If set, fetch search results from `prefix` parameter on mount.
    */
-  public componentWillMount() {
-    this.props.onLoad(this.props.prefix);
+  public componentDidMount() {
+    if (this.props.prefix) {
+      this.props.onLoad(this.props.prefix);
+    }
   }
 
   /**
