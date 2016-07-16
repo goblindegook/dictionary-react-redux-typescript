@@ -11,7 +11,7 @@ import Error from "../components/Error";
 import LoadingIndicator from "../components/LoadingIndicator";
 import SearchInput from "../components/SearchInput";
 
-export interface ISearchProps extends React.Props<any> {
+export interface ISearchProps extends React.ClassAttributes<any> {
   entries?: IEntry[];
   error?: Error & { message: string };
   isLoading?: boolean;

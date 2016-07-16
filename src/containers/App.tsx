@@ -3,9 +3,7 @@ import "react-dom";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 
-interface IAppProps extends React.Props<App> {
-  children?: React.ReactNode;
-}
+interface IAppProps extends React.ClassAttributes<App> {}
 
 export default class App extends React.Component<IAppProps, {}> {
   /**

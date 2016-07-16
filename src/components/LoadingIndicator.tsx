@@ -1,7 +1,7 @@
 import * as React from "react";
 import "react-dom";
 
-export interface ILoadingIndicatorProps extends React.Props<LoadingIndicator> {}
+export interface ILoadingIndicatorProps extends React.ClassAttributes<LoadingIndicator> {}
 
 export default class LoadingIndicator extends React.Component<ILoadingIndicatorProps, {}> {
   /**

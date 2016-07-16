@@ -5,7 +5,7 @@ import { IEntry } from "../../api/Entry";
 
 // const style = require("./style.scss");
 
-export interface IEntryListProps extends React.Props<EntryList> {
+export interface IEntryListProps extends React.ClassAttributes<EntryList> {
   className?: string;
   entries: IEntry[];
 }

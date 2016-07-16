@@ -1,20 +1,20 @@
 import * as React from "react";
 import "react-dom";
 
-export interface IErrorProps extends React.Props<Error> {
+export interface IErrorProps extends React.ClassAttributes<Error> {
   message?: string;
 }
 
 export default class Error extends React.Component<IErrorProps, {}> {
   /**
-   * Render footer container.
+   * Render error component.
    *
-   * @return {JSX.Element} Rendered footer container.
+   * @return {JSX.Element} Rendered error component.
    */
   public render() {
     return (
       <div className="error">
-        <div className="message">{this.props.message || "Error"}</div>
+        <div className="message">{this.props.message || "Erro"}</div>
       </div>
     );
   }

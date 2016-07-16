@@ -18,5 +18,10 @@ describe("Component", () => {
       const wrapper = shallow(<Error {...{message}} />);
       expect(wrapper.find("div.message").text()).toBe(message);
     });
+
+    it("renders with default message", () => {
+      const wrapper = shallow(<Error />);
+      expect(wrapper.find("div.message").text()).toBe("Erro");
+    });
   });
 });

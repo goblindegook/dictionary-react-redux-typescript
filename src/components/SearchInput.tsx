@@ -1,7 +1,7 @@
 import * as React from "react";
 import "react-dom";
 
-export interface ISearchInputProps extends React.Props<SearchInput> {
+export interface ISearchInputProps extends React.ClassAttributes<SearchInput> {
   className?: string;
   text?: string;
   onChange?(event: React.FormEvent): void;

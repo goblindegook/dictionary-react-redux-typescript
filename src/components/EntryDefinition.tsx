@@ -3,7 +3,7 @@ import "react-dom";
 
 import { IEntry } from "../api/Entry";
 
-export interface IEntryDefinitionProps extends React.Props<EntryDefinition> {
+export interface IEntryDefinitionProps extends React.ClassAttributes<EntryDefinition> {
   className?: string;
   entry?: IEntry;
   title?: string;

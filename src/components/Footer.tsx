@@ -1,7 +1,7 @@
 import * as React from "react";
 import "react-dom";
 
-export interface IFooterProps extends React.Props<Footer> {}
+export interface IFooterProps extends React.ClassAttributes<Footer> {}
 
 export default class Footer extends React.Component<IFooterProps, {}> {
   /**

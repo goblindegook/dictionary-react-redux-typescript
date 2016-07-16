@@ -1,7 +1,7 @@
 import * as React from "react";
 import "react-dom";
 
-export interface IHeaderProps extends React.Props<Header> {}
+export interface IHeaderProps extends React.ClassAttributes<Header> {}
 
 export default class Header extends React.Component<IHeaderProps, {}> {
   /**

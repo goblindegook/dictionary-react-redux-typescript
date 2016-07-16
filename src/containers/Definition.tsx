@@ -9,7 +9,7 @@ import LoadingIndicator from "../components/LoadingIndicator";
 import Error from "../components/Error";
 import EntryDefinition from "../components/EntryDefinition";
 
-interface IDefinitionProps extends React.Props<Definition> {
+interface IDefinitionProps extends React.ClassAttributes<Definition> {
   entries?: IEntry[];
   error?: Error & { message: string };
   id?: string;

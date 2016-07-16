@@ -3,7 +3,7 @@ import "react-dom";
 import { Link } from "react-router";
 import { IEntry } from "../api/Entry";
 
-export interface IEntryListItemProps extends React.Props<EntryListItem> {
+export interface IEntryListItemProps extends React.ClassAttributes<EntryListItem> {
   className?: string;
   entry: IEntry;
 }
