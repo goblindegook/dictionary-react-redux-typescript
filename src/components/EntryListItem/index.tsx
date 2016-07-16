@@ -13,8 +13,6 @@ export interface IEntryListItemProps extends React.ClassAttributes<EntryListItem
   entry: IEntry;
 }
 
-// TODO: Remove onClick handler, use router Link.
-
 export default class EntryListItem extends React.Component<IEntryListItemProps, {}> {
   /**
    * Render EntryListItem component.

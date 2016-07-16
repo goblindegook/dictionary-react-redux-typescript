@@ -1,5 +1,5 @@
 .item {
-  background: white;
+  background: #fff;
   box-shadow: inset 0 -1px 1px rgba(0, 0, 0, 0.1);
   display: block;
   font-family: serif;
@@ -14,6 +14,11 @@
 
     &:hover {
       background: #f5f5f5;
+    }
+
+    &:active {
+      background: #a50000;
+      color: #fff;
     }
   }
 }
