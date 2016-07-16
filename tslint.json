@@ -1,8 +1,6 @@
 {
   "extends": "tslint:recommended",
   "rules": {
-    "no-unused-variable": {
-      "react": true
-    }
+    "no-unused-variable": [true, "react"]
   }
 }

@@ -17,20 +17,20 @@ const initialState: IDefinitionState = {
 /* tslint:disable:object-literal-sort-keys */
 export const definitionReducer = handleActions({
 
-  DEFINITION_START: (state: IDefinitionState, action: Action<any>): IDefinitionState =>
+  [DEFINITION_START]: (state: IDefinitionState, action: Action<any>): IDefinitionState =>
     Object.assign({}, state, {
       error: null,
       isLoading: true,
     } as IDefinitionState),
 
-  DEFINITION_DONE: (state: IDefinitionState, action: Action<any>): IDefinitionState =>
+  [DEFINITION_DONE]: (state: IDefinitionState, action: Action<any>): IDefinitionState =>
     Object.assign({}, state, {
       entries: action.payload,
       error: null,
       isLoading: false,
     } as IDefinitionState),
 
-  DEFINITION_ERROR: (state: IDefinitionState, action: Action<any>): IDefinitionState =>
+  [DEFINITION_ERROR]: (state: IDefinitionState, action: Action<any>): IDefinitionState =>
     Object.assign({}, state, {
       entries: [],
       error: action.payload,

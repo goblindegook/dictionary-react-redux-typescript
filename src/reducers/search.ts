@@ -19,7 +19,7 @@ const initialState: ISearchState = {
 /* tslint:disable:object-literal-sort-keys */
 export const searchReducer = handleActions({
 
-  SEARCH_START: (state: ISearchState, action: Action<any>): ISearchState =>
+  [SEARCH_START]: (state: ISearchState, action: Action<any>): ISearchState =>
     Object.assign({}, state, {
       entries: [],
       error: null,
@@ -27,14 +27,14 @@ export const searchReducer = handleActions({
       prefix: action.payload,
     } as ISearchState),
 
-  SEARCH_DONE: (state: ISearchState, action: Action<any>): ISearchState =>
+  [SEARCH_DONE]: (state: ISearchState, action: Action<any>): ISearchState =>
     Object.assign({}, state, {
       entries: action.payload,
       error: null,
       isLoading: false,
     } as ISearchState),
 
-  SEARCH_ERROR: (state: ISearchState, action: Action<any>): ISearchState =>
+  [SEARCH_ERROR]: (state: ISearchState, action: Action<any>): ISearchState =>
     Object.assign({}, state, {
       entries: [],
       error: action.payload,

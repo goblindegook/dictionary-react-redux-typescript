@@ -1,8 +1,8 @@
 import * as expect from "expect";
 import * as React from "react";
-import * as ReactDOM from "react-dom";
+import "react-dom";
 import { Provider } from "react-redux";
-import { mount, shallow } from "enzyme";
+import { mount } from "enzyme";
 import createMockStore from "../../__spec__/helpers/createMockStore";
 import { definitionStart } from "../../actions/definition";
 import { createEntry } from "../../api/Entry";

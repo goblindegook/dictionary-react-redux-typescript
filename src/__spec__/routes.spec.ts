@@ -1,8 +1,5 @@
 import * as expect from "expect";
-import * as React from "react";
-import { mount, shallow } from "enzyme";
-import { match, Route } from "react-router";
-
+import { match } from "react-router";
 import routes from "../routes";
 
 describe("Router", () => {

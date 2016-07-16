@@ -7,7 +7,7 @@ import configureStore from "./store";
 import routes from "./routes";
 
 /* tslint:disable:no-string-literal */
-const preloadedState = global['window'] && global['window']['__PRELOADED__'];
+const preloadedState = global["window"] && global["window"]["__PRELOADED__"];
 
 if (module["hot"]) {
   module["hot"].accept();

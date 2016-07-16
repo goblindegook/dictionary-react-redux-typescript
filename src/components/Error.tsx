@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom";
+import "react-dom";
 
 export interface IErrorProps extends React.Props<Error> {
   message?: string;

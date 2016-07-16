@@ -1,6 +1,6 @@
 import * as expect from "expect";
 import * as React from "react";
-import * as ReactDOM from "react-dom";
+import "react-dom";
 import * as sinon from "sinon";
 import { shallow } from "enzyme";
 

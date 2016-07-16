@@ -1,11 +1,10 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom";
+import "react-dom";
 import { connect } from "react-redux";
 import { push } from "react-router-redux";
 import { searchStart } from "../actions/search";
 import { searchTask } from "../sagas/search";
 import { IEntry } from "../api/Entry";
-import { search } from "../api/DictionaryAPI";
 import EntryList from "../components/EntryList";
 import Error from "../components/Error";
 import LoadingIndicator from "../components/LoadingIndicator";

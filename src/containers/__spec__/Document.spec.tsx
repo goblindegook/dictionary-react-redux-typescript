@@ -1,9 +1,9 @@
 import * as expect from "expect";
 import * as React from "react";
-import * as ReactDOM from "react-dom";
+import "react-dom";
 import { render } from "enzyme";
 import serialize = require("serialize-javascript");
-import createMockStore from '../../__spec__/helpers/createMockStore';
+import createMockStore from "../../__spec__/helpers/createMockStore";
 import Document from "../Document";
 
 describe("<Document />", () => {
@@ -26,7 +26,7 @@ describe("<Document />", () => {
   });
 
   it("renders serialized state inside a footer <script> tag", () => {
-    expect(wrapper.find('body script').first().text())
+    expect(wrapper.find("body script").first().text())
       .toBe(`window.__PRELOADED__=${serialize(store.getState())};`);
   });
 });

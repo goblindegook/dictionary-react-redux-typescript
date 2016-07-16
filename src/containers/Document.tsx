@@ -1,9 +1,7 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom";
+import "react-dom";
 import { renderToString } from "react-dom/server";
-import { Provider } from "react-redux";
-import { RouterContext } from "react-router";
-import * as Helmet from "react-helmet";
+// import * as Helmet from "react-helmet";
 import serialize = require("serialize-javascript");
 
 interface IDocumentProps extends React.Props<Document> {

@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom";
+import "react-dom";
 import { renderToString } from "react-dom/server";
 import { Provider } from "react-redux";
 import { RouterContext } from "react-router";

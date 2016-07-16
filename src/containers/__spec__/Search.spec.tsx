@@ -1,11 +1,9 @@
 import * as expect from "expect";
 import * as React from "react";
-import * as ReactDOM from "react-dom";
+import "react-dom";
 import { Provider } from "react-redux";
-import * as redux from "redux";
-import { push } from "react-router-redux";
-import { mount, shallow } from "enzyme";
-import createMockStore from '../../__spec__/helpers/createMockStore';
+import { mount } from "enzyme";
+import createMockStore from "../../__spec__/helpers/createMockStore";
 import { searchStart } from "../../actions/search";
 import { searchTask } from "../../sagas/search";
 import { createEntry } from "../../api/Entry";
@@ -186,13 +184,13 @@ describe("<Search />", () => {
   xit("sets the URL for the current search when pressing the Enter key", () => {
     const prefix = "test";
 
-    wrapper.find('input').simulate("change", {
+    wrapper.find("input").simulate("change", {
       target: {
         value: prefix,
       },
     });
 
-    wrapper.find('input').simulate("keyup", {
+    wrapper.find("input").simulate("keyup", {
       keyCode: 13,
     });
 

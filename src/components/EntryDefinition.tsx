@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom";
+import "react-dom";
 
 import { IEntry } from "../api/Entry";
 

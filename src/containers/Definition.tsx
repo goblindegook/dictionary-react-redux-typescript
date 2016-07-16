@@ -1,9 +1,8 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom";
+import "react-dom";
 import { connect } from "react-redux";
 import { definitionStart } from "../actions/definition";
 import { definitionTask } from "../sagas/definition";
-import { define } from "../api/DictionaryAPI";
 import { IEntry } from "../api/Entry";
 import LoadingIndicator from "../components/LoadingIndicator";
 import Error from "../components/Error";
