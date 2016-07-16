@@ -1,4 +1,4 @@
 'use strict'
+require('css-modules-require-hook/preset')
 require('ts-node/register')
-require('ignore-styles')
 require('./src/server')

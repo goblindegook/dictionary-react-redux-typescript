@@ -1,5 +1,10 @@
 import * as React from "react";
+import * as classnames from "classnames";
 import "react-dom";
+
+/* tslint:disable:no-var-requires */
+const styles = require("./style.scss");
+/* tslint:enable:no-var-requires */
 
 export interface ISearchInputProps extends React.ClassAttributes<SearchInput> {
   className?: string;
@@ -18,7 +23,7 @@ export default class SearchInput extends React.Component<ISearchInputProps, {}> 
     return (
       <input
         type="search"
-        className={this.props.className}
+        className={classnames(this.props.className, styles.input)}
         value={this.props.text}
         onChange={this.props.onChange}
         onKeyUp={(event) => {
