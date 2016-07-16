@@ -2,19 +2,18 @@ import * as expect from "expect";
 import * as React from "react";
 import "react-dom";
 import { shallow } from "enzyme";
-
-import Header from "../Header";
+import LoadingIndicator from "../";
 
 describe("Component", () => {
-  describe("<Header />", () => {
+  describe("<LoadingIndicator />", () => {
     let wrapper;
 
     before(() => {
-      wrapper = shallow(<Header />);
+      wrapper = shallow(<LoadingIndicator />);
     });
 
     it("renders", () => {
-      expect(wrapper.is("header")).toBe(true);
+      expect(wrapper.is("div.loading")).toBe(true);
     });
   });
 });

@@ -7,7 +7,10 @@ import { browserHistory, match } from "react-router";
 import routes from "../routes";
 import render from "./render";
 
+/* tslint:disable:no-var-requires */
 const config = require("../../webpack.config.js");
+/* tslint:enable:no-var-requires */
+
 const port = process.env.PORT || 3000;
 const app = Express();
 const compiler = webpack(config);
@@ -21,6 +24,7 @@ app.use(webpackDevMiddleware(compiler, {
 app.use("/api", proxy({
   changeOrigin: true,
   pathRewrite: { "^/api": "" },
+  // FIXME: Move to configuration file.
   target: "http://dicionario-aberto.net",
 }));
 
@@ -36,6 +40,8 @@ app.listen(port, (error) => {
   if (error) {
     console.error(error);
   } else {
+    /* tslint:disable:no-console */
     console.info(`🌎  Listening on http://localhost:${port}/.`);
+    /* tslint:enable:no-console */
   }
 });

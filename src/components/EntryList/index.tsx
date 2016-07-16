@@ -1,9 +1,12 @@
 import * as React from "react";
 import "react-dom";
+import * as classnames from "classnames";
 import EntryListItem from "../EntryListItem";
 import { IEntry } from "../../api/Entry";
 
-// const style = require("./style.scss");
+/* tslint:disable:no-var-requires */
+const styles = require("./style.scss");
+/* tslint:enable:no-var-requires */
 
 export interface IEntryListProps extends React.ClassAttributes<EntryList> {
   className?: string;
@@ -18,7 +21,7 @@ export default class EntryList extends React.Component<IEntryListProps, {}> {
    */
   public render() {
     return (
-      <ul className={this.props.className}>
+      <ul className={classnames(this.props.className, styles.list)}>
         {this.props.entries && this.props.entries.map(
           (entry, index): React.ReactElement<EntryListItem> => (
             <EntryListItem

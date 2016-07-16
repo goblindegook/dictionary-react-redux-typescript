@@ -1,7 +1,6 @@
 import * as React from "react";
 import "react-dom";
-
-import { IEntry } from "../api/Entry";
+import { IEntry } from "../../api/Entry";
 
 export interface IEntryDefinitionProps extends React.ClassAttributes<EntryDefinition> {
   className?: string;

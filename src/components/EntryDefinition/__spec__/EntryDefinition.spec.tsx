@@ -2,8 +2,8 @@ import * as expect from "expect";
 import * as React from "react";
 import "react-dom";
 import { shallow } from "enzyme";
-import { createEntry } from "../../api/Entry";
-import EntryDefinition from "../EntryDefinition";
+import { createEntry } from "../../../api/Entry";
+import EntryDefinition from "../";
 
 describe("<EntryDefinition />", () => {
   let entry;

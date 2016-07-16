@@ -3,18 +3,18 @@ import * as React from "react";
 import "react-dom";
 import { shallow } from "enzyme";
 
-import LoadingIndicator from "../LoadingIndicator";
+import Footer from "../";
 
 describe("Component", () => {
-  describe("<LoadingIndicator />", () => {
+  describe("<Footer />", () => {
     let wrapper;
 
     before(() => {
-      wrapper = shallow(<LoadingIndicator />);
+      wrapper = shallow(<Footer />);
     });
 
     it("renders", () => {
-      expect(wrapper.is("div.loading")).toBe(true);
+      expect(wrapper.is("footer")).toBe(true);
     });
   });
 });

@@ -6,7 +6,7 @@ import rootReducer from "./reducers";
 import sagas from "./sagas";
 
 /* tslint:disable:no-string-literal */
-const devtools = global["devToolsExtension"] || (() => noop => noop);
+const devTools = global["devToolsExtension"] || (() => noop => noop);
 /* tslint:enable:no-string-literal */
 
 export default function configureStore(initialState: any = {}) {
@@ -22,7 +22,7 @@ export default function configureStore(initialState: any = {}) {
     initialState,
     compose(
       applyMiddleware(...middlewares),
-      devtools()
+      devTools()
     )
   ) as any;
 

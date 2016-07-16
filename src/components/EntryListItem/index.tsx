@@ -1,7 +1,7 @@
 import * as React from "react";
 import "react-dom";
 import { Link } from "react-router";
-import { IEntry } from "../api/Entry";
+import { IEntry } from "../../api/Entry";
 
 export interface IEntryListItemProps extends React.ClassAttributes<EntryListItem> {
   className?: string;

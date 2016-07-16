@@ -27,6 +27,7 @@ export interface IRawEntry {
   sense: IRawSense[];
 }
 
+// FIXME: Move to configuration file.
 const rootUrl = "http://localhost:3000/api/search-json";
 
 /**

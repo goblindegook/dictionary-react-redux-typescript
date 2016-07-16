@@ -1,3 +1,4 @@
 'use strict'
 require('ts-node/register')
-require('./src/server');
+require('ignore-styles')
+require('./src/server')

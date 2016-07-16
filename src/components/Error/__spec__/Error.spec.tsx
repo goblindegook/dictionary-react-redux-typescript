@@ -3,7 +3,7 @@ import * as React from "react";
 import "react-dom";
 import { shallow } from "enzyme";
 
-import Error from "../Error";
+import Error from "../";
 
 describe("Component", () => {
   describe("<Error />", () => {

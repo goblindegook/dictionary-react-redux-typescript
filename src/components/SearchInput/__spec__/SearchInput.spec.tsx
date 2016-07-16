@@ -3,8 +3,7 @@ import * as React from "react";
 import "react-dom";
 import { shallow } from "enzyme";
 import * as sinon from "sinon";
-
-import SearchInput from "../SearchInput";
+import SearchInput from "../";
 
 describe("Component", () => {
   describe("<SearchInput />", () => {

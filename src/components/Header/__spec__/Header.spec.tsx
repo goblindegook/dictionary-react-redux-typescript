@@ -2,19 +2,18 @@ import * as expect from "expect";
 import * as React from "react";
 import "react-dom";
 import { shallow } from "enzyme";
-
-import Footer from "../Footer";
+import Header from "../";
 
 describe("Component", () => {
-  describe("<Footer />", () => {
+  describe("<Header />", () => {
     let wrapper;
 
     before(() => {
-      wrapper = shallow(<Footer />);
+      wrapper = shallow(<Header />);
     });
 
     it("renders", () => {
-      expect(wrapper.is("footer")).toBe(true);
+      expect(wrapper.is("header")).toBe(true);
     });
   });
 });

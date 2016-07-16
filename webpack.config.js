@@ -39,7 +39,7 @@ module.exports = {
         test: /\.css$/,
         loaders: [
           'style?sourceMap',
-          'raw'
+          'css?modules&localIdentName=[name]_[local]_[hash:base64:5]'
         ],
         include: path.join(__dirname, 'src')
       },
@@ -47,11 +47,16 @@ module.exports = {
         test: /\.scss$/,
         loaders: [
           'style?sourceMap',
-          'css?importLoaders=2&sourceMap',
-          'sass?outputStyle=expanded&sourceMap=true&sourceMapContents=true'
+          'css?importLoaders=2&sourceMap&modules&localIdentName=[name]---[local]---[hash:base64:5]',
+          'sass'
         ],
         include: path.join(__dirname, 'src')
       }
     ]
+  },
+  sassLoader: {
+    outputStyle: 'expanded',
+    sourceMap: true,
+    sourceMapContents: true
   }
 }

@@ -3,8 +3,8 @@ import * as React from "react";
 import "react-dom";
 import { shallow, mount } from "enzyme";
 
-import { createEntry, IEntry } from "../../api/Entry";
-import EntryListItem from "../EntryListItem";
+import { createEntry, IEntry } from "../../../api/Entry";
+import EntryListItem from "../";
 
 describe("Component", () => {
   describe("<EntryListItem />", () => {
