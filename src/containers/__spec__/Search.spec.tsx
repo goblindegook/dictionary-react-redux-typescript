@@ -1,6 +1,7 @@
 import * as expect from "expect";
 import * as React from "react";
 import "react-dom";
+import * as Helmet from "react-helmet";
 import { Provider } from "react-redux";
 import { mount } from "enzyme";
 import createMockStore from "../../__spec__/helpers/createMockStore";
@@ -42,7 +43,7 @@ describe("<Search />", () => {
 
   it("preloads search results", () => {
     const prefix = "test";
-    const preloaders = (Search as any).preload(store.dispatch, { prefix });
+    const preloaders = (Search as any).preload({ prefix });
 
     preloaders.forEach(preloader => {
       expect(preloader[0]).toBe(searchTask);
@@ -114,10 +115,9 @@ describe("<Search />", () => {
     });
   });
 
-  it("displays an error message", () => {
-    const message = "Error";
+  it("displays a warning on error", () => {
+    const message = "Error message";
 
-    state.search.isLoading = false;
     state.search.error = new Error(message);
 
     store = createMockStore(state);
@@ -128,6 +128,25 @@ describe("<Search />", () => {
       </Provider>
     );
 
+    expect((Helmet as any).peek().title).toBe(message);
+    expect(wrapper.find("Error").length).toBe(1);
+    expect(wrapper.find("Error").props().message).toBe(message);
+  });
+
+  it("displays a warning when no definition found", () => {
+    const message = "Palavra não encontrada";
+
+    state.search.entries = [];
+
+    store = createMockStore(state);
+
+    wrapper = mount(
+      <Provider store={store}>
+        <Search />
+      </Provider>
+    );
+
+    expect((Helmet as any).peek().title).toBe(message);
     expect(wrapper.find("Error").length).toBe(1);
     expect(wrapper.find("Error").props().message).toBe(message);
   });

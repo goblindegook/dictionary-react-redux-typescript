@@ -26,7 +26,7 @@ function render(req, res) {
 
       const preloaders = components
         .filter(component => component.preload)
-        .map(component => component.preload(store.dispatch, params))
+        .map(component => component.preload(params))
         .reduce((result, preloader) => result.concat(preloader), []);
 
       store.runSaga(waitAll(preloaders)).done
@@ -38,7 +38,7 @@ function render(req, res) {
           );
 
           res.send("<!DOCTYPE HTML>\n" + renderToString(
-            <Document app={app} store={store} />
+            <Document app={app} server store={store} />
           ));
         })
         .catch((sagaError) => {

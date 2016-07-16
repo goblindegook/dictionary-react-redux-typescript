@@ -1,5 +1,6 @@
 import * as React from "react";
 import "react-dom";
+import * as Helmet from "react-helmet";
 import { connect } from "react-redux";
 import { definitionStart } from "../actions/definition";
 import { definitionTask } from "../sagas/definition";
@@ -23,18 +24,20 @@ class Definition extends React.Component<IDefinitionProps, {}> {
   /**
    * Definition data preloaders.
    *
-   * @param  {Function} dispatch Redux action dispatcher.
-   * @param  {string}   {id}     Entry ID.
-   * @return {Array}             Saga workers and action objects.
+   * @param  {Function} dispatch  Redux action dispatcher.
+   * @param  {String}   params.id Entry ID.
+   * @return {Array}              Saga workers and action objects.
    */
-  public static preload(dispatch, { id }) {
+  public static preload({ id }) {
     return [
       [definitionTask, definitionStart(id)],
     ];
   }
 
   /**
-   * Triggers onLoad property on
+   * Triggers onLoad property on mount.
+   *
+   * @return {void}
    */
   public componentDidMount() {
     if (this.props.id) {
@@ -48,23 +51,32 @@ class Definition extends React.Component<IDefinitionProps, {}> {
    * @return {JSX.Element} Rendered search container.
    */
   public render() {
+    let title: string;
+    let content: React.ReactElement<any> | React.ReactElement<any>[];
+
     if (this.props.isLoading) {
-      return (<LoadingIndicator />);
-    }
+      title = "A carregar...";
+      content = <LoadingIndicator />;
 
-    if (this.props.error) {
-      return (<Error message={this.props.error.message} />);
-    }
+    } else if (this.props.error) {
+      title = this.props.error.message;
+      content = <Error message={this.props.error.message} />;
 
-    if (!this.props.entries) {
-      return (<Error message="Not found" />);
+    } else if (!this.props.entries || !this.props.entries.length) {
+      title = "Palavra não encontrada";
+      content = <Error message="Palavra não encontrada" />;
+
+    } else {
+      title = this.props.id && this.props.id.replace(/:\d+$/, "");
+      content = this.props.entries.map(entry => (
+        <EntryDefinition key={entry.id} title={entry.word} entry={entry} />
+      ));
     }
 
     return (
       <section className="definition">
-        {this.props.entries.map((entry) => (
-          <EntryDefinition key={entry.id} title={entry.word} entry={entry} />
-        ))}
+        <Helmet title={title} />
+        {content}
       </section>
     );
   }
@@ -78,6 +90,6 @@ export default connect(
     isLoading: state.definition.isLoading,
   }),
   (dispatch) => ({
-    onLoad: (id) => dispatch(definitionStart(id)),
+    onLoad: id => dispatch(definitionStart(id)),
   })
 )(Definition as React.ComponentClass<any>);

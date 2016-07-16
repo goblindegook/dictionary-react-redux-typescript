@@ -1,5 +1,4 @@
 import * as expect from "expect";
-
 import configureStore from "../store";
 
 describe("Store", () => {

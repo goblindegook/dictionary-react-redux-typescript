@@ -1,5 +1,6 @@
 import * as React from "react";
 import "react-dom";
+import * as Helmet from "react-helmet";
 import { connect } from "react-redux";
 import { push } from "react-router-redux";
 import { searchStart } from "../actions/search";
@@ -27,11 +28,10 @@ class Search extends React.Component<ISearchProps, {}> {
   /**
    * Search results data preloaders.
    *
-   * @param  {Function} dispatch Redux action dispatcher.
-   * @param  {string}   {prefix} Search term prefix.
-   * @return {Array}             Saga workers and action objects.
+   * @param  {string} params.prefix Search term prefix.
+   * @return {Array}                Saga workers and action objects.
    */
-  public static preload(dispatch, { prefix }) {
+  public static preload({ prefix }) {
     return [
       [searchTask, searchStart(prefix)],
     ];
@@ -53,22 +53,31 @@ class Search extends React.Component<ISearchProps, {}> {
    */
   public render() {
     const prefix = this.props.prefix || "";
-    let content: React.ReactElement<any> = undefined;
+    let title: string = "Dicionário";
+    let content: React.ReactElement<any>;
 
     if (prefix.length > 0) {
       if (this.props.isLoading) {
+        title = "A pesquisar...";
         content = <LoadingIndicator />;
+
       } else if (this.props.error) {
+        title = this.props.error.message;
         content = <Error message={this.props.error.message} />;
-      } else if (!this.props.entries.length) {
-        content = <Error message="Nothing found" />;
+
+      } else if (!this.props.entries || !this.props.entries.length) {
+        title = "Palavra não encontrada";
+        content = <Error message="Palavra não encontrada" />;
+
       } else {
+        title = `Pesquisa por ${prefix}`;
         content = <EntryList entries={this.props.entries} />;
       }
     }
 
     return (
       <section className="search">
+        <Helmet title={title} />
         <SearchInput
           onChange={this.props.onChange}
           onSubmit={this.props.onSubmit}
