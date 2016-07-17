@@ -23,11 +23,8 @@ export default class EntryList extends React.Component<IEntryListProps, {}> {
     return (
       <ul className={cx(this.props.className, styles.list)}>
         {this.props.entries && this.props.entries.map(
-          (entry, index): React.ReactElement<EntryListItem> => (
-            <EntryListItem
-              key={entry.id}
-              entry={entry}
-            />
+          (entry, index) => (
+            <EntryListItem entry={entry} key={entry.id} />
           )
         )}
       </ul>

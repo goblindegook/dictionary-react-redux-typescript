@@ -54,7 +54,7 @@ class Search extends React.Component<ISearchProps, {}> {
   public render() {
     const prefix = this.props.prefix || "";
     let title: string = "Dicionário";
-    let content: React.ReactElement<any> | React.ReactElement<any>[] | string;
+    let content: JSX.Element | JSX.Element[] | string;
 
     if (prefix.length > 0) {
       if (this.props.isLoading) {

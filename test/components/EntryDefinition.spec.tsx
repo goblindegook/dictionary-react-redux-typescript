@@ -88,6 +88,14 @@ describe("<EntryDefinition />", () => {
     expect(wrapper.find(".sense").length).toEqual(raw.sense.length);
   });
 
+  it("renders with entry definitions that contain line breaks", () => {
+    const parts = ["foo", "bar", "baz"];
+    raw.sense[0].def = parts.join("<br />");
+    entry = createEntry("a", "a:1", raw);
+    const wrapper = shallow(<EntryDefinition {...{entry}} />);
+    expect(wrapper.find("br").length).toEqual(parts.length - 1);
+  });
+
   xit("renders with entry definitions", () => {
     const wrapper = shallow(<EntryDefinition {...{entry}} />);
     wrapper.find(".def").forEach((definition) => {

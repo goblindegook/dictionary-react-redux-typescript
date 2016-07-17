@@ -7,6 +7,17 @@ import { IEntry } from "../api/Entry";
 const styles = require("./EntryDefinition.style.scss");
 /* tslint:enable:no-var-requires */
 
+/**
+ * Formats a definition string, adding components where appropriate.
+ *
+ * @param  {String} text String to format.
+ * @return {Array}       Array containing a mixture of strings and React elements.
+ */
+function componentizeText(text: string = ""): (string | JSX.Element)[] {
+  return text.split(/(<br\s*\/?>)/)
+    .map(token => token.match(/<br\s*\/?>/) ? <br /> : token);
+}
+
 export interface IEntryDefinitionProps extends React.ClassAttributes<EntryDefinition> {
   className?: string;
   entry?: IEntry;
@@ -46,7 +57,9 @@ export default class EntryDefinition extends React.Component<IEntryDefinitionPro
                 {sense.grammarGroup && <span className={cx("gramGrp", styles.gramGrp)}>{sense.grammarGroup}</span>}
                 {sense.usage && <span className={cx("usg", styles.usg)}>{sense.usage}</span>}
               </div>
-              <p className={cx("def", styles.def)}>{sense.definition}</p>
+              <p className={cx("def", styles.def)}>
+                {componentizeText(sense.definition)}
+              </p>
             </li>
           ))}
         </ul>

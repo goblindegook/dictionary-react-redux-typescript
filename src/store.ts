@@ -9,7 +9,7 @@ import sagas from "./sagas";
 const devTools = global["devToolsExtension"] || (() => noop => noop);
 /* tslint:enable:no-string-literal */
 
-export default function configureStore(initialState: any = {}) {
+export default function configureStore(initialState: Object = {}) {
   const sagaMiddleware = createSagaMiddleware();
 
   const middlewares = [

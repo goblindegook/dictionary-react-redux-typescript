@@ -5,7 +5,7 @@ import * as Helmet from "react-helmet";
 import serialize = require("serialize-javascript");
 
 interface IDocumentProps extends React.ClassAttributes<Document> {
-  app?: React.ReactElement<any>;
+  app?: JSX.Element;
   server?: Boolean;
   store: any;
 }
