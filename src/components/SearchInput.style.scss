@@ -1,8 +1,7 @@
 .input {
   composes: large text from "../styles/typography.scss";
-  composes: bordered field outline from "../styles/colors.scss";
+  composes: field bordered outline from "../styles/colors.scss";
 
-  border: 0;
   padding: .5rem 1rem;
   width: 100%;
 }
