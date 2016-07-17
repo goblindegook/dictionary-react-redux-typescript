@@ -1,0 +1,8 @@
+.list {
+  composes: bordered panel from "../styles/colors.scss";
+
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 0;
+  width: 100%;
+}

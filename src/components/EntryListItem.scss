@@ -1,0 +1,11 @@
+.item {
+  display: block;
+}
+
+.link {
+  composes: large undecorated text from "../styles/typography.scss";
+  composes: shadowed action outline from "../styles/colors.scss";
+
+  display: block;
+  padding: .5rem 1rem;
+}
