@@ -8,6 +8,7 @@ const styles = require("./style.scss");
 
 export interface ISearchInputProps extends React.ClassAttributes<SearchInput> {
   className?: string;
+  placeholder?: string;
   text?: string;
   onChange?(event: React.FormEvent): void;
   onSubmit?(prefix: String): void;
@@ -31,6 +32,7 @@ export default class SearchInput extends React.Component<ISearchInputProps, {}> 
             this.props.onSubmit(this.props.text);
           }
         }}
+        placeholder={this.props.placeholder}
       />
     );
   }

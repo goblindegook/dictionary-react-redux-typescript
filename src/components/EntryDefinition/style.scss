@@ -1,0 +1,49 @@
+.entry {
+  composes: text from "../../styles/typography.scss";
+  composes: bordered panel from "../../styles/colors.scss";
+  margin: 0 0 2rem;
+  padding: 1rem;
+}
+
+.title {
+  composes: underlined from "../../styles/colors.scss";
+  composes: title from "../../styles/typography.scss";
+  margin-bottom: 1rem;
+}
+
+.orth {
+  composes: bold from "../../styles/typography.scss";
+}
+
+.n {
+  composes: normal from "../../styles/typography.scss";
+}
+
+.pron {
+  composes: regular meta from "../../styles/typography.scss";
+
+  &::before {
+    content: " (";
+  }
+
+  &::after {
+    content: ")";
+  }
+}
+
+.senses {
+  list-style: none;
+}
+
+.sense {
+  margin-bottom: 1rem;
+}
+
+.meta {
+  composes: meta text from "../../styles/typography.scss";
+  margin-bottom: .5rem;
+}
+
+.gramGrp {
+  margin-right: .25rem;
+}

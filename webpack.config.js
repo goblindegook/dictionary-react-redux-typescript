@@ -47,7 +47,7 @@ module.exports = {
         test: /\.scss$/,
         loaders: [
           'style?sourceMap',
-          'css?importLoaders=2&sourceMap&modules&localIdentName=[name]__[local]___[hash:base64:5]',
+          'css?importLoaders=2&modules&sourceMap&localIdentName=[name]__[local]___[hash:base64:5]',
           'sass'
         ],
         include: path.join(__dirname, 'src')

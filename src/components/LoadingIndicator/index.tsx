@@ -11,7 +11,7 @@ export default class LoadingIndicator extends React.Component<ILoadingIndicatorP
    */
   public render() {
     return (
-      <div className="loading">Loading...</div>
+      <div className="loading">A carregar...</div>
     );
   }
 }

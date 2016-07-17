@@ -27,7 +27,7 @@ function render(req, res, next) {
       const store = configureStore();
 
       const preloaders = components
-        .filter(component => component.preload)
+        .filter(component => component && component.preload)
         .map(component => component.preload(params))
         .reduce((result, preloader) => result.concat(preloader), []);
 

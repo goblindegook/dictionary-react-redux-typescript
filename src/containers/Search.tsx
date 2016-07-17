@@ -81,6 +81,7 @@ class Search extends React.Component<ISearchProps, {}> {
         <SearchInput
           onChange={this.props.onChange}
           onSubmit={this.props.onSubmit}
+          placeholder="Indique a palavra a pesquisar"
           text={prefix}
         />
         {content}

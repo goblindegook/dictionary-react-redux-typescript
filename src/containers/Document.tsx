@@ -33,8 +33,12 @@ export default class Document extends React.Component<IDocumentProps, {}> {
       <html>
         <head>
           {head && head.title.toComponent()}
-          <link rel="shortcut icon" href="/favicon.ico" />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <link rel="shortcut icon" href="/favicon.ico" />
+          <link
+            href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400italic,700,700italic"
+            rel="stylesheet"
+            type="text/css" />
         </head>
         <body>
           <div
@@ -42,9 +46,9 @@ export default class Document extends React.Component<IDocumentProps, {}> {
             id="root"
             dangerouslySetInnerHTML={{__html: app}}
           />
-          <script dangerouslySetInnerHTML={{
+          <script id="preloaded" type="text/javascript" dangerouslySetInnerHTML={{
             __html: `window.__PRELOADED__=${serialize(state)};`,
-          }} id="preloaded" />
+          }} />
           <script src="/static/bundle.js"></script>
         </body>
       </html>

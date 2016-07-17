@@ -1,0 +1,41 @@
+.base {
+  -webkit-font-smoothing: antialiased;
+  font-family: "Playfair Display", serif;
+  line-height: 1.4;
+}
+
+.normal {
+  font-weight: 400;
+}
+
+.bold {
+  font-weight: 700;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.regular {
+  font-size: 1rem;
+}
+
+.large {
+  font-size: 1.4rem;
+}
+
+.undecorated {
+  text-decoration: none;
+}
+
+.title {
+  composes: large bold base;
+}
+
+.text {
+  composes: regular base;
+}
+
+.meta {
+  composes: normal italic;
+}

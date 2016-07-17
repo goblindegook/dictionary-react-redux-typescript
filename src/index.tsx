@@ -6,6 +6,10 @@ import { syncHistoryWithStore } from "react-router-redux";
 import configureStore from "./store";
 import routes from "./routes";
 
+/* tslint:disable:no-var-requires */
+require("./styles/global.scss");
+/* tslint:enable:no-var-requires */
+
 /* tslint:disable:no-string-literal */
 const preloadedState = global["window"] && global["window"]["__PRELOADED__"];
 
