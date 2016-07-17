@@ -1,6 +1,6 @@
 import * as React from "react";
 import "react-dom";
-import * as classnames from "classnames";
+import * as cx from "classnames";
 import EntryListItem from "../EntryListItem";
 import { IEntry } from "../../api/Entry";
 
@@ -21,7 +21,7 @@ export default class EntryList extends React.Component<IEntryListProps, {}> {
    */
   public render() {
     return (
-      <ul className={classnames(this.props.className, styles.list)}>
+      <ul className={cx(this.props.className, styles.list)}>
         {this.props.entries && this.props.entries.map(
           (entry, index): React.ReactElement<EntryListItem> => (
             <EntryListItem

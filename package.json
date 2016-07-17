@@ -28,7 +28,6 @@
     "express": "^4.13.4",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.8.5",
-    "isomorphic-style-loader": "^1.0.0",
     "jsdom": "^9.2.1",
     "jsdom-global": "^2.0.0",
     "mocha": "^2.5.3",

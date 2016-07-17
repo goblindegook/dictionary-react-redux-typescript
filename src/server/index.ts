@@ -28,12 +28,12 @@ app.use("/api", proxy({
   target: "http://dicionario-aberto.net",
 }));
 
-app.use((req, res) => {
+app.use((req, res, next) => {
   match(<any> {
     history: browserHistory,
     location: req.url,
     routes,
-  }, render(req, res));
+  }, render(req, res, next));
 });
 
 app.listen(port, (error) => {

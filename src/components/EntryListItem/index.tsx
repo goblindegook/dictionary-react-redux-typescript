@@ -1,6 +1,6 @@
 import * as React from "react";
 import "react-dom";
-import * as classnames from "classnames";
+import * as cx from "classnames";
 import { Link } from "react-router";
 import { IEntry } from "../../api/Entry";
 
@@ -23,8 +23,11 @@ export default class EntryListItem extends React.Component<IEntryListItemProps, 
     const entry = this.props.entry;
 
     return (
-      <li className={classnames(this.props.className, styles.item)}>
-        <Link to={`/define/${entry.id}`}>
+      <li className={cx(this.props.className, styles.item)}>
+        <Link
+          className={cx(styles.link)}
+          to={`/define/${entry.id}`}
+        >
           {entry.word}
         </Link>
       </li>
