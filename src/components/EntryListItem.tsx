@@ -5,7 +5,7 @@ import { Link } from "react-router";
 import { IEntry } from "../api/Entry";
 
 /* tslint:disable:no-var-requires */
-const styles = require("./EntryListItem.scss");
+const styles = require("./EntryListItem.style.scss");
 /* tslint:enable:no-var-requires */
 
 export interface IEntryListItemProps extends React.ClassAttributes<EntryListItem> {

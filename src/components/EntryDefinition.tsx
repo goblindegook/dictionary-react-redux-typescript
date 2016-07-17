@@ -4,7 +4,7 @@ import "react-dom";
 import { IEntry } from "../api/Entry";
 
 /* tslint:disable:no-var-requires */
-const styles = require("./EntryDefinition.scss");
+const styles = require("./EntryDefinition.style.scss");
 /* tslint:enable:no-var-requires */
 
 export interface IEntryDefinitionProps extends React.ClassAttributes<EntryDefinition> {

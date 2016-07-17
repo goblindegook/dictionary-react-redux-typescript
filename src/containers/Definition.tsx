@@ -52,7 +52,7 @@ class Definition extends React.Component<IDefinitionProps, {}> {
    */
   public render() {
     let title: string;
-    let content: React.ReactElement<any> | React.ReactElement<any>[];
+    let content: React.ReactElement<any> | React.ReactElement<any>[] | string;
 
     if (this.props.isLoading) {
       title = "A carregar...";

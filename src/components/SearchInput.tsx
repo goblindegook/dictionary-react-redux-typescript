@@ -3,7 +3,7 @@ import * as cx from "classnames";
 import "react-dom";
 
 /* tslint:disable:no-var-requires */
-const styles = require("./SearchInput.scss");
+const styles = require("./SearchInput.style.scss");
 /* tslint:enable:no-var-requires */
 
 export interface ISearchInputProps extends React.ClassAttributes<SearchInput> {

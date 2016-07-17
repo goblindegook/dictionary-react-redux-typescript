@@ -5,7 +5,7 @@ import EntryListItem from "./EntryListItem";
 import { IEntry } from "../api/Entry";
 
 /* tslint:disable:no-var-requires */
-const styles = require("./EntryList.scss");
+const styles = require("./EntryList.style.scss");
 /* tslint:enable:no-var-requires */
 
 export interface IEntryListProps extends React.ClassAttributes<EntryList> {

@@ -5,7 +5,7 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 
 /* tslint:disable:no-var-requires */
-const styles = require("./App.scss");
+const styles = require("./App.style.scss");
 /* tslint:enable:no-var-requires */
 
 interface IAppProps extends React.ClassAttributes<App> {}
