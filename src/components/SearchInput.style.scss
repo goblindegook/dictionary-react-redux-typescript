@@ -1,7 +1,11 @@
 .input {
   composes: large text from "../styles/typography.scss";
-  composes: field bordered outline from "../styles/colors.scss";
-
+  composes: field from "../styles/colors.scss";
+  composes: rounded bordered outline from "../styles/effects.scss";
   padding: .5rem 1rem;
   width: 100%;
+
+  &:focus {
+    padding: calc(.5rem - 1px) calc(1rem - 1px);
+  }
 }

@@ -1,6 +1,7 @@
 .entry {
   composes: text from "../styles/typography.scss";
-  composes: bordered panel from "../styles/colors.scss";
+  composes: panel from "../styles/colors.scss";
+  composes: bordered shadowed from "../styles/effects.scss";
   margin: 0 0 2rem;
   padding: 1rem;
 }

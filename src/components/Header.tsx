@@ -1,5 +1,10 @@
 import * as React from "react";
+import * as cx from "classnames";
 import "react-dom";
+
+/* tslint:disable:no-var-requires */
+const styles = require("./Header.style.scss");
+/* tslint:enable:no-var-requires */
 
 export interface IHeaderProps extends React.ClassAttributes<Header> {}
 
@@ -11,7 +16,9 @@ export default class Header extends React.Component<IHeaderProps, {}> {
    */
   public render() {
     return (
-      <header className="header"></header>
+      <header className="header">
+        <h1 className={cx(styles.title)}>Dicionário</h1>
+      </header>
     );
   }
 }

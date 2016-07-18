@@ -28,6 +28,10 @@
   text-decoration: none;
 }
 
+.centered {
+  text-align: center;
+}
+
 .title {
   composes: large bold base;
 }

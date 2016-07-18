@@ -15,5 +15,9 @@ describe("Component", () => {
     it("renders", () => {
       expect(wrapper.is("header")).toBe(true);
     });
+
+    it("displays a title", () => {
+      expect(wrapper.find("h1").text()).toExist();
+    });
   });
 });

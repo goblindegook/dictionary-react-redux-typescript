@@ -4,8 +4,13 @@
 
 .link {
   composes: large undecorated text from "../styles/typography.scss";
-  composes: shadowed action outline from "../styles/colors.scss";
+  composes: action from "../styles/colors.scss";
+  composes: shadowed outline from "../styles/effects.scss";
 
   display: block;
   padding: .5rem 1rem;
+
+  &:focus {
+    padding: calc(.5rem - 2px) calc(1rem - 2px);
+  }
 }
