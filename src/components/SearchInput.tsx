@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as cx from "classnames";
+import LoadingIndicator from "./LoadingIndicator";
 import "react-dom";
 
 /* tslint:disable:no-var-requires */
@@ -8,6 +8,7 @@ const styles = require("./SearchInput.style.scss");
 
 export interface ISearchInputProps extends React.ClassAttributes<SearchInput> {
   className?: string;
+  isLoading?: boolean;
   placeholder?: string;
   text?: string;
   onChange?(event: React.FormEvent): void;
@@ -22,18 +23,25 @@ export default class SearchInput extends React.Component<ISearchInputProps, {}> 
    */
   public render() {
     return (
-      <input
-        type="search"
-        className={cx(this.props.className, styles.input)}
-        value={this.props.text}
-        onChange={this.props.onChange}
-        onKeyUp={(event) => {
-          if (event.keyCode === 13) {
-            this.props.onSubmit(this.props.text);
-          }
-        }}
-        placeholder={this.props.placeholder}
-      />
+      <div className={this.props.className}>
+        <input
+          type="search"
+          className={styles.input}
+          value={this.props.text}
+          onChange={this.props.onChange}
+          onKeyUp={(event) => {
+            if (event.keyCode === 13) {
+              this.props.onSubmit(this.props.text);
+            }
+          }}
+          placeholder={this.props.placeholder}
+        />
+        {this.props.isLoading ? (
+          <div className={styles.loaderContainer}>
+            <LoadingIndicator className={styles.loader} />
+          </div>
+        ) : ""}
+      </div>
     );
   }
 }

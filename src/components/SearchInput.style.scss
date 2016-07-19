@@ -9,3 +9,59 @@
     padding: calc(.5rem - 1px) calc(1rem - 1px);
   }
 }
+
+.loaderContainer {
+  composes: field from "../styles/colors.scss";
+  left: calc(100% - 3.75rem);
+  height: 2.5rem;
+  padding: .5rem 0 .5rem 1rem;
+  position: relative;
+  top: -2.75rem;
+  width: 2.5rem;
+}
+
+.loader:before,
+.loader:after,
+.loader {
+  border-radius: 50%;
+  width: .5rem;
+  height: .5rem;
+  animation-fill-mode: both;
+  animation: loader 2s infinite ease-in-out;
+}
+
+.loader {
+  composes: loader from "../styles/colors.scss";
+  margin: 0;
+  position: relative;
+  text-indent: -9999em;
+  transform: translateZ(0);
+  animation-delay: -0.16s;
+}
+
+.loader:before {
+  left: -.75rem;
+  animation-delay: -0.32s;
+}
+
+.loader:after {
+  left: .75rem;
+}
+
+.loader:before,
+.loader:after {
+  content: '';
+  position: absolute;
+  top: 0;
+}
+
+@keyframes loader {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 .5rem 0 -0.7rem;
+  }
+  40% {
+    box-shadow: 0 .5rem 0 0;
+  }
+}

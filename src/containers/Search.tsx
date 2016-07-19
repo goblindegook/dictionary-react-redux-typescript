@@ -8,7 +8,6 @@ import { searchTask } from "../sagas/search";
 import { IEntry } from "../api/Entry";
 import EntryList from "../components/EntryList";
 import Error from "../components/Error";
-import LoadingIndicator from "../components/LoadingIndicator";
 import SearchInput from "../components/SearchInput";
 
 export interface ISearchProps extends React.ClassAttributes<any> {
@@ -54,12 +53,11 @@ class Search extends React.Component<ISearchProps, {}> {
   public render() {
     const prefix = this.props.prefix || "";
     let title: string = "Dicionário";
-    let content: JSX.Element | JSX.Element[] | string;
+    let content: JSX.Element | JSX.Element[] | string = "";
 
-    if (prefix.length > 0) {
+    if (prefix.length) {
       if (this.props.isLoading) {
         title = "A pesquisar...";
-        content = <LoadingIndicator />;
 
       } else if (this.props.error) {
         title = this.props.error.message;
@@ -79,6 +77,7 @@ class Search extends React.Component<ISearchProps, {}> {
       <section className="search">
         <Helmet title={title} />
         <SearchInput
+          isLoading={prefix.length && this.props.isLoading}
           onChange={this.props.onChange}
           onSubmit={this.props.onSubmit}
           placeholder="Indique a palavra a pesquisar"

@@ -6,7 +6,9 @@ import "react-dom";
 const styles = require("./LoadingIndicator.style.scss");
 /* tslint:enable:no-var-requires */
 
-export interface ILoadingIndicatorProps extends React.ClassAttributes<LoadingIndicator> {}
+export interface ILoadingIndicatorProps extends React.ClassAttributes<LoadingIndicator> {
+  className?: string;
+}
 
 export default class LoadingIndicator extends React.Component<ILoadingIndicatorProps, {}> {
   /**
@@ -16,7 +18,7 @@ export default class LoadingIndicator extends React.Component<ILoadingIndicatorP
    */
   public render() {
     return (
-      <div className={cx("loading", styles.loader)}>A carregar...</div>
+      <div className={cx(styles.loader, this.props.className)}>A carregar...</div>
     );
   }
 }

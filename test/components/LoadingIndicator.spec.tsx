@@ -6,14 +6,15 @@ import LoadingIndicator from "../../src/components/LoadingIndicator";
 
 describe("Component", () => {
   describe("<LoadingIndicator />", () => {
-    let wrapper;
-
-    before(() => {
-      wrapper = shallow(<LoadingIndicator />);
+    it("renders", () => {
+      const wrapper = shallow(<LoadingIndicator />);
+      expect(wrapper.is("div")).toBe(true);
     });
 
-    it("renders", () => {
-      expect(wrapper.is("div.loading")).toBe(true);
+    it("renders with className", () => {
+      const className = "test";
+      const wrapper = shallow(<LoadingIndicator {...{className}} />);
+      expect(wrapper.is("." + className)).toBe(true);
     });
   });
 });
