@@ -23,12 +23,15 @@
     "./**.d.ts",
     "./src/**/*.ts",
     "./src/**/*.tsx",
+    "!./test/**/*.ts",
+    "!./test/**/*.tsx",
     "./typings/**/*.ts",
     "./typings/index.d.ts",
     "!./node_modules/**/*"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "test"
   ],
   "atom": {
     "rewriteTsconfig": false
