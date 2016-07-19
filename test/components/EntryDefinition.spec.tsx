@@ -96,6 +96,13 @@ describe("<EntryDefinition />", () => {
     expect(wrapper.find("br").length).toEqual(parts.length - 1);
   });
 
+  it("renders with entry definitions that contain underscores", () => {
+    raw.sense[0].def = "foo _bar_ baz";
+    entry = createEntry("a", "a:1", raw);
+    const wrapper = shallow(<EntryDefinition {...{entry}} />);
+    expect(wrapper.find("em").first().text()).toEqual("bar");
+  });
+
   xit("renders with entry definitions", () => {
     const wrapper = shallow(<EntryDefinition {...{entry}} />);
     wrapper.find(".def").forEach((definition) => {

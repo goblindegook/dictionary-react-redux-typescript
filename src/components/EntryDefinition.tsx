@@ -8,14 +8,26 @@ const styles = require("./EntryDefinition.style.scss");
 /* tslint:enable:no-var-requires */
 
 /**
+ * Safely transform strings only.
+ */
+function stringTransform(token: any, transform: (text: any) => (string | JSX.Element)[]) {
+  return typeof token === "string" ? transform(token) : token;
+}
+
+/**
  * Formats a definition string, adding components where appropriate.
  *
  * @param  {String} text String to format.
  * @return {Array}       Array containing a mixture of strings and React elements.
  */
 function componentizeText(text: string = ""): (string | JSX.Element)[] {
-  return text.split(/(<br\s*\/?>)/)
-    .map(token => token.match(/<br\s*\/?>/) ? <br /> : token);
+  return [text]
+    // Replace line breaks:
+    .reduce((all, token) => all.concat(stringTransform(token, t => t.split(/(<br\s*\/?>)/))), [])
+    .map(token => token.match(/<br\s*\/?>/) ? <br /> : token)
+    // Replace underlines:
+    .reduce((all, token) => all.concat(stringTransform(token, t => t.split(/(_[^_]*_)/))), [])
+    .map(token => stringTransform(token, t => t.match(/_.*_/) ? <em>{t.replace(/_/g, "")}</em> : t));
 }
 
 export interface IEntryDefinitionProps extends React.ClassAttributes<EntryDefinition> {
@@ -63,7 +75,7 @@ export default class EntryDefinition extends React.Component<IEntryDefinitionPro
             </li>
           ))}
         </ul>
-        <p className={cx("etym", styles.etym)}>{entry.etymology}</p>
+        <p className={cx("etym", styles.etym)}>{componentizeText(entry.etymology)}</p>
       </article>
     );
   }
