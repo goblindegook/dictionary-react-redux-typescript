@@ -5,44 +5,16 @@ import { shallow } from "enzyme";
 import { createEntry } from "../../src/api/Entry";
 import EntryDefinition from "../../src/components/EntryDefinition";
 
+/* tslint:disable:no-var-requires */
+const defineAFixture = require("./fixtures/define-a.json");
+/* tslint:enable:no-var-requires */
+
 describe("<EntryDefinition />", () => {
   let entry;
   let raw;
 
   beforeEach(() => {
-    raw = {
-      "@n": "1",
-      "@id": "a:1",
-      "@type": "hom",
-      form: {
-        orth: "A",
-        pron: "á",
-      },
-      sense: [
-        {
-          def: "Primeira letra do alfabeto português.",
-          gramGrp: "m.",
-        },
-        {
-          "@ast": "1",
-          def: "Primeira nota da escala na denominação alfabética dos sons.",
-          usg: {
-            "@type": "dom",
-            "#text": "Mús.",
-          },
-        },
-        {
-          def: "Primeiro, (falando-se de um número ou de um objecto que faz parte de uma série).",
-          gramGrp: "Adj.",
-        },
-        {
-          "@ast": "1",
-          def: "Que é de primeira classe, (falando-se de carruagens de caminho de ferro).",
-          gramGrp: "Adj.",
-        },
-      ],
-    };
-
+    raw = defineAFixture.superEntry[0].entry;
     entry = createEntry("a", "a:1", raw);
   });
 

@@ -2,7 +2,7 @@ import * as expect from "expect";
 import { createEntry } from "../../src/api/Entry";
 
 /* tslint:disable:no-var-requires */
-const defineFixture = require("./fixtures/define-a.json");
+const defineAFixture = require("./fixtures/define-a.json");
 /* tslint:enable:no-var-requires */
 
 describe("Entry factory", () => {
@@ -52,7 +52,7 @@ describe("Entry factory", () => {
     beforeEach(() => {
       word = "a";
       id = "a:1";
-      raw = defineFixture.superEntry[0].entry;
+      raw = defineAFixture.superEntry[0].entry;
       entry = createEntry(word, id, raw);
     });
 
@@ -69,7 +69,7 @@ describe("Entry factory", () => {
     });
 
     it("sets the etymology", () => {
-      raw = defineFixture.superEntry[1].entry;
+      raw = defineAFixture.superEntry[1].entry;
       entry = createEntry(word, id, raw);
       expect(entry.etymology).toBe(raw.etym["#text"]);
     });

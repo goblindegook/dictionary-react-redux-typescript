@@ -20,13 +20,10 @@
     "sourceMap": true
   },
   "filesGlob": [
-    "./**.d.ts",
-    "./src/**/*.ts",
-    "./src/**/*.tsx",
-    "!./test/**/*.ts",
-    "!./test/**/*.tsx",
-    "./typings/**/*.ts",
+    "./src/**/*.tsx?",
+    "./typings/**/*.d.ts",
     "./typings/index.d.ts",
+    "!./test/**/*.tsx?",
     "!./node_modules/**/*"
   ],
   "exclude": [
