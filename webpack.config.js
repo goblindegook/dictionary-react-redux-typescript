@@ -8,7 +8,7 @@ module.exports = {
   devtool: 'cheap-module-eval-source-map',
   entry: [
     'babel-polyfill',
-    'webpack-hot-middleware/client',
+    'webpack-hot-middleware/client?reload=true&overlay=true',
     './src/index'
   ],
   output: {
@@ -29,6 +29,7 @@ module.exports = {
       {
         test: /\.tsx?$/,
         loaders: [
+          'react-hot',
           'babel?cacheDirectory',
           'ts?sourceMap'
         ],
