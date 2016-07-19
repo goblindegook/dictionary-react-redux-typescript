@@ -6,7 +6,9 @@ import "react-dom";
 const styles = require("./Header.style.scss");
 /* tslint:enable:no-var-requires */
 
-export interface IHeaderProps extends React.ClassAttributes<Header> {}
+export interface IHeaderProps extends React.ClassAttributes<Header> {
+  title: string;
+}
 
 export default class Header extends React.Component<IHeaderProps, {}> {
   /**
@@ -17,7 +19,9 @@ export default class Header extends React.Component<IHeaderProps, {}> {
   public render() {
     return (
       <header className="header">
-        <h1 className={cx(styles.title)}>Dicionário</h1>
+        <h1 className={cx(styles.title)}>
+          {this.props.title}
+        </h1>
       </header>
     );
   }

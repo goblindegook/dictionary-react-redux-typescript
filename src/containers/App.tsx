@@ -19,8 +19,8 @@ export default class App extends React.Component<IAppProps, {}> {
   public render() {
     return (
       <div className={cx("dictionary-app", styles.app)}>
-        <Header />
-          {this.props.children}
+        <Header title="Dicionário" />
+        {this.props.children}
         <Footer />
       </div>
     );
