@@ -7,19 +7,21 @@ import { browserHistory, match } from "react-router";
 import routes from "../routes";
 import render from "./render";
 
-/* tslint:disable:no-var-requires */
-const config = require("../../webpack.config.js");
-/* tslint:enable:no-var-requires */
-
 const port = process.env.PORT || 3000;
 const app = Express();
-const compiler = webpack(config);
 
-app.use(webpackHotMiddleware(compiler));
-app.use(webpackDevMiddleware(compiler, {
-  noInfo: true,
-  publicPath: config.output.publicPath,
-}));
+if (process.env.NODE_ENV === "development") {
+  /* tslint:disable:no-var-requires */
+  const config = require("../../webpack.config.js");
+  /* tslint:enable:no-var-requires */
+  const compiler = webpack(config);
+
+  app.use(webpackHotMiddleware(compiler));
+  app.use(webpackDevMiddleware(compiler, {
+    noInfo: true,
+    publicPath: config.output.publicPath,
+  }));
+}
 
 app.use("/api", proxy({
   changeOrigin: true,

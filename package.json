@@ -13,7 +13,8 @@
     "test:watch": "npm test -- --watch",
     "lint": "npm run lint:js && npm run lint:ts",
     "lint:js": "standard *.js",
-    "lint:ts": "tslint {src,test}/**/*.{ts,tsx}"
+    "lint:ts": "tslint {src,test}/**/*.{ts,tsx}",
+    "build": "NODE_ENV=production webpack --config=webpack.config.production.js -p --progress"
   },
   "author": "Luís Rodrigues",
   "license": "MIT",

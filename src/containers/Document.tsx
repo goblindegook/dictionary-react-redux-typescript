@@ -28,6 +28,7 @@ export default class Document extends React.Component<IDocumentProps, {}> {
     const state = this.props.store.getState();
     // Helmet.rewind() must be called after ReactDOMServer.renderToString():
     const head = this.props.server ? Helmet.rewind() : null;
+    const fonts = "https://fonts.googleapis.com/css?family=Playfair+Display:400,400italic,700,700italic";
 
     return (
       <html>
@@ -35,10 +36,8 @@ export default class Document extends React.Component<IDocumentProps, {}> {
           {head && head.title.toComponent()}
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <link rel="shortcut icon" href="/favicon.ico" />
-          <link
-            href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400italic,700,700italic"
-            rel="stylesheet"
-            type="text/css" />
+          <link href="/static/bundle.css" rel="stylesheet" type="text/css" />
+          <link href={fonts} rel="stylesheet" type="text/css" />
         </head>
         <body>
           <div

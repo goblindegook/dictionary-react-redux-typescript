@@ -2,13 +2,15 @@
 
 const path = require('path')
 const webpack = require('webpack')
+const assign = require('lodash/assign')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const config = require('./webpack.config')
 
-module.exports = {
-  debug: true,
-  devtool: '#eval',
+module.exports = assign(config, {
+  debug: false,
+  devtool: '#cheap-source-map',
   entry: [
     'babel-polyfill',
-    'webpack-hot-middleware/client?reload=true&overlay=true',
     './src/index'
   ],
   output: {
@@ -24,40 +26,45 @@ module.exports = {
         PORT: JSON.stringify(process.env.PORT)
       }
     }),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
-    new webpack.optimize.OccurrenceOrderPlugin()
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false
+      },
+      comments: false
+    }),
+    new ExtractTextPlugin('bundle.css', {
+      allChunks: true,
+      filename: '[name]-[chunkhash].css'
+    })
   ],
-  resolve: {
-    extensions: ['', '.ts', '.tsx', '.js', '.jsx']
-  },
   module: {
     loaders: [
       {
         test: /\.tsx?$/,
         loaders: [
-          'react-hot',
           'babel?cacheDirectory',
-          'ts?sourceMap'
+          'ts'
         ],
         exclude: /node_modules/,
         include: path.join(__dirname, 'src')
       },
       {
         test: /\.css$/,
-        loader: 'style?sourceMap!css?importLoaders=1&modules&sourceMap&localIdentName=[name]__[local]___[hash:base64:5]',
+        loader: ExtractTextPlugin.extract('style', 'css?importLoaders=1&modules&localIdentName=[name]__[local]___[hash:base64:5]'),
         include: path.join(__dirname, 'src')
       },
       {
         test: /\.scss$/,
-        loader: 'style?sourceMap!css?importLoaders=1&modules&sourceMap&localIdentName=[name]__[local]___[hash:base64:5]!sass',
+        loader: ExtractTextPlugin.extract('style', 'css?importLoaders=1&modules&localIdentName=[name]__[local]___[hash:base64:5]!sass'),
         include: path.join(__dirname, 'src')
       }
     ]
   },
   sassLoader: {
     outputStyle: 'expanded',
-    sourceMap: true,
-    sourceMapContents: true
+    sourceMap: false,
+    sourceMapContents: false
   }
-}
+})
