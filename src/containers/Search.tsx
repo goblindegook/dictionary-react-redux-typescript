@@ -53,13 +53,10 @@ class Search extends React.Component<ISearchProps, {}> {
   public render() {
     const prefix = this.props.prefix || "";
     let title: string = "Dicionário";
-    let content: JSX.Element | JSX.Element[] | string = "";
+    let content: JSX.Element | JSX.Element[] | string = null;
 
     if (prefix.length) {
-      if (this.props.isLoading) {
-        title = "A pesquisar...";
-
-      } else if (this.props.error) {
+      if (this.props.error) {
         title = this.props.error.message;
         content = <Error message={this.props.error.message} />;
 
@@ -71,6 +68,10 @@ class Search extends React.Component<ISearchProps, {}> {
         title = `Pesquisa por ${prefix}`;
         content = <EntryList entries={this.props.entries} />;
       }
+    }
+
+    if (this.props.isLoading) {
+      title = "A pesquisar...";
     }
 
     return (

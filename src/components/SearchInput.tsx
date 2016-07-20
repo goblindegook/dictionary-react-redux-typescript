@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as cx from "classnames";
 import LoadingIndicator from "./LoadingIndicator";
 import "react-dom";
 
@@ -23,7 +24,7 @@ export default class SearchInput extends React.Component<ISearchInputProps, {}> 
    */
   public render() {
     return (
-      <div className={this.props.className}>
+      <div className={cx(styles.container, this.props.className)}>
         <input
           type="search"
           className={styles.input}

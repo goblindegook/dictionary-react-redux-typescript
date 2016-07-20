@@ -12,14 +12,27 @@ module.exports = {
     './src/index'
   ],
   output: {
-    path: path.join(__dirname, 'dist'),
+    chunkFilename: '[name]-[chunkhash].js',
     filename: 'bundle.js',
+    path: path.join(__dirname, 'dist'),
     publicPath: '/static/'
   },
   plugins: [
+    new webpack.HotModuleReplacementPlugin(), // development
+    new webpack.NoErrorsPlugin(), // development
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+        PORT: JSON.stringify(process.env.PORT)
+      }
+    }),
     new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
-    new ExtractTextPlugin('./dist/bundle.css', { allChunks: true })
+    // new webpack.optimize.DedupePlugin(), // production
+    // new webpack.optimize.UglifyJsPlugin(), // production
+    new ExtractTextPlugin({
+      allChunks: true,
+      filename: '[name]-[chunkhash].css'
+    })
   ],
   resolve: {
     extensions: ['', '.ts', '.tsx', '.js', '.jsx']
@@ -47,6 +60,10 @@ module.exports = {
       {
         test: /\.scss$/,
         loaders: [
+          // ExtractTextPlugin.extract({
+          //   notExtractLoader: 'style-loader',
+          //   loaders: ['css-loader', 'sass-loader']
+          // }),
           'style?sourceMap',
           'css?importLoaders=2&modules&sourceMap&localIdentName=[name]__[local]___[hash:base64:5]',
           'sass'

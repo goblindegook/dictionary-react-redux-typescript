@@ -21,7 +21,6 @@ export const searchReducer = handleActions({
 
   [SEARCH_START]: (state: ISearchState, action: Action<any>): ISearchState =>
     Object.assign({}, state, {
-      entries: [],
       error: null,
       isLoading: true,
       prefix: action.payload,

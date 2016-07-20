@@ -1,3 +1,7 @@
+.container {
+  height: 4rem;
+}
+
 .input {
   composes: large text from "../styles/typography.scss";
   composes: field from "../styles/colors.scss";
