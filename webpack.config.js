@@ -11,11 +11,8 @@ module.exports = {
     'webpack-hot-middleware/client?reload=true&overlay=true',
     './src/index'
   ],
-  output: {
-    chunkFilename: '[name]-[chunkhash].js',
-    filename: 'bundle.js',
-    path: path.join(__dirname, 'dist'),
-    publicPath: '/static/'
+  resolve: {
+    extensions: ['', '.ts', '.tsx', '.js', '.jsx']
   },
   plugins: [
     new webpack.DefinePlugin({
@@ -28,18 +25,11 @@ module.exports = {
     new webpack.NoErrorsPlugin(),
     new webpack.optimize.OccurrenceOrderPlugin()
   ],
-  resolve: {
-    extensions: ['', '.ts', '.tsx', '.js', '.jsx']
-  },
   module: {
     loaders: [
       {
         test: /\.tsx?$/,
-        loaders: [
-          'react-hot',
-          'babel?cacheDirectory',
-          'ts?sourceMap'
-        ],
+        loader: 'react-hot!babel?cacheDirectory!ts?sourceMap',
         exclude: /node_modules/,
         include: path.join(__dirname, 'src')
       },
@@ -59,5 +49,11 @@ module.exports = {
     outputStyle: 'expanded',
     sourceMap: true,
     sourceMapContents: true
+  },
+  output: {
+    chunkFilename: '[name]-[chunkhash].js',
+    filename: 'bundle.js',
+    path: path.join(__dirname, 'dist/static'),
+    publicPath: '/static/'
   }
 }

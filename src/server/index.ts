@@ -1,4 +1,4 @@
-import * as Express from "express";
+import * as express from "express";
 import proxy = require("http-proxy-middleware");
 import webpack = require("webpack");
 import webpackDevMiddleware = require("webpack-dev-middleware");
@@ -8,11 +8,11 @@ import routes from "../routes";
 import render from "./render";
 
 const port = process.env.PORT || 3000;
-const app = Express();
+const app = express();
 
 if (process.env.NODE_ENV === "development") {
   /* tslint:disable:no-var-requires */
-  const config = require("../../webpack.config.js");
+  const config = require("../../webpack.config");
   /* tslint:enable:no-var-requires */
   const compiler = webpack(config);
 
@@ -23,11 +23,16 @@ if (process.env.NODE_ENV === "development") {
   }));
 }
 
-app.use("/api", proxy({
+app.use("/api/", proxy({
   changeOrigin: true,
-  pathRewrite: { "^/api": "" },
+  pathRewrite: { "^/api/": "/" },
   // FIXME: Move to configuration file.
   target: "http://dicionario-aberto.net",
+}));
+
+app.use(express.static("dist", {
+  extensions: ["css", "js"],
+  index: false,
 }));
 
 app.use((req, res, next) => {

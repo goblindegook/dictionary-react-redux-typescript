@@ -13,12 +13,6 @@ module.exports = assign(config, {
     'babel-polyfill',
     './src/index'
   ],
-  output: {
-    chunkFilename: '[name]-[chunkhash].js',
-    filename: 'bundle.js',
-    path: path.join(__dirname, 'dist'),
-    publicPath: '/static/'
-  },
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
@@ -43,10 +37,7 @@ module.exports = assign(config, {
     loaders: [
       {
         test: /\.tsx?$/,
-        loaders: [
-          'babel?cacheDirectory',
-          'ts'
-        ],
+        loader: 'babel?cacheDirectory!ts!tslint',
         exclude: /node_modules/,
         include: path.join(__dirname, 'src')
       },
