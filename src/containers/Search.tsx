@@ -56,15 +56,19 @@ class Search extends React.Component<ISearchProps, {}> {
     let content: JSX.Element | JSX.Element[] | string = null;
 
     if (prefix.length) {
-      if (this.props.error) {
-        title = this.props.error.message;
-        content = <Error message={this.props.error.message} />;
 
-      } else if (!this.props.entries || !this.props.entries.length) {
-        title = "Palavra não encontrada";
-        content = <Error message="Palavra não encontrada" />;
+      if (!this.props.isLoading) {
+        if (this.props.error) {
+          title = this.props.error.message;
+          content = <Error message={this.props.error.message} />;
 
-      } else {
+        } else if (!this.props.entries || !this.props.entries.length) {
+          title = "Palavra não encontrada";
+          content = <Error message="Palavra não encontrada" />;
+        }
+      }
+
+      if (!content) {
         title = `Pesquisa por ${prefix}`;
         content = <EntryList entries={this.props.entries} />;
       }

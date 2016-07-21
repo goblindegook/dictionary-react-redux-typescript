@@ -1,5 +1,5 @@
 import * as fetch from "isomorphic-fetch";
-import memoize from "../utils/memoize";
+import { memoize } from "lodash";
 import { createEntry, IEntry } from "./Entry";
 
 export interface IRawSense {
