@@ -13,7 +13,7 @@ describe("Search reducer", () => {
       entries: [],
       error: null,
       isLoading: false,
-      prefix: "",
+      prefix: null,
     };
   });
 

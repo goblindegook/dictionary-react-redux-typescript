@@ -95,14 +95,10 @@ export default connect(
     entries: state.search.entries,
     error: state.search.error,
     isLoading: state.search.isLoading,
-    prefix: state.search.prefix || props.params && props.params.prefix,
+    prefix: state.search.prefix !== null ? state.search.prefix : props.params && props.params.prefix,
   }),
   (dispatch) => ({
-    onChange: (event) => {
-      const prefix = event.target.value;
-      dispatch(searchStart(prefix));
-      dispatch(push("/search/" + prefix));
-    },
+    onChange: (event) => dispatch(searchStart(event.target.value)),
     onLoad: (prefix) => dispatch(searchStart(prefix)),
     onSubmit: (prefix) => dispatch(push("/search/" + prefix)),
   })

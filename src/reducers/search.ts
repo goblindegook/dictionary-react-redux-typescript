@@ -13,7 +13,7 @@ const initialState: ISearchState = {
   entries: [],
   error: null,
   isLoading: false,
-  prefix: "",
+  prefix: null,
 };
 
 /* tslint:disable:object-literal-sort-keys */
