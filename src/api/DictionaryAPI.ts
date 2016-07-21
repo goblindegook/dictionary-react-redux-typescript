@@ -1,4 +1,5 @@
 import * as fetch from "isomorphic-fetch";
+import memoize from "../utils/memoize";
 import { createEntry, IEntry } from "./Entry";
 
 export interface IRawSense {
@@ -37,7 +38,7 @@ const rootUrl = "http://localhost:3000/api/search-json";
  *
  * @todo Plug this into an actual API.
  */
-export async function search(prefix: string): Promise<IEntry[]> {
+async function searchFn(prefix: string): Promise<IEntry[]> {
   const indices = {};
 
   const response = await fetch(`${rootUrl}?prefix=${prefix}`, { mode: "cors" });
@@ -54,6 +55,8 @@ export async function search(prefix: string): Promise<IEntry[]> {
   });
 }
 
+export const search = memoize(searchFn);
+
 /**
  * [define description]
  * @param  {string}                       id [description]
@@ -61,7 +64,8 @@ export async function search(prefix: string): Promise<IEntry[]> {
  *
  * @todo Plug this into an actual API.
  */
-export async function define(id: string): Promise<IEntry[]> {
+
+async function defineFn(id: string): Promise<IEntry[]> {
   const response = await fetch(`${rootUrl}/${id}`, { mode: "cors" });
 
   if (!response.status || response.status.toString().charAt(0) !== "2") {
@@ -74,3 +78,5 @@ export async function define(id: string): Promise<IEntry[]> {
   return entries.map((result) =>
     createEntry(id.split(":")[0], result.entry["@id"], result.entry));
 }
+
+export const define = memoize(defineFn);
