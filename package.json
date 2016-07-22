@@ -1,7 +1,7 @@
 {
   "name": "dictionary-react-redux-typescript",
   "version": "1.0.0",
-  "description": "",
+  "description": "A simple React and Redux application written in TypeScript.",
   "repository": "git@github.com:goblindegook/dictionary-react-redux-typescript.git",
   "main": "index.js",
   "scripts": {
