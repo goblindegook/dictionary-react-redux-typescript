@@ -3,12 +3,14 @@
 const path = require('path')
 const webpack = require('webpack')
 const assign = require('lodash/assign')
+const autoprefixer = require('autoprefixer')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const config = require('./webpack.config')
 
 module.exports = assign(config, {
+  bail: true,
   debug: false,
-  devtool: '#cheap-source-map',
+  devtool: 'source-map',
   entry: [
     'babel-polyfill',
     './src/index'
@@ -23,15 +25,17 @@ module.exports = assign(config, {
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.UglifyJsPlugin({
+      comments: false,
       compress: {
+        screw_ie8: true,
         warnings: false
       },
-      comments: false
+      mangle: {
+        screw_ie8: true
+      }
     }),
-    new ExtractTextPlugin('bundle.css', {
-      allChunks: true,
-      filename: '[name]-[chunkhash].css'
-    })
+    // TODO: [name].[contenthash].css
+    new ExtractTextPlugin('bundle.css')
   ],
   module: {
     loaders: [
@@ -43,16 +47,23 @@ module.exports = assign(config, {
       },
       {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract('style', 'css?importLoaders=1&modules&localIdentName=[name]__[local]___[hash:base64:5]'),
+        loader: ExtractTextPlugin.extract('style', 'css?-autoprefixer&importLoaders=1&modules&localIdentName=[name]__[local]___[hash:base64:5]!postcss'),
         include: path.join(__dirname, 'src')
       },
       {
         test: /\.scss$/,
-        loader: ExtractTextPlugin.extract('style', 'css?importLoaders=1&modules&localIdentName=[name]__[local]___[hash:base64:5]!sass'),
+        loader: ExtractTextPlugin.extract('style', 'css?-autoprefixer&importLoaders=1&modules&localIdentName=[name]__[local]___[hash:base64:5]!postcss!sass'),
         include: path.join(__dirname, 'src')
+      },
+      {
+        test: /\.(jpg|png|gif|eot|svg|ttf|woff|woff2)$/,
+        loader: 'file'
       }
     ]
   },
+  postcss: () => [
+    autoprefixer
+  ],
   sassLoader: {
     outputStyle: 'expanded',
     sourceMap: false,
