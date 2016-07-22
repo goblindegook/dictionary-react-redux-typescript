@@ -1,5 +1,5 @@
 import * as fetch from "isomorphic-fetch";
-import { memoize } from "lodash";
+import { memoize } from "lodash"; // FIXME: Import single function.
 import { createEntry, IEntry } from "./Entry";
 
 export interface IRawSense {

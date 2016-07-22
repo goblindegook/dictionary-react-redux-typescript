@@ -10,7 +10,7 @@ const config = require('./webpack.config')
 module.exports = assign(config, {
   bail: true,
   debug: false,
-  devtool: 'source-map',
+  devtool: 'cheap-source-map',
   entry: [
     'babel-polyfill',
     './src/index'
