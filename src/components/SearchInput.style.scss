@@ -2,20 +2,19 @@
   height: 4rem;
 }
 
-.input {
+.field {
   composes: large text from "../styles/typography.scss";
   composes: field from "../styles/colors.scss";
   composes: rounded bordered outline from "../styles/effects.scss";
   padding: .5rem 1rem;
   width: 100%;
+}
 
-  &:focus {
-    padding: calc(.5rem - 1px) calc(1rem - 1px);
-  }
+.loading {
+  padding-right: 4rem;
 }
 
 .loaderContainer {
-  composes: field from "../styles/colors.scss";
   left: calc(100% - 3.75rem);
   height: 2.5rem;
   padding: .5rem 0 .5rem 1rem;

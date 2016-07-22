@@ -26,8 +26,9 @@ export default class SearchInput extends React.Component<ISearchInputProps, {}> 
     return (
       <div className={cx(styles.container, this.props.className)}>
         <input
+          autoFocus
           type="search"
-          className={styles.input}
+          className={cx(styles.field, this.props.isLoading && styles.loading)}
           value={this.props.text}
           onChange={this.props.onChange}
           onKeyUp={(event) => {
