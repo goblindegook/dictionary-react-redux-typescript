@@ -34,7 +34,7 @@ export default function configureStore(initialState: Object = {}) {
   // Hot reload reducers:
   // https://stackoverflow.com/questions/34243684/make-redux-reducers-and-other-non-components-hot-loadable
   /* tslint:disable:no-string-literal */
-  if (module["hot"]) {
+  if (process.env.NODE_ENV === "development" && module["hot"]) {
     module["hot"].accept("./reducers", () => {
       const nextRootReducer = require("./reducers/index");
       store.replaceReducer(nextRootReducer);

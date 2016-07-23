@@ -5,6 +5,7 @@ const webpack = require('webpack')
 const assign = require('lodash/assign')
 const autoprefixer = require('autoprefixer')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 const config = require('./webpack.config')
 
 module.exports = assign(config, {
@@ -24,6 +25,9 @@ module.exports = assign(config, {
     }),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.optimize.DedupePlugin(),
+    new CopyWebpackPlugin([
+      { context: 'assets', from: '**/*', to: '.' }
+    ]),
     new webpack.optimize.UglifyJsPlugin({
       comments: false,
       compress: {

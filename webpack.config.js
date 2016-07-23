@@ -3,6 +3,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const autoprefixer = require('autoprefixer')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = {
   debug: true,
@@ -23,7 +24,10 @@ module.exports = {
       }
     }),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
+    new webpack.NoErrorsPlugin(),
+    new CopyWebpackPlugin([
+      { context: 'assets', from: '**/*', to: '.' }
+    ])
   ],
   module: {
     loaders: [

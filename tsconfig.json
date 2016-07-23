@@ -20,10 +20,12 @@
     "sourceMap": true
   },
   "filesGlob": [
-    "./src/**/*.tsx?",
+    "./src/**/*.ts",
+    "./src/**/*.tsx",
     "./typings/**/*.d.ts",
     "./typings/index.d.ts",
-    "!./test/**/*.tsx?",
+    "!./test/**/*.ts",
+    "!./test/**/*.tsx",
     "!./node_modules/**/*"
   ],
   "atom": {
