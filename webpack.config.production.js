@@ -1,21 +1,59 @@
 'use strict'
 
+const fs = require('fs')
 const path = require('path')
 const webpack = require('webpack')
 const assign = require('lodash/assign')
 const autoprefixer = require('autoprefixer')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const config = require('./webpack.config')
+const pkg = require('./package.json')
 
-module.exports = assign(config, {
+function generateStatsFile(compiler) {
+  this.plugin('done', stats => fs.writeFileSync(
+    path.join(__dirname, 'dist', 'stats.json'),
+    JSON.stringify(stats.toJson({
+      chunks: false,
+      exclude: [
+        /node_modules/
+      ],
+    }))
+  ))
+}
+
+module.exports = {
   bail: true,
   debug: false,
   devtool: 'cheap-source-map',
-  entry: [
-    'babel-polyfill',
-    './src/index'
-  ],
+  entry: {
+    main: './src/index',
+    vendor: [
+      'babel-polyfill',
+      'classnames',
+      'isomorphic-fetch',
+      'lodash',
+      'react',
+      'react-dom',
+      'react-helmet',
+      'react-redux',
+      'react-router',
+      'react-router-redux',
+      'redux',
+      'redux-actions',
+      'redux-saga',
+      'serialize-javascript'
+    ]
+  },
+  output: {
+    chunkFilename: '[name].[chunkhash].chunk.js',
+    filename: '[name].[chunkhash].js',
+    path: path.join(__dirname, 'dist/static'),
+    publicPath: '/static/'
+  },
+  resolve: {
+    extensions: ['', '.ts', '.tsx', '.js', '.jsx']
+  },
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
@@ -38,8 +76,9 @@ module.exports = assign(config, {
         screw_ie8: true
       }
     }),
-    // TODO: [name].[contenthash].css
-    new ExtractTextPlugin('bundle.css')
+    new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.[chunkhash].js'),
+    new ExtractTextPlugin('[name].[contenthash].css'),
+    generateStatsFile
   ],
   module: {
     loaders: [
@@ -73,4 +112,4 @@ module.exports = assign(config, {
     sourceMap: false,
     sourceMapContents: false
   }
-})
+}

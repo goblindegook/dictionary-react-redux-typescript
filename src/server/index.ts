@@ -5,7 +5,7 @@ import webpackDevMiddleware = require("webpack-dev-middleware");
 import webpackHotMiddleware = require("webpack-hot-middleware");
 import { browserHistory, match } from "react-router";
 import routes from "../routes";
-import render from "./render";
+import handleRoute from "./handleRoute";
 
 const port = process.env.PORT || 3000;
 const app = express();
@@ -40,7 +40,7 @@ app.use((req, res, next) => {
     history: browserHistory,
     location: req.url,
     routes,
-  }, render(req, res, next));
+  }, handleRoute(req, res, next));
 });
 
 app.listen(port, (error) => {

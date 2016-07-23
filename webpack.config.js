@@ -4,15 +4,24 @@ const path = require('path')
 const webpack = require('webpack')
 const autoprefixer = require('autoprefixer')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 module.exports = {
   debug: true,
   devtool: 'eval',
-  entry: [
-    'babel-polyfill',
-    'webpack-hot-middleware/client?reload=true&overlay=true',
-    './src/index'
-  ],
+  entry: {
+    main: [
+      'babel-polyfill',
+      'webpack-hot-middleware/client?reload=true&overlay=true',
+      './src/index'
+    ]
+  },
+  output: {
+    chunkFilename: '[name].[chunkhash].chunk.js',
+    filename: 'main.js',
+    path: path.join(__dirname, 'dist/static'),
+    publicPath: '/static/'
+  },
   resolve: {
     extensions: ['', '.ts', '.tsx', '.js', '.jsx']
   },
@@ -27,7 +36,8 @@ module.exports = {
     new webpack.NoErrorsPlugin(),
     new CopyWebpackPlugin([
       { context: 'assets', from: '**/*', to: '.' }
-    ])
+    ]),
+    new ExtractTextPlugin('main.css'),
   ],
   module: {
     loaders: [
@@ -60,12 +70,5 @@ module.exports = {
     outputStyle: 'expanded',
     sourceMap: true,
     sourceMapContents: true
-  },
-  output: {
-    chunkFilename: '[name].[chunkhash].chunk.js',
-    // TODO: [name].[chunkhash].js
-    filename: 'bundle.js',
-    path: path.join(__dirname, 'dist/static'),
-    publicPath: '/static/'
   }
 }

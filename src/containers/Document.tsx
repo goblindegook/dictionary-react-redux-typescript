@@ -4,8 +4,14 @@ import { renderToString } from "react-dom/server";
 import * as Helmet from "react-helmet";
 import serialize = require("serialize-javascript");
 
+export interface IDocumentAssets {
+  css?: string[];
+  js?: string[];
+}
+
 interface IDocumentProps extends React.ClassAttributes<Document> {
   app?: JSX.Element;
+  assets?: IDocumentAssets;
   server?: Boolean;
   store: any;
 }
@@ -25,6 +31,7 @@ export default class Document extends React.Component<IDocumentProps, {}> {
    */
   public render() {
     const app = this.props.app ? renderToString(this.props.app) : "";
+    const assets = this.props.assets || {};
     const state = this.props.store.getState();
     // Helmet.rewind() must be called after ReactDOMServer.renderToString():
     const head = this.props.server ? Helmet.rewind() : null;
@@ -36,7 +43,9 @@ export default class Document extends React.Component<IDocumentProps, {}> {
           {head && head.title.toComponent()}
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <link rel="shortcut icon" href="/favicon.ico" />
-          <link href="/static/bundle.css" rel="stylesheet" type="text/css" />
+          {assets.css && assets.css.map(css => (
+            <link key={css} href={`/static/${css}`} rel="stylesheet" type="text/css" />
+          ))}
           <link href={fonts} rel="stylesheet" type="text/css" />
         </head>
         <body>
@@ -48,7 +57,9 @@ export default class Document extends React.Component<IDocumentProps, {}> {
           <script id="preloaded" type="text/javascript" dangerouslySetInnerHTML={{
             __html: `window.__PRELOADED__=${serialize(state)};`,
           }} />
-          <script src="/static/bundle.js"></script>
+          {assets.js && assets.js.map(js => (
+            <script key={js} src={`/static/${js}`} type="text/javascript" />
+          ))}
         </body>
       </html>
     );
