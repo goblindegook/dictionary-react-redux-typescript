@@ -1,15 +1,15 @@
 {
   "dependencies": {
-    "es6-promise": "registry:npm/es6-promise#3.0.0+20160211003958",
-    "lodash": "registry:npm/lodash#4.0.0+20160701205107",
-    "mime": "registry:npm/mime#1.3.0+20160423043021",
-    "react-router": "registry:npm/react-router#2.4.0+20160718214432",
+    "es6-promise": "registry:npm/es6-promise#3.0.0+20160723033700",
+    "lodash": "registry:npm/lodash#4.0.0+20160723033700",
+    "mime": "registry:npm/mime#1.3.0+20160723033700",
+    "react-router": "registry:npm/react-router#2.4.0+20160723033700",
     "react-router-redux": "registry:npm/react-router-redux#4.0.0+20160602212457"
   },
   "devDependencies": {
     "enzyme": "registry:npm/enzyme#2.2.0+20160322031343",
-    "nock": "registry:npm/nock#0.7.0+20160712184133",
-    "sinon": "registry:npm/sinon#1.16.0+20160427193336",
+    "nock": "registry:npm/nock#0.7.0+20160723033700",
+    "sinon": "registry:npm/sinon#1.16.0+20160723033700",
     "webpack": "registry:npm/webpack#1.12.9+20160418172948"
   },
   "globalDependencies": {
@@ -17,7 +17,7 @@
     "express": "registry:dt/express#4.0.0+20160708185218",
     "express-serve-static-core": "registry:dt/express-serve-static-core#4.0.0+20160715232503",
     "isomorphic-fetch": "registry:dt/isomorphic-fetch#0.0.0+20160524142046",
-    "node": "registry:env/node#6.0.0+20160720180515",
+    "node": "registry:env/node#6.0.0+20160723033700",
     "react": "registry:dt/react#0.14.0+20160720060442",
     "react-dom": "registry:dt/react-dom#0.14.0+20160412154040",
     "react-helmet": "registry:dt/react-helmet#0.0.0+20160619032521",
