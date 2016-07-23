@@ -2,6 +2,7 @@ import * as expect from "expect";
 import * as React from "react";
 import "react-dom";
 import { shallow } from "enzyme";
+import { cloneDeep } from "lodash";
 import { createEntry } from "../../src/api/Entry";
 import EntryDefinition from "../../src/components/EntryDefinition";
 
@@ -11,11 +12,11 @@ const defineAFixture = require("./fixtures/define-a.json");
 
 describe("<EntryDefinition />", () => {
   let entry;
-  let raw;
+  let data;
 
   beforeEach(() => {
-    raw = defineAFixture.superEntry[0].entry;
-    entry = createEntry("a", "a:1", raw);
+    data = cloneDeep(defineAFixture.superEntry[0].entry);
+    entry = createEntry("a", "a:1", data);
   });
 
   it("renders", () => {
@@ -29,56 +30,52 @@ describe("<EntryDefinition />", () => {
     expect(wrapper.hasClass(className)).toBe(true);
   });
 
-  it("renders with title", () => {
+  it("renders title", () => {
     const title = "test";
     const wrapper = shallow(<EntryDefinition {...{title}} />);
     expect(wrapper.find(".orth").first().text()).toBe(title);
   });
 
-  it("renders with n", () => {
+  it("renders entry index (n)", () => {
     const wrapper = shallow(<EntryDefinition {...{entry}} />);
-    expect(wrapper.find(".n").first().text()).toBe(raw["@n"]);
+    expect(wrapper.find(".n").first().text()).toBe(data["@n"]);
   });
 
-  it("renders with entry orthography", () => {
+  it("renders entry orthography", () => {
     const wrapper = shallow(<EntryDefinition {...{entry}} />);
-    expect(wrapper.find(".orth").first().text()).toEqual(raw.form.orth);
+    expect(wrapper.find(".orth").first().text()).toEqual(data.form.orth);
   });
 
-  it("renders with entry orthography", () => {
+  it("renders entry pronunciation", () => {
     const wrapper = shallow(<EntryDefinition {...{entry}} />);
-    expect(wrapper.find(".n").first().text()).toEqual(raw["@n"]);
+    expect(wrapper.find(".pron").first().text()).toEqual(data.form.pron);
   });
 
-  it("renders with entry pronunciation", () => {
+  it("renders entry senses", () => {
     const wrapper = shallow(<EntryDefinition {...{entry}} />);
-    expect(wrapper.find(".pron").first().text()).toEqual(raw.form.pron);
+    expect(wrapper.find(".sense").length).toEqual(data.sense.length);
   });
 
-  it("renders with entry senses", () => {
+  it("renders entry definitions", () => {
     const wrapper = shallow(<EntryDefinition {...{entry}} />);
-    expect(wrapper.find(".sense").length).toEqual(raw.sense.length);
+    let i = 0;
+    wrapper.find(".def").forEach(def => expect(def.text()).toEqual(data.sense[i++].def));
   });
 
-  it("renders with entry definitions that contain line breaks", () => {
-    const parts = ["foo", "bar", "baz"];
-    raw.sense[0].def = parts.join("<br />");
-    entry = createEntry("a", "a:1", raw);
-    const wrapper = shallow(<EntryDefinition {...{entry}} />);
-    expect(wrapper.find("br").length).toEqual(parts.length - 1);
-  });
+  context("when rendering definitions", () => {
+    it("converts line breaks", () => {
+      const parts = ["foo", "bar", "baz"];
+      data.sense[0].def = parts.join("<br />");
+      entry = createEntry("a", "a:1", data);
+      const wrapper = shallow(<EntryDefinition {...{entry}} />);
+      expect(wrapper.find("br").length).toEqual(parts.length - 1);
+    });
 
-  it("renders with entry definitions that contain underscores", () => {
-    raw.sense[0].def = "foo _bar_ baz";
-    entry = createEntry("a", "a:1", raw);
-    const wrapper = shallow(<EntryDefinition {...{entry}} />);
-    expect(wrapper.find("em").first().text()).toEqual("bar");
-  });
-
-  xit("renders with entry definitions", () => {
-    const wrapper = shallow(<EntryDefinition {...{entry}} />);
-    wrapper.find(".def").forEach((definition) => {
-      expect(definition.text()).toEqual(raw.sense[0].def);
+    it("converts underscores to italics", () => {
+      data.sense[0].def = "foo _bar_ baz";
+      entry = createEntry("a", "a:1", data);
+      const wrapper = shallow(<EntryDefinition {...{entry}} />);
+      expect(wrapper.find("em").first().text()).toEqual("bar");
     });
   });
 });

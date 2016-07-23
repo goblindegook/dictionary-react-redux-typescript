@@ -22,10 +22,10 @@
   "filesGlob": [
     "./src/**/*.ts",
     "./src/**/*.tsx",
+    "./test/**/*.ts",
+    "./test/**/*.tsx",
     "./typings/**/*.d.ts",
     "./typings/index.d.ts",
-    "!./test/**/*.ts",
-    "!./test/**/*.tsx",
     "!./node_modules/**/*"
   ],
   "atom": {
