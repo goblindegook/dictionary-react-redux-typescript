@@ -3,21 +3,16 @@
 const fs = require('fs')
 const path = require('path')
 const webpack = require('webpack')
-const assign = require('lodash/assign')
 const autoprefixer = require('autoprefixer')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const config = require('./webpack.config')
-const pkg = require('./package.json')
 
-function generateStatsFile(compiler) {
+function generateStatsFile (compiler) {
   this.plugin('done', stats => fs.writeFileSync(
     path.join(__dirname, 'dist', 'stats.json'),
     JSON.stringify(stats.toJson({
       chunks: false,
-      exclude: [
-        /node_modules/
-      ],
+      exclude: [/node_modules/]
     }))
   ))
 }

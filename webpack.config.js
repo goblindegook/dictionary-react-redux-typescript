@@ -37,7 +37,7 @@ module.exports = {
     new CopyWebpackPlugin([
       { context: 'assets', from: '**/*', to: '.' }
     ]),
-    new ExtractTextPlugin('main.css'),
+    new ExtractTextPlugin('main.css')
   ],
   module: {
     loaders: [
