@@ -38,7 +38,19 @@ function test_strings() {
 }
 
 function test_arrays() {
-  // TODO
+  expect([0]).toBe([0]);
+  expect([0]).toBeFalsy();
+  expect([0]).toBeTruthy();
+  expect([0]).toEqual([0]);
+  expect([0]).toExist();
+  expect([0]).toNotBe([1]);
+  expect([0]).toNotEqual([1]);
+  expect([0]).toNotExist();
+  // TODO: expect([0]).toContain(0);
+  // TODO: expect([0]).toExclude(0);
+  // TODO: expect([0]).toInclude(0);
+  // TODO: expect([0]).toNotContain(0);
+  // TODO: expect([0]).toNotInclude(0);
 }
 
 function test_objects() {

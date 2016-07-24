@@ -132,15 +132,15 @@ declare module expect {
     /**
      * Asserts the given array contains value. The comparator function, if given, should compare two objects and either return false or throw if they are not equal. It defaults to assert.deepEqual.
      */
-    toInclude(value: TElement[], comparator?: IComparator<TElement[]>, message?: string): this;
-    toContain(value: TElement[], comparator?: IComparator<TElement[]>, message?: string): this;
+    toInclude(value: TElement, comparator?: IComparator<TElement>, message?: string): this;
+    toContain(value: TElement, comparator?: IComparator<TElement>, message?: string): this;
 
     /**
      * Asserts the given array contains value. The comparator function, if given, should compare two objects and either return false or throw if they are not equal. It defaults to assert.deepEqual.
      */
-    toExclude(value: TElement[], comparator?: IComparator<TElement[]>, message?: string): this;
-    toNotContain(value: TElement[], comparator?: IComparator<TElement[]>, message?: string): this;
-    toNotInclude(value: TElement[], comparator?: IComparator<TElement[]>, message?: string): this;
+    toExclude(value: TElement, comparator?: IComparator<TElement>, message?: string): this;
+    toNotContain(value: TElement, comparator?: IComparator<TElement>, message?: string): this;
+    toNotInclude(value: TElement, comparator?: IComparator<TElement>, message?: string): this;
   }
 
   export interface IFunctionExpectation<TExpected extends Function> extends IExpectation<TExpected> {
@@ -250,6 +250,7 @@ declare module expect {
     (compare: number): INumberExpectation;
     (compare: string): IStringExpectation;
     (spy: ISpy): ISpyExpectation;
+    <TExpected>(array: TExpected[]): IArrayExpectation<TExpected>;
     <TExpected extends Function>(block: TExpected): IFunctionExpectation<TExpected>;
     <TExpected extends Object>(object: TExpected): IObjectExpectation<TExpected>;
     <TExpected>(compare: TExpected): IExpectation<TExpected>;
