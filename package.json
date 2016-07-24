@@ -21,6 +21,7 @@
   "license": "MIT",
   "typings": "./src/index.d.ts",
   "devDependencies": {
+    "assets-webpack-plugin": "^3.4.0",
     "autoprefixer": "^6.3.7",
     "babel-core": "^6.11.4",
     "babel-loader": "^6.2.4",

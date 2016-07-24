@@ -31,28 +31,28 @@ describe("<Document />", () => {
   });
 
   it("renders style link tags in the header", () => {
-    const assets = { css: ["foo.css", "bar.css", "baz.css"] };
+    const assets = { main: { css: "main.css" }, vendor: { css: "vendor.css" } };
     wrapper = shallow(<Document app={app} assets={assets} store={store} />);
-    let index = 0;
-    wrapper.find("head link").forEach(element => {
-      const props = element.props();
-      if (props.rel === "stylesheet") {
-        const file = assets.css[index++];
-        expect(props.href.match(RegExp(file))).toExist();
-      }
-    });
+    const elements = wrapper.find("head link");
+
+    Object.keys(assets)
+      .filter(chunk => assets[chunk].css)
+      .forEach(chunk => {
+        const href = assets[chunk].css;
+        expect(elements.nodes.filter(node => node.props.href === href).length).toBe(1);
+      });
   });
 
   it("renders script tags in the footer", () => {
-    const assets = { js: ["foo.js", "bar.js", "baz.js"] };
+    const assets = { main: { js: "main.js" }, vendor: { js: "vendor.js" } };
     wrapper = shallow(<Document app={app} assets={assets} store={store} />);
-    let index = 0;
-    wrapper.find("body script").forEach(element => {
-      const props = element.props();
-      if (props.src) {
-        const file = assets.js[index++];
-        expect(props.src.match(RegExp(file))).toExist();
-      }
-    });
+    const elements = wrapper.find("body script");
+
+    Object.keys(assets)
+      .filter(chunk => assets[chunk].js)
+      .forEach(chunk => {
+        const src = assets[chunk].js;
+        expect(elements.nodes.filter(node => node.props.src === src).length).toBe(1);
+      });
   });
 });

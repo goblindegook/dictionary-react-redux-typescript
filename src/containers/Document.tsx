@@ -4,14 +4,9 @@ import { renderToString } from "react-dom/server";
 import * as Helmet from "react-helmet";
 import serialize = require("serialize-javascript");
 
-export interface IDocumentAssets {
-  css?: string[];
-  js?: string[];
-}
-
 interface IDocumentProps extends React.ClassAttributes<Document> {
   app?: JSX.Element;
-  assets?: IDocumentAssets;
+  assets?: Object;
   server?: Boolean;
   store: any;
 }
@@ -43,8 +38,8 @@ export default class Document extends React.Component<IDocumentProps, {}> {
           {head && head.title.toComponent()}
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <link rel="shortcut icon" href="/favicon.ico" />
-          {assets.css && assets.css.map(css => (
-            <link key={css} href={`/static/${css}`} rel="stylesheet" type="text/css" />
+          {assets && Object.keys(assets).filter(chunk => !!assets[chunk].css).map(chunk => (
+            <link key={`asset.${chunk}.css`} href={assets[chunk].css} rel="stylesheet" type="text/css" />
           ))}
           <link href={fonts} rel="stylesheet" type="text/css" />
         </head>
@@ -57,8 +52,8 @@ export default class Document extends React.Component<IDocumentProps, {}> {
           <script id="preloaded" type="text/javascript" dangerouslySetInnerHTML={{
             __html: `window.__PRELOADED__=${serialize(state)};`,
           }} />
-          {assets.js && assets.js.map(js => (
-            <script key={js} src={`/static/${js}`} type="text/javascript" />
+          {assets && Object.keys(assets).filter(chunk => !!assets[chunk].js).map(chunk => (
+            <script key={`asset.${chunk}.js`} src={assets[chunk].js} type="text/javascript" />
           ))}
         </body>
       </html>

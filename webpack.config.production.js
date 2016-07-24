@@ -1,21 +1,11 @@
 'use strict'
 
-const fs = require('fs')
 const path = require('path')
 const webpack = require('webpack')
 const autoprefixer = require('autoprefixer')
-const CopyWebpackPlugin = require('copy-webpack-plugin')
+const AssetsPlugin = require('assets-webpack-plugin')
+const CopyPlugin = require('copy-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
-
-function generateStatsFile (compiler) {
-  this.plugin('done', stats => fs.writeFileSync(
-    path.join(__dirname, 'dist', 'stats.json'),
-    JSON.stringify(stats.toJson({
-      chunks: false,
-      exclude: [/node_modules/]
-    }))
-  ))
-}
 
 module.exports = {
   bail: true,
@@ -58,7 +48,7 @@ module.exports = {
     }),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.optimize.DedupePlugin(),
-    new CopyWebpackPlugin([
+    new CopyPlugin([
       { context: 'assets', from: '**/*', to: '.' }
     ]),
     new webpack.optimize.UglifyJsPlugin({
@@ -73,7 +63,7 @@ module.exports = {
     }),
     new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.[chunkhash].js'),
     new ExtractTextPlugin('[name].[contenthash].css'),
-    generateStatsFile
+    new AssetsPlugin({ path: 'dist' })
   ],
   module: {
     loaders: [
