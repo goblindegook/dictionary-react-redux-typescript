@@ -2,5 +2,9 @@
   "presets": [
     "es2015",
     "es2016"
+  ],
+  "plugins": [
+    "transform-react-constant-elements",
+    "transform-react-inline-elements"
   ]
 }
