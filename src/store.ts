@@ -32,11 +32,11 @@ export default function configureStore(initialState: Object = {}) {
   store.close = () => store.dispatch(END);
 
   // Hot reload reducers:
-  // https://stackoverflow.com/questions/34243684/make-redux-reducers-and-other-non-components-hot-loadable
+  // https://github.com/reactjs/react-redux/releases/tag/v2.0.0
   /* tslint:disable:no-string-literal */
   if (process.env.NODE_ENV === "development" && module["hot"]) {
     module["hot"].accept("./reducers", () => {
-      const nextRootReducer = require("./reducers/index");
+      const nextRootReducer = require("./reducers").default;
       store.replaceReducer(nextRootReducer);
     });
   }
