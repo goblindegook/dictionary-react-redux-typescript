@@ -7,7 +7,7 @@ import { searchStart } from "../actions/search";
 import { searchTask } from "../sagas/search";
 import { IEntry } from "../api/Entry";
 import EntryList from "../components/EntryList";
-import Error from "../components/Error";
+import Warning from "../components/Warning";
 import SearchInput from "../components/SearchInput";
 
 export interface ISearchProps extends React.ClassAttributes<any> {
@@ -60,11 +60,11 @@ class Search extends React.Component<ISearchProps, {}> {
       if (!this.props.isLoading) {
         if (this.props.error) {
           title = this.props.error.message;
-          content = <Error message={this.props.error.message} />;
+          content = <Warning message={this.props.error.message} />;
 
         } else if (!this.props.entries || !this.props.entries.length) {
           title = "Palavra não encontrada";
-          content = <Error message="Palavra não encontrada" />;
+          content = <Warning message="Palavra não encontrada" />;
         }
       }
 

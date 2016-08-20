@@ -64,7 +64,6 @@ export const search = memoize(searchFn);
  *
  * @todo Plug this into an actual API.
  */
-
 async function defineFn(id: string): Promise<IEntry[]> {
   const response = await fetch(`${rootUrl}/${id}`, { mode: "cors" });
 

@@ -3,6 +3,7 @@ import * as React from "react";
 import "react-dom";
 import { shallow } from "enzyme";
 import EntryList from "../../src/components/EntryList";
+import EntryListItem from "../../src/components/EntryListItem";
 import { createEntry } from "../../src/api/Entry";
 
 describe("Component", () => {
@@ -28,7 +29,7 @@ describe("Component", () => {
 
     it("should contain all entries inside <EntryListItem /> components", () => {
       const wrapper = shallow(<EntryList {...{entries}} />);
-      expect(wrapper.find("EntryListItem").length).toBe(entries.length);
+      expect(wrapper.find(EntryListItem).length).toBe(entries.length);
     });
   });
 });

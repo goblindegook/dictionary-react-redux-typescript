@@ -6,7 +6,7 @@ import { definitionStart } from "../actions/definition";
 import { definitionTask } from "../sagas/definition";
 import { IEntry } from "../api/Entry";
 import LoadingIndicator from "../components/LoadingIndicator";
-import Error from "../components/Error";
+import Warning from "../components/Warning";
 import EntryDefinition from "../components/EntryDefinition";
 
 interface IDefinitionProps extends React.ClassAttributes<Definition> {
@@ -60,11 +60,11 @@ class Definition extends React.Component<IDefinitionProps, {}> {
 
     } else if (this.props.error) {
       title = this.props.error.message;
-      content = <Error message={this.props.error.message} />;
+      content = <Warning message={this.props.error.message} />;
 
     } else if (!this.props.entries || !this.props.entries.length) {
       title = "Palavra não encontrada";
-      content = <Error message="Palavra não encontrada" />;
+      content = <Warning message="Palavra não encontrada" />;
 
     } else {
       title = this.props.id && this.props.id.replace(/:\d+$/, "");

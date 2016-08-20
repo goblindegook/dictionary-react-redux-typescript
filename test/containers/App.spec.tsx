@@ -3,6 +3,8 @@ import * as React from "react";
 import "react-dom";
 import { shallow } from "enzyme";
 import App from "../../src/containers/App";
+import Header from "../../src/components/Header";
+import Footer from "../../src/components/Footer";
 
 describe("<App />", () => {
   let wrapper;
@@ -16,7 +18,7 @@ describe("<App />", () => {
   });
 
   it("contains a single <Header /> component", () => {
-    expect(wrapper.find("Header").length).toBe(1);
+    expect(wrapper.find(Header).length).toBe(1);
   });
 
   it("allows children components", () => {
@@ -25,6 +27,6 @@ describe("<App />", () => {
   });
 
   it("contains a single <Footer /> component", () => {
-    expect(wrapper.find("Footer").length).toBe(1);
+    expect(wrapper.find(Footer).length).toBe(1);
   });
 });

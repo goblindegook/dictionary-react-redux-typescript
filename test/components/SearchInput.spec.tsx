@@ -4,6 +4,7 @@ import "react-dom";
 import { shallow } from "enzyme";
 import * as sinon from "sinon";
 import SearchInput from "../../src/components/SearchInput";
+import LoadingIndicator from "../../src/components/LoadingIndicator";
 
 describe("<SearchInput />", () => {
   it("renders", () => {
@@ -43,7 +44,7 @@ describe("<SearchInput />", () => {
       const loadingIndicator = <div className="loading">...</div>;
       const isLoading = true;
       const wrapper = shallow(<SearchInput {...{loadingIndicator, isLoading}} />);
-      expect(wrapper.find("LoadingIndicator").length).toBe(1);
+      expect(wrapper.find(LoadingIndicator).length).toBe(1);
     });
   });
 
@@ -52,7 +53,7 @@ describe("<SearchInput />", () => {
       const loadingIndicator = <div className="loading">...</div>;
       const isLoading = false;
       const wrapper = shallow(<SearchInput {...{loadingIndicator, isLoading}} />);
-      expect(wrapper.find("LoadingIndicator").length).toBe(0);
+      expect(wrapper.find(LoadingIndicator).length).toBe(0);
     });
   });
 });

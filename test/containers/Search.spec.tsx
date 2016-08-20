@@ -9,6 +9,11 @@ import { searchStart } from "../../src/actions/search";
 import { searchTask } from "../../src/sagas/search";
 import { createEntry } from "../../src/api/Entry";
 import Search from "../../src/containers/Search";
+import EntryList from "../../src/components/EntryList";
+import EntryListItem from "../../src/components/EntryListItem";
+import LoadingIndicator from "../../src/components/LoadingIndicator";
+import SearchInput from "../../src/components/SearchInput";
+import Warning from "../../src/components/Warning";
 
 describe("<Search />", () => {
   let state;
@@ -56,11 +61,11 @@ describe("<Search />", () => {
   });
 
   it("contains a single <SearchInput /> component", () => {
-    expect(wrapper.find("SearchInput").length).toBe(1);
+    expect(wrapper.find(SearchInput).length).toBe(1);
   });
 
   it("contains a <EntryListItem /> per results entry", () => {
-    expect(wrapper.find("EntryListItem").length).toBe(state.search.entries.length);
+    expect(wrapper.find(EntryListItem).length).toBe(state.search.entries.length);
   });
 
   ["test", "0", "", null].forEach((prefix) => {
@@ -79,7 +84,7 @@ describe("<Search />", () => {
           </Provider>
         );
 
-        expect(wrapper.find("EntryList").length).toBe(prefix ? 1 : 0);
+        expect(wrapper.find(EntryList).length).toBe(prefix ? 1 : 0);
       });
 
       it(doesOrDoesNotDisplay + " a loading indicator", () => {
@@ -94,7 +99,7 @@ describe("<Search />", () => {
           </Provider>
         );
 
-        expect(wrapper.find("LoadingIndicator").length).toBe(prefix ? 1 : 0);
+        expect(wrapper.find(LoadingIndicator).length).toBe(prefix ? 1 : 0);
       });
 
       it(doesOrDoesNotDisplay + " an error on no results", () => {
@@ -110,7 +115,7 @@ describe("<Search />", () => {
           </Provider>
         );
 
-        expect(wrapper.find("Error").length).toBe(prefix ? 1 : 0);
+        expect(wrapper.find(Warning).length).toBe(prefix ? 1 : 0);
       });
     });
   });
@@ -129,8 +134,8 @@ describe("<Search />", () => {
     );
 
     expect((Helmet as any).peek().title).toBe(message);
-    expect(wrapper.find("Error").length).toBe(1);
-    expect(wrapper.find("Error").props().message).toBe(message);
+    expect(wrapper.find(Warning).length).toBe(1);
+    expect(wrapper.find(Warning).props().message).toBe(message);
   });
 
   it("displays a warning when no definition found", () => {
@@ -147,8 +152,8 @@ describe("<Search />", () => {
     );
 
     expect((Helmet as any).peek().title).toBe(message);
-    expect(wrapper.find("Error").length).toBe(1);
-    expect(wrapper.find("Error").props().message).toBe(message);
+    expect(wrapper.find(Warning).length).toBe(1);
+    expect(wrapper.find(Warning).props().message).toBe(message);
   });
 
   it("dispatches a SEARCH_START on query", () => {
@@ -179,7 +184,7 @@ describe("<Search />", () => {
       </Provider>
     );
 
-    expect(wrapper.find("SearchInput").props().text).toBe(prefix);
+    expect(wrapper.find(SearchInput).props().text).toBe(prefix);
   });
 
   it("dispatches a SEARCH_START on mount with prefix parameter", () => {

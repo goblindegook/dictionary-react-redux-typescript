@@ -6,19 +6,17 @@ import "react-dom";
 const styles = require("./LoadingIndicator.style.scss");
 /* tslint:enable:no-var-requires */
 
-export interface ILoadingIndicatorProps extends React.ClassAttributes<LoadingIndicator> {
+interface ILoadingIndicatorProps extends React.Attributes {
   className?: string;
 }
 
-export default class LoadingIndicator extends React.Component<ILoadingIndicatorProps, {}> {
-  /**
-   * Render footer container.
-   *
-   * @return {JSX.Element} Rendered footer container.
-   */
-  public render() {
-    return (
-      <div className={cx(styles.loader, this.props.className)}>A carregar...</div>
-    );
-  }
-}
+/**
+ * Render footer container.
+ *
+ * @return {JSX.Element} Rendered footer container.
+ */
+const LoadingIndicator = (props: ILoadingIndicatorProps) => (
+  <div className={cx(styles.loader, props.className)}>A carregar...</div>
+);
+
+export default LoadingIndicator;

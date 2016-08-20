@@ -6,23 +6,21 @@ import "react-dom";
 const styles = require("./Header.style.scss");
 /* tslint:enable:no-var-requires */
 
-export interface IHeaderProps extends React.ClassAttributes<Header> {
+interface IHeaderProps extends React.Attributes {
   title: string;
 }
 
-export default class Header extends React.Component<IHeaderProps, {}> {
-  /**
-   * Render header container.
-   *
-   * @return {JSX.Element} Rendered header container.
-   */
-  public render() {
-    return (
-      <header className="header">
-        <h1 className={cx(styles.title)}>
-          {this.props.title}
-        </h1>
-      </header>
-    );
-  }
-}
+/**
+ * Render header container.
+ *
+ * @return {JSX.Element} Rendered header container.
+ */
+const Header = (props: IHeaderProps) => (
+  <header className="header">
+    <h1 className={cx(styles.title)}>
+      {props.title}
+    </h1>
+  </header>
+);
+
+export default Header;

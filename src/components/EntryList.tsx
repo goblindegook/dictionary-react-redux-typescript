@@ -8,26 +8,25 @@ import { IEntry } from "../api/Entry";
 const styles = require("./EntryList.style.scss");
 /* tslint:enable:no-var-requires */
 
-export interface IEntryListProps extends React.ClassAttributes<EntryList> {
+interface IEntryListProps extends React.Attributes {
   className?: string;
   entries: IEntry[];
 }
 
-export default class EntryList extends React.Component<IEntryListProps, {}> {
-  /**
-   * Render EntryList component.
-   *
-   * @return {JSX.Element} Rendered EntryList component.
-   */
-  public render() {
-    return (
-      <ul className={cx(this.props.className, styles.list)}>
-        {this.props.entries && this.props.entries.map(
-          (entry, index) => (
-            <EntryListItem entry={entry} key={entry.id} />
-          )
-        )}
-      </ul>
-    );
-  }
-}
+/**
+ * Render EntryList component.
+ *
+ * @param  {IEntryListProps} props Properties.
+ * @return {JSX.Element}           Rendered EntryList component.
+ */
+const EntryList = (props: IEntryListProps) => (
+  <ul className={cx(props.className, styles.list)}>
+    {props.entries && props.entries.map(
+      (entry, index) => (
+        <EntryListItem entry={entry} key={entry.id} />
+      )
+    )}
+  </ul>
+);
+
+export default EntryList;

@@ -30,7 +30,7 @@ function createSense(sense: IRawSense): ISense {
  * @param  {string}        word    [description]
  * @param  {number|string} id      [description]
  * @param  {any}           content [description]
- * @return {IEntry}      [description]
+ * @return {IEntry}                [description]
  */
 export function createEntry(word: string, rawId: string = word, entry?: IRawEntry): IEntry {
   return {

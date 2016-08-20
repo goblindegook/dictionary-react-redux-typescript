@@ -1,17 +1,15 @@
 import * as React from "react";
 import "react-dom";
 
-export interface IFooterProps extends React.ClassAttributes<Footer> {}
+interface IFooterProps extends React.Attributes {}
 
-export default class Footer extends React.Component<IFooterProps, {}> {
-  /**
-   * Render footer container.
-   *
-   * @return {JSX.Element} Rendered footer container.
-   */
-  public render() {
-    return (
-      <footer className="footer"></footer>
-    );
-  }
-}
+/**
+ * Render footer container.
+ *
+ * @return {JSX.Element} Rendered footer container.
+ */
+const Footer = (props: IFooterProps) => (
+  <footer className="footer"></footer>
+);
+
+export default Footer;

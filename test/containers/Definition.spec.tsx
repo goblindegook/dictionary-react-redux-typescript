@@ -9,6 +9,9 @@ import { definitionStart } from "../../src/actions/definition";
 import { createEntry } from "../../src/api/Entry";
 import { definitionTask } from "../../src/sagas/definition";
 import Definition from "../../src/containers/Definition";
+import EntryDefinition from "../../src/components/EntryDefinition";
+import LoadingIndicator from "../../src/components/LoadingIndicator";
+import Warning from "../../src/components/Warning";
 
 describe("<Definition />", () => {
   let state;
@@ -64,9 +67,9 @@ describe("<Definition />", () => {
     );
 
     expect((Helmet as any).peek().title).toBe(state.definition.id.replace(/:\d+$/, ""));
-    expect(wrapper.find("EntryDefinition").length).toBe(state.definition.entries.length);
-    expect(wrapper.find("Error").length).toBe(0);
-    expect(wrapper.find("LoadingIndicator").length).toBe(0);
+    expect(wrapper.find(EntryDefinition).length).toBe(state.definition.entries.length);
+    expect(wrapper.find(Warning).length).toBe(0);
+    expect(wrapper.find(LoadingIndicator).length).toBe(0);
   });
 
   it("does not dispatch actions on mount without an id parameter", () => {
@@ -100,9 +103,9 @@ describe("<Definition />", () => {
     );
 
     expect((Helmet as any).peek().title).toBe("A carregar...");
-    expect(wrapper.find("EntryDefinition").length).toBe(0);
-    expect(wrapper.find("Error").length).toBe(0);
-    expect(wrapper.find("LoadingIndicator").length).toBe(1);
+    expect(wrapper.find(EntryDefinition).length).toBe(0);
+    expect(wrapper.find(Warning).length).toBe(0);
+    expect(wrapper.find(LoadingIndicator).length).toBe(1);
   });
 
   it("displays a warning on error", () => {
@@ -120,10 +123,10 @@ describe("<Definition />", () => {
     );
 
     expect((Helmet as any).peek().title).toBe(message);
-    expect(wrapper.find("EntryDefinition").length).toBe(0);
-    expect(wrapper.find("Error").length).toBe(1);
-    expect(wrapper.find("Error").props().message).toBe(message);
-    expect(wrapper.find("LoadingIndicator").length).toBe(0);
+    expect(wrapper.find(EntryDefinition).length).toBe(0);
+    expect(wrapper.find(Warning).length).toBe(1);
+    expect(wrapper.find(Warning).props().message).toBe(message);
+    expect(wrapper.find(LoadingIndicator).length).toBe(0);
   });
 
   it("displays a warning when no definition found", () => {
@@ -140,9 +143,9 @@ describe("<Definition />", () => {
     );
 
     expect((Helmet as any).peek().title).toBe(message);
-    expect(wrapper.find("EntryDefinition").length).toBe(0);
-    expect(wrapper.find("Error").length).toBe(1);
-    expect(wrapper.find("Error").props().message).toBe(message);
-    expect(wrapper.find("LoadingIndicator").length).toBe(0);
+    expect(wrapper.find(EntryDefinition).length).toBe(0);
+    expect(wrapper.find(Warning).length).toBe(1);
+    expect(wrapper.find(Warning).props().message).toBe(message);
+    expect(wrapper.find(LoadingIndicator).length).toBe(0);
   });
 });
