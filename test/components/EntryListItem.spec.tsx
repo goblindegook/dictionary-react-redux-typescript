@@ -2,7 +2,7 @@ import * as expect from "expect";
 import * as React from "react";
 import "react-dom";
 import { shallow, mount } from "enzyme";
-import { createEntry, IEntry } from "../../src/api/Entry";
+import { createEntryStub, IEntry } from "../../src/api/Entry";
 import EntryListItem from "../../src/components/EntryListItem";
 
 describe("Component", () => {
@@ -14,7 +14,7 @@ describe("Component", () => {
     beforeEach(() => {
       word = "word";
       id = "id";
-      entry = createEntry(word, id);
+      entry = createEntryStub(word, id);
     });
 
     it("renders", () => {
@@ -37,7 +37,7 @@ describe("Component", () => {
     it("renders a Link", () => {
       word = "word";
       id = "id";
-      entry = createEntry(word, id);
+      entry = createEntryStub(word, id);
       const wrapper = shallow(<EntryListItem {...{entry}} />);
       expect(wrapper.find("Link").prop("to")).toBe(`/define/${id}`);
     });

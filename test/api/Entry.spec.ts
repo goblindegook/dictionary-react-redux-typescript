@@ -1,14 +1,14 @@
 import * as expect from "expect";
-import { createEntry } from "../../src/api/Entry";
+import { createEntry, createEntryStub } from "../../src/api/Entry";
 
 /* tslint:disable:no-var-requires */
 const defineAFixture = require("./fixtures/define-a.json");
 /* tslint:enable:no-var-requires */
 
 describe("Entry factory", () => {
-  context("when creating an entry from word", () => {
+  context("creating an entry stub from word", () => {
     const word = "word";
-    const entry = createEntry(word);
+    const entry = createEntryStub(word);
 
     it("sets an ID equal to word", () => {
       expect(entry.id).toBe(word);
@@ -23,27 +23,17 @@ describe("Entry factory", () => {
     });
   });
 
-  context("when creating an entry from null data", () => {
-    let id;
-    let word;
-    let entry;
-
-    before(() => {
-      id = "a:1";
-      word = "a";
-      entry = createEntry(word, id, null);
-    });
-
-    it("sets the orthography", () => {
-      expect(entry.spelling).toBe(word);
-    });
-
-    it("sets the entry ID", () => {
-      expect(entry.id).toBe(id);
+  context("creating an entry from null data", () => {
+    it("is the same as creating an entry stub", () => {
+      const id = "a:1";
+      const word = "a";
+      const entry = createEntry(word, id, null);
+      const entryStub = createEntryStub(word, id);
+      expect(entry).toEqual(entryStub);
     });
   });
 
-  context("when creating an entry from raw data", () => {
+  context("creating an entry from raw data", () => {
     let raw;
     let entry;
     let id;

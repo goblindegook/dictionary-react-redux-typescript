@@ -1,6 +1,6 @@
 import * as fetch from "isomorphic-fetch";
 import { memoize } from "lodash"; // FIXME: Import single function.
-import { createEntry, IEntry } from "./Entry";
+import { createEntry, createEntryStub, IEntry } from "./Entry";
 
 export interface IRawSense {
   "@ast"?: string;
@@ -51,7 +51,7 @@ async function searchFn(prefix: string): Promise<IEntry[]> {
 
   return results.list.map((entry: string) => {
     indices[entry] = 1 + (indices[entry] || 0);
-    return createEntry(entry, `${entry}:${indices[entry]}`);
+    return createEntryStub(entry, `${entry}:${indices[entry]}`);
   });
 }
 
