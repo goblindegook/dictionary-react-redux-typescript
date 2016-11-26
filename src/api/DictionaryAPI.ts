@@ -1,35 +1,35 @@
-import * as fetch from "isomorphic-fetch";
-import { memoize } from "lodash"; // FIXME: Import single function.
-import { createEntry, createEntryStub, IEntry } from "./Entry";
+import * as fetch from "isomorphic-fetch"
+import { memoize } from "lodash"
+import { createEntry, createEntryStub, IEntry } from "./Entry"
 
 export interface IRawSense {
-  "@ast"?: string;
-  def: string;
-  gramGrp: string;
+  "@ast"?: string
+  def: string
+  gramGrp: string
   usg?: {
-    "@type": string;
+    "@type": string
     "#text": string;
-  };
+  }
 }
 
 export interface IRawEntry {
-  "@ast"?: string;
-  "@id": string;
-  "@n"?: string;
-  "@type"?: string;
+  "@ast"?: string
+  "@id": string
+  "@n"?: string
+  "@type"?: string
   etym?: {
-    "@orig": string;
+    "@orig": string
     "#text": string;
-  };
+  }
   form: {
-    orth: string;
+    orth: string
     pron?: string;
-  };
-  sense: IRawSense[];
+  }
+  sense: IRawSense[]
 }
 
 // FIXME: Move to configuration file.
-const rootUrl = "http://localhost:3000/api/search-json";
+const rootUrl = "http://localhost:3000/api/search-json"
 
 /**
  * [search description]
@@ -39,23 +39,23 @@ const rootUrl = "http://localhost:3000/api/search-json";
  * @todo Plug this into an actual API.
  */
 async function searchFn(prefix: string): Promise<IEntry[]> {
-  const indices = {};
+  const indices = {}
 
-  const response = await fetch(`${rootUrl}?prefix=${prefix}`, { mode: "cors" });
+  const response = await fetch(`${rootUrl}?prefix=${prefix}`, { mode: "cors" })
 
   if (!response.status || response.status.toString().charAt(0) !== "2") {
-    throw new Error(response.statusText);
+    throw new Error(response.statusText)
   }
 
-  const results = await response.json();
+  const results = await response.json()
 
   return results.list.map((entry: string) => {
-    indices[entry] = 1 + (indices[entry] || 0);
-    return createEntryStub(entry, `${entry}:${indices[entry]}`);
-  });
+    indices[entry] = 1 + (indices[entry] || 0)
+    return createEntryStub(entry, `${entry}:${indices[entry]}`)
+  })
 }
 
-export const search = memoize(searchFn);
+export const search = memoize(searchFn)
 
 /**
  * [define description]
@@ -65,17 +65,17 @@ export const search = memoize(searchFn);
  * @todo Plug this into an actual API.
  */
 async function defineFn(id: string): Promise<IEntry[]> {
-  const response = await fetch(`${rootUrl}/${id}`, { mode: "cors" });
+  const response = await fetch(`${rootUrl}/${id}`, { mode: "cors" })
 
   if (!response.status || response.status.toString().charAt(0) !== "2") {
-    throw new Error(response.statusText);
+    throw new Error(response.statusText)
   }
 
-  const results = await response.json();
-  const entries = results.superEntry ? results.superEntry : [ results ];
+  const results = await response.json()
+  const entries = results.superEntry ? results.superEntry : [ results ]
 
-  return entries.map((result) =>
-    createEntry(id.split(":")[0], result.entry["@id"], result.entry));
+  return entries.map((result: { entry: IRawEntry }) =>
+    createEntry(id.split(":")[0], result.entry["@id"], result.entry))
 }
 
-export const define = memoize(defineFn);
+export const define = memoize(defineFn)

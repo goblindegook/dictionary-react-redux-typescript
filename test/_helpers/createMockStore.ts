@@ -1,24 +1,22 @@
-import createSagaMiddleware from "redux-saga";
-// import { browserHistory } from "react-router";
-// import { routerMiddleware } from "react-router-redux";
-import sagas from "../../src/sagas";
+import createSagaMiddleware from "redux-saga"
+import { IApplicationState } from "../../src/reducers"
+import { rootSaga } from "../../src/sagas"
 
 /* tslint:disable:no-var-requires */
-const configureStore = require("redux-mock-store");
+const configureStore = require("redux-mock-store").default
 /* tslint:enable:no-var-requires */
 
-export default function createMockStore(state) {
-  const sagaMiddleware = createSagaMiddleware();
+export function createMockStore(state: IApplicationState): any {
+  const sagaMiddleware = createSagaMiddleware()
 
   const middlewares = [
-    // routerMiddleware(browserHistory),
     sagaMiddleware,
-  ];
+  ]
 
-  const mockStore = configureStore(middlewares);
-  const store = mockStore(<any> state);
+  const mockStore = configureStore(middlewares)
+  const store = mockStore(<any> state)
 
-  sagaMiddleware.run(sagas);
+  sagaMiddleware.run(rootSaga)
 
-  return store;
+  return store
 }

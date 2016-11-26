@@ -1,42 +1,43 @@
-import { handleActions, Action } from "redux-actions";
-import { DEFINITION_START, DEFINITION_DONE, DEFINITION_ERROR } from "../actions/definition";
-import { IEntry } from "../api/Entry";
+import { Action, handleActions } from "redux-actions"
+import { DEFINITION_DONE, DEFINITION_ERROR, DEFINITION_START } from "../actions/definition"
+import { IEntry } from "../api/Entry"
 
-interface IDefinitionState {
-  entries?: IEntry[];
-  error?: Error;
-  isLoading?: boolean;
+export interface IDefinitionState {
+  entries?: IEntry[]
+  error?: Error
+  id?: string
+  isLoading?: boolean
 }
 
-const initialState: IDefinitionState = {
+export const initialState: IDefinitionState = {
   entries: [],
-  error: null,
+  error: undefined,
+  id: undefined,
   isLoading: false,
-};
+}
 
 /* tslint:disable:object-literal-sort-keys */
-export const definitionReducer = handleActions({
+export const definitionReducer = handleActions<any>({
 
-  [DEFINITION_START]: (state: IDefinitionState, action: Action<any>): IDefinitionState =>
+  [DEFINITION_START]: (state: IDefinitionState, action: Action<string>): IDefinitionState =>
     Object.assign({}, state, {
-      error: null,
+      error: undefined,
+      id: action.payload,
       isLoading: true,
-    } as IDefinitionState),
+    }),
 
-  [DEFINITION_DONE]: (state: IDefinitionState, action: Action<any>): IDefinitionState =>
+  [DEFINITION_DONE]: (state: IDefinitionState, action: Action<IEntry[]>): IDefinitionState =>
     Object.assign({}, state, {
       entries: action.payload,
-      error: null,
+      error: undefined,
       isLoading: false,
-    } as IDefinitionState),
+    }),
 
-  [DEFINITION_ERROR]: (state: IDefinitionState, action: Action<any>): IDefinitionState =>
+  [DEFINITION_ERROR]: (state: IDefinitionState, action: Action<Error>): IDefinitionState =>
     Object.assign({}, state, {
       entries: [],
       error: action.payload,
       isLoading: false,
-    } as IDefinitionState),
+    }),
 
-}, initialState);
-
-export default definitionReducer;
+}, initialState)

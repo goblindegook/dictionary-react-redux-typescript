@@ -1,31 +1,34 @@
-import * as expect from "expect";
-import { match } from "react-router";
-import routes from "../src/routes";
+import * as expect from "expect"
+import { Location } from "history"
+import { match, RouterContext } from "react-router"
+import { routes } from "../src/routes"
 
 describe("Router", () => {
   describe("/", () => {
+    const location = "/"
+
     it("routes to the Search component", () => {
-      match(<any> { location: "/", routes }, (error, redirectLocation, renderProps: {components: any[]}) => {
-        expect(renderProps.components[1].WrappedComponent.name).toBe("Search");
-      });
-    });
-  });
+      match({ location, routes }, (error: Error, nextLocation: Location, state: RouterContext.RouterContextProps) => {
+        expect((state.components![1] as any).WrappedComponent.name).toBe("Search")
+      })
+    })
+  })
 
   describe("/search/:prefix", () => {
-    const prefix = "test";
-    const location = `/search/${prefix}`;
+    const prefix = "test"
+    const location = `/search/${prefix}`
 
     it("routes to the Search component", () => {
-      match(<any> { location, routes }, (error, redirectLocation, renderProps: {components: any[]}) => {
-        expect(renderProps.components[1].WrappedComponent.name).toBe("Search");
-      });
-    });
+      match({ location, routes }, (error: Error, nextLocation: Location, state: RouterContext.RouterContextProps) => {
+        expect((state.components![1] as any).WrappedComponent.name).toBe("Search")
+      })
+    })
 
     it("captures the prefix param", () => {
-      match(<any> { location, routes }, (error, redirectLocation, renderProps: {params}) => {
-        expect(renderProps.params.prefix).toBe(prefix);
-      });
-    });
+      match({ location, routes }, (error: Error, nextLocation: Location, state: { params: any }) => {
+        expect(state.params.prefix).toBe(prefix)
+      })
+    })
   });
 
   describe("/define/:id", () => {
@@ -33,15 +36,15 @@ describe("Router", () => {
     const location = `/define/${id}`;
 
     it("routes to the Definition component", () => {
-      match(<any> { location, routes }, (error, redirectLocation, renderProps: {components: any[]}) => {
-        expect(renderProps.components[1].WrappedComponent.name).toBe("Definition");
-      });
-    });
+      match({ location, routes }, (error: Error, nextLocation: Location, state: RouterContext.RouterContextProps) => {
+        expect((state.components![1] as any).WrappedComponent.name).toBe("Definition");
+      })
+    })
 
     it("captures the id param", () => {
-      match(<any> { location, routes }, (error, redirectLocation, renderProps: {params}) => {
-        expect(renderProps.params.id).toBe(id);
-      });
-    });
-  });
-});
+      match({ location, routes }, (error: Error, nextLocation: Location, state: { params: any }) => {
+        expect(state.params.id).toBe(id)
+      })
+    })
+  })
+})

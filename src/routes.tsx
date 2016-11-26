@@ -1,13 +1,13 @@
-import * as React from "react";
-import { Route, IndexRoute } from "react-router";
-import App from "./containers/App";
-import Definition from "./containers/Definition";
-import Search from "./containers/Search";
+import * as React from "react"
+import { IndexRoute, Route } from "react-router"
+import { App } from "./containers/App"
+import { ConnectedDefinition } from "./containers/Definition"
+import { ConnectedSearch } from "./containers/Search"
 
-export default (
+export const routes = (
   <Route path="/" component={App} >
-    <IndexRoute component={Search}/>
-    <Route path="search(/:prefix)" component={Search} />
-    <Route path="define/:id" component={Definition} />
+    <IndexRoute component={ConnectedSearch}/>
+    <Route path="search(/:prefix)" component={ConnectedSearch} />
+    <Route path="define/:id" component={ConnectedDefinition} />
   </Route>
-);
+)

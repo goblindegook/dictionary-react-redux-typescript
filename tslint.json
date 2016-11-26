@@ -1,6 +1,7 @@
 {
   "extends": "tslint:recommended",
   "rules": {
-    "no-unused-variable": [true, "react"]
+    "no-default-export": true,
+    "semicolon": [true, "never"]
   }
 }

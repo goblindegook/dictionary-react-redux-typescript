@@ -1,8 +1,8 @@
-import * as expect from "expect";
-import reducers from "../../src/reducers";
+import * as expect from "expect"
+import { rootReducer } from "../../src/reducers"
 
 describe("Reducers", () => {
   xit("are combined", () => {
-    expect(reducers).toExist();
-  });
-});
+    expect(rootReducer).toExist()
+  })
+})

@@ -1,20 +1,20 @@
-import { IRawEntry, IRawSense } from "./DictionaryAPI";
+import { IRawEntry, IRawSense } from "./DictionaryAPI"
 
 interface ISense {
-  definition: string;
-  grammarGroup: string;
-  usage?: string;
+  definition: string
+  grammarGroup: string
+  usage?: string
 }
 
 export interface IEntry {
-  etymology?: string;
-  id: string;
-  index: number;
-  pronunciation?: string;
-  raw?: IRawEntry;
-  senses: ISense[];
-  spelling: string;
-  word: string;
+  etymology?: string
+  id: string
+  index: number
+  pronunciation?: string
+  raw?: IRawEntry
+  senses: ISense[]
+  spelling: string
+  word: string
 }
 
 function createSense(sense: IRawSense): ISense {
@@ -22,7 +22,7 @@ function createSense(sense: IRawSense): ISense {
     definition: sense.def,
     grammarGroup: sense.gramGrp,
     usage: sense.usg && sense.usg["#text"],
-  };
+  }
 }
 
 /**
@@ -31,19 +31,16 @@ function createSense(sense: IRawSense): ISense {
  * @param  {string} rawId Entry ID.
  * @return {IEntry}       Entry object.
  */
-export function createEntryStub(word: string): IEntry;
-export function createEntryStub(word: string, rawId: string): IEntry;
+export function createEntryStub(word: string): IEntry
+export function createEntryStub(word: string, rawId: string): IEntry
 export function createEntryStub(word: string, rawId: string = word): IEntry {
   return {
-    etymology: null,
     id: rawId,
     index: 0,
-    pronunciation: null,
-    raw: null,
     senses: [],
     spelling: word,
     word,
-  };
+  }
 }
 
 /**
@@ -53,19 +50,19 @@ export function createEntryStub(word: string, rawId: string = word): IEntry {
  * @param  {IRawEntry} entry Raw data from the dictionary API.
  * @return {IEntry}          Entry object.
  */
-export function createEntry(word: string, rawId: string = word, entry: IRawEntry): IEntry {
-  if (!entry) {
-    return createEntryStub(word, rawId);
+export function createEntry(word: string, rawId: string = word, entry?: IRawEntry): IEntry {
+  if (entry == null) {
+    return createEntryStub(word, rawId)
   }
 
   return {
     etymology: entry.etym && entry.etym["#text"],
     id: entry["@id"] || rawId,
-    index: entry["@n"] && parseInt(entry["@n"], 10),
+    index: parseInt(entry["@n"] || "", 10),
     pronunciation: entry.form && entry.form.pron,
     raw: entry,
     senses: entry.sense.map(createSense) || [],
     spelling: entry.form && entry.form.orth || word,
     word,
-  };
+  }
 }

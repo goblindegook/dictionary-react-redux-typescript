@@ -1,12 +1,16 @@
-import { combineReducers } from "redux";
-import { routerReducer } from "react-router-redux";
-import { definitionReducer } from "./definition";
-import { searchReducer } from "./search";
+import { routerReducer } from "react-router-redux"
+import { combineReducers } from "redux"
+import { definitionReducer, IDefinitionState } from "./definition"
+import { ISearchState, searchReducer } from "./search"
 
-const rootReducer = combineReducers({
+export interface IApplicationState {
+  definition: IDefinitionState
+  routing: any
+  search: ISearchState
+}
+
+export const rootReducer = combineReducers<IApplicationState>({
   definition: definitionReducer,
   routing: routerReducer,
   search: searchReducer,
-});
-
-export default rootReducer;
+})

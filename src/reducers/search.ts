@@ -1,45 +1,43 @@
-import { handleActions, Action } from "redux-actions";
-import { SEARCH_START, SEARCH_DONE, SEARCH_ERROR } from "../actions/search";
-import { IEntry } from "../api/Entry";
+import { Action, handleActions } from "redux-actions"
+import { SEARCH_DONE, SEARCH_ERROR, SEARCH_START } from "../actions/search"
+import { IEntry } from "../api/Entry"
 
-interface ISearchState {
-  entries?: IEntry[];
-  error?: Error;
-  isLoading?: boolean;
-  prefix?: string;
+export interface ISearchState {
+  entries?: IEntry[]
+  error?: Error
+  isLoading?: boolean
+  prefix?: string
 }
 
-const initialState: ISearchState = {
+export const initialState: ISearchState = {
   entries: [],
-  error: null,
+  error: undefined,
   isLoading: false,
-  prefix: null,
-};
+  prefix: undefined,
+}
 
 /* tslint:disable:object-literal-sort-keys */
-export const searchReducer = handleActions({
+export const searchReducer = handleActions<any>({
 
-  [SEARCH_START]: (state: ISearchState, action: Action<any>): ISearchState =>
+  [SEARCH_START]: (state: ISearchState, action: Action<string>): ISearchState =>
     Object.assign({}, state, {
-      error: null,
+      error: undefined,
       isLoading: true,
       prefix: action.payload,
-    } as ISearchState),
+    }),
 
-  [SEARCH_DONE]: (state: ISearchState, action: Action<any>): ISearchState =>
+  [SEARCH_DONE]: (state: ISearchState, action: Action<IEntry[]>): ISearchState =>
     Object.assign({}, state, {
       entries: action.payload,
-      error: null,
+      error: undefined,
       isLoading: false,
-    } as ISearchState),
+    }),
 
-  [SEARCH_ERROR]: (state: ISearchState, action: Action<any>): ISearchState =>
+  [SEARCH_ERROR]: (state: ISearchState, action: Action<Error>): ISearchState =>
     Object.assign({}, state, {
       entries: [],
       error: action.payload,
       isLoading: false,
-    } as ISearchState),
+    }),
 
-}, initialState);
-
-export default searchReducer;
+}, initialState)

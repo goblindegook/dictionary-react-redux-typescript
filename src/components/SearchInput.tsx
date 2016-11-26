@@ -1,19 +1,19 @@
-import * as React from "react";
-import * as cx from "classnames";
-import LoadingIndicator from "./LoadingIndicator";
-import "react-dom";
+import * as cx from "classnames"
+import * as React from "react"
+import "react-dom"
+import { LoadingIndicator } from "./LoadingIndicator"
 
 /* tslint:disable:no-var-requires */
-const styles = require("./SearchInput.style.scss");
+const styles = require("./SearchInput.style.scss")
 /* tslint:enable:no-var-requires */
 
 interface ISearchInputProps extends React.Attributes {
-  className?: string;
-  isLoading?: boolean;
-  placeholder?: string;
-  text?: string;
-  onChange?(event: React.FormEvent): void;
-  onSubmit?(prefix: String): void;
+  className?: string
+  isLoading?: boolean
+  placeholder?: string
+  text?: string
+  onChange?(event: React.FormEvent<any>): void
+  onSubmit?(prefix?: string): void
 }
 
 /**
@@ -21,7 +21,7 @@ interface ISearchInputProps extends React.Attributes {
  *
  * @return {JSX.Element} Rendered application container.
  */
-const SearchInput = (props: ISearchInputProps) => (
+export const SearchInput = (props: ISearchInputProps) => (
   <div className={cx(styles.container, props.className)}>
     <input
       autoFocus
@@ -30,8 +30,8 @@ const SearchInput = (props: ISearchInputProps) => (
       value={props.text}
       onChange={props.onChange}
       onKeyUp={(event) => {
-        if (event.keyCode === 13) {
-          props.onSubmit(props.text);
+        if (props.onSubmit && event.keyCode === 13) {
+          props.onSubmit(props.text)
         }
       }}
       placeholder={props.placeholder}
@@ -42,6 +42,4 @@ const SearchInput = (props: ISearchInputProps) => (
       </div>
     ) : ""}
   </div>
-);
-
-export default SearchInput;
+)

@@ -5,5 +5,7 @@
     "**/.svn": true,
     "**/.DS_Store": true,
     "**/node_modules": true
-  }
+  },
+  "tsimporter.doubleQuotes": true,
+  "tsimporter.emitSemicolon": false
 }

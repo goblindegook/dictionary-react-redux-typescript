@@ -43,7 +43,7 @@ module.exports = {
     loaders: [
       {
         test: /\.tsx?$/,
-        loader: 'react-hot!babel?cacheDirectory!ts?sourceMap',
+        loader: 'react-hot-loader/webpack!babel?cacheDirectory!ts?sourceMap',
         exclude: /node_modules/,
         include: path.join(__dirname, 'src')
       },

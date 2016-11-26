@@ -1,13 +1,13 @@
-import * as React from "react";
-import * as cx from "classnames";
-import "react-dom";
+import * as cx from "classnames"
+import * as React from "react"
+import "react-dom"
 
 /* tslint:disable:no-var-requires */
-const styles = require("./LoadingIndicator.style.scss");
+const styles = require("./LoadingIndicator.style.scss")
 /* tslint:enable:no-var-requires */
 
 interface ILoadingIndicatorProps extends React.Attributes {
-  className?: string;
+  className?: string
 }
 
 /**
@@ -15,8 +15,6 @@ interface ILoadingIndicatorProps extends React.Attributes {
  *
  * @return {JSX.Element} Rendered footer container.
  */
-const LoadingIndicator = (props: ILoadingIndicatorProps) => (
+export const LoadingIndicator = (props: ILoadingIndicatorProps) => (
   <div className={cx(styles.loader, props.className)}>A carregar...</div>
-);
-
-export default LoadingIndicator;
+)

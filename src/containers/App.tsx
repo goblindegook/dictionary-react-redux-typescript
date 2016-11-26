@@ -1,16 +1,16 @@
-import * as React from "react";
-import "react-dom";
-import * as cx from "classnames";
-import Footer from "../components/Footer";
-import Header from "../components/Header";
+import * as cx from "classnames"
+import * as React from "react"
+import "react-dom"
+import { Footer } from "../components/Footer"
+import { Header } from "../components/Header"
 
 /* tslint:disable:no-var-requires */
-const styles = require("./App.style.scss");
+const styles = require("./App.style.scss")
 /* tslint:enable:no-var-requires */
 
 interface IAppProps extends React.ClassAttributes<App> {}
 
-export default class App extends React.Component<IAppProps, {}> {
+export class App extends React.Component<IAppProps, {}> {
   /**
    * Render application container.
    *
@@ -23,6 +23,6 @@ export default class App extends React.Component<IAppProps, {}> {
         {this.props.children}
         <Footer />
       </div>
-    );
+    )
   }
 }

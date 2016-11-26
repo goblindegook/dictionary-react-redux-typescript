@@ -1,19 +1,21 @@
-import { takeEvery } from "redux-saga";
-import { call, CallEffect, put, PutEffect } from "redux-saga/effects";
-import { define } from "../api/DictionaryAPI";
-import { DEFINITION_START, definitionDone, definitionError } from "../actions/definition";
+import { Action } from "redux-actions"
+import { takeEvery } from "redux-saga"
+import { call, CallEffect, put, PutEffect } from "redux-saga/effects"
+import { DEFINITION_START, definitionDone, definitionError } from "../actions/definition"
+import { define } from "../api/DictionaryAPI"
+import { IEntry } from "../api/Entry"
 
-export function* definitionTask(action): IterableIterator<CallEffect | PutEffect<any>> {
-  const id: string = action.payload;
+export function* definitionTask(action: Action<string>): IterableIterator<CallEffect | PutEffect<any>> {
+  const id = action.payload
 
   try {
-    const entries = yield call(define, id);
-    yield put(definitionDone(entries));
+    const entries: IEntry[] = yield call(define, id)
+    yield put(definitionDone(entries))
   } catch (error) {
-    yield put(definitionError(error));
+    yield put(definitionError(error))
   }
 }
 
-export default function* definitionSaga() {
-  yield* takeEvery(DEFINITION_START, definitionTask);
+export function* definitionSaga() {
+  yield* takeEvery(DEFINITION_START, definitionTask)
 }

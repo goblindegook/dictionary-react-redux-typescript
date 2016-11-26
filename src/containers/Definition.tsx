@@ -1,23 +1,29 @@
-import * as React from "react";
-import "react-dom";
-import * as Helmet from "react-helmet";
-import { connect } from "react-redux";
-import { definitionStart } from "../actions/definition";
-import { definitionTask } from "../sagas/definition";
-import { IEntry } from "../api/Entry";
-import LoadingIndicator from "../components/LoadingIndicator";
-import Warning from "../components/Warning";
-import EntryDefinition from "../components/EntryDefinition";
+import * as React from "react"
+import "react-dom"
+import * as Helmet from "react-helmet"
+import { connect } from "react-redux"
+import { Action } from "redux-actions"
+import { definitionStart } from "../actions/definition"
+import { IEntry } from "../api/Entry"
+import { EntryDefinition } from "../components/EntryDefinition"
+import { LoadingIndicator } from "../components/LoadingIndicator"
+import { Warning } from "../components/Warning"
+import { IApplicationState } from "../reducers"
+import { definitionTask } from "../sagas/definition"
 
 interface IDefinitionProps extends React.ClassAttributes<Definition> {
-  entries?: IEntry[];
-  error?: Error & { message: string };
-  id?: string;
-  isLoading?: boolean;
-  onLoad?: (id: string) => void;
+  entries?: IEntry[]
+  error?: Error & { message: string }
+  id?: string
+  isLoading?: boolean
+  onLoad?: (id: string) => void
   params?: {
     id?: string;
-  };
+  }
+}
+
+interface IDefinitionPreloadParams {
+  id?: string
 }
 
 class Definition extends React.Component<IDefinitionProps, {}> {
@@ -28,10 +34,10 @@ class Definition extends React.Component<IDefinitionProps, {}> {
    * @param  {String}   params.id Entry ID.
    * @return {Array}              Saga workers and action objects.
    */
-  public static preload({ id }) {
+  public static preload({ id }: IDefinitionPreloadParams) {
     return [
       [definitionTask, definitionStart(id)],
-    ];
+    ]
   }
 
   /**
@@ -40,8 +46,8 @@ class Definition extends React.Component<IDefinitionProps, {}> {
    * @return {void}
    */
   public componentDidMount() {
-    if (this.props.id) {
-      this.props.onLoad(this.props.id);
+    if (this.props.onLoad && this.props.id) {
+      this.props.onLoad(this.props.id)
     }
   }
 
@@ -51,26 +57,26 @@ class Definition extends React.Component<IDefinitionProps, {}> {
    * @return {JSX.Element} Rendered search container.
    */
   public render() {
-    let title: string;
-    let content: JSX.Element | JSX.Element[] | string;
+    let title: string | undefined
+    let content: JSX.Element | JSX.Element[] | string
 
     if (this.props.isLoading) {
-      title = "A carregar...";
-      content = <LoadingIndicator />;
+      title = "A carregar..."
+      content = <LoadingIndicator />
 
     } else if (this.props.error) {
-      title = this.props.error.message;
-      content = <Warning message={this.props.error.message} />;
+      title = this.props.error.message
+      content = <Warning message={this.props.error.message} />
 
     } else if (!this.props.entries || !this.props.entries.length) {
-      title = "Palavra não encontrada";
-      content = <Warning message="Palavra não encontrada" />;
+      title = "Palavra não encontrada"
+      content = <Warning message="Palavra não encontrada" />
 
     } else {
-      title = this.props.id && this.props.id.replace(/:\d+$/, "");
-      content = this.props.entries.map(entry => (
+      title = this.props.id && this.props.id.replace(/:\d+$/, "")
+      content = this.props.entries.map((entry) => (
         <EntryDefinition key={entry.id} title={entry.word} entry={entry} />
-      ));
+      ))
     }
 
     return (
@@ -78,18 +84,18 @@ class Definition extends React.Component<IDefinitionProps, {}> {
         <Helmet title={title} />
         {content}
       </section>
-    );
+    )
   }
 }
 
-export default connect(
-  (state, props: any) => ({
+export const ConnectedDefinition = connect(
+  (state: IApplicationState, props: IDefinitionProps) => ({
     entries: state.definition.entries,
     error: state.definition.error,
     id: state.definition.id || props.params && props.params.id,
     isLoading: state.definition.isLoading,
   }),
-  (dispatch) => ({
-    onLoad: id => dispatch(definitionStart(id)),
-  })
-)(Definition as React.ComponentClass<any>);
+  (dispatch: Redux.Dispatch<Action<string>>) => ({
+    onLoad: (id: string) => dispatch(definitionStart(id)),
+  }),
+)(Definition)

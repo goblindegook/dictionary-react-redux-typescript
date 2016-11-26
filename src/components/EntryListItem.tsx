@@ -1,16 +1,16 @@
-import * as React from "react";
-import "react-dom";
-import * as cx from "classnames";
-import { Link } from "react-router";
-import { IEntry } from "../api/Entry";
+import * as cx from "classnames"
+import * as React from "react"
+import "react-dom"
+import { Link } from "react-router"
+import { IEntry } from "../api/Entry"
 
 /* tslint:disable:no-var-requires */
-const styles = require("./EntryListItem.style.scss");
+const styles = require("./EntryListItem.style.scss")
 /* tslint:enable:no-var-requires */
 
 interface IEntryListItemProps extends React.Attributes {
-  className?: string;
-  entry: IEntry;
+  className?: string
+  entry: IEntry
 }
 
 /**
@@ -19,7 +19,7 @@ interface IEntryListItemProps extends React.Attributes {
  * @param  {IEntryListItemProps} props Properties.
  * @return {JSX.Element}               Rendered EntryListItem component.
  */
-const EntryListItem = (props: IEntryListItemProps) => (
+export const EntryListItem = (props: IEntryListItemProps) => (
   <li className={cx(props.className, styles.item)}>
     <Link
       className={cx(styles.link)}
@@ -28,6 +28,4 @@ const EntryListItem = (props: IEntryListItemProps) => (
       {props.entry.word}
     </Link>
   </li>
-);
-
-export default EntryListItem;
+)

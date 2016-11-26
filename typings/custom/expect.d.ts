@@ -269,7 +269,7 @@ declare module expect {
     /**
      * Restores all spies created with expect.spyOn(). This is the same as calling spy.restore() on all spies created.
      */
-    restoreSpies();
+    restoreSpies(): void;
 
     /**
      * Determins if the object is a spy.
@@ -279,7 +279,7 @@ declare module expect {
     /**
      * Does an assertion
      */
-    assert(passed: boolean, message: string, actual: any);
+    assert(passed: boolean, message: string, actual: any): void;
 
     /**
      * You can add your own assertions using expect.extend and expect.assert
@@ -297,7 +297,7 @@ declare module expect {
      * })
      * expect('#ff00ff').toBeAColor()
      */
-    extend(extension: IExtension | Object);
+    extend(extension: IExtension | Object): void;
   }
 }
 
