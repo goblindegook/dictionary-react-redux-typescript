@@ -29,15 +29,15 @@ describe("Router", () => {
         expect(state.params.prefix).toBe(prefix)
       })
     })
-  });
+  })
 
   describe("/define/:id", () => {
-    const id = "test:1";
-    const location = `/define/${id}`;
+    const id = "test:1"
+    const location = `/define/${id}`
 
     it("routes to the Definition component", () => {
       match({ location, routes }, (error: Error, nextLocation: Location, state: RouterContext.RouterContextProps) => {
-        expect((state.components![1] as any).WrappedComponent.name).toBe("Definition");
+        expect((state.components![1] as any).WrappedComponent.name).toBe("Definition")
       })
     })
 
