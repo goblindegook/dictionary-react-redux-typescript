@@ -50,7 +50,7 @@ describe("<Search />", () => {
     const prefix = "test"
     const preloaders = ConnectedSearch.preload({ prefix })
 
-    preloaders.forEach((preloader) => {
+    preloaders.forEach((preloader: any[]): void => {
       expect(preloader[0]).toBe(searchTask)
       expect(preloader[1]).toEqual(searchStart(prefix))
     })
