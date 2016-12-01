@@ -27,44 +27,54 @@ describe("Search saga", () => {
   })
 
   describe("worker", () => {
-    const conditions = ["success", "error"]
 
-    conditions.forEach((condition) => {
-      it(`executes with ${condition}`, () => {
-        const prefix = "a"
-        const fetchIterator = searchTask(searchStart(prefix))
-        let result: IteratorResult<CallEffect | PutEffect<any>>
+    it(`executes with success`, () => {
+      const prefix = "a"
+      const fetchIterator = searchTask(searchStart(prefix))
+      let result: IteratorResult<CallEffect | PutEffect<any>>
 
-        result = fetchIterator.next()
-        expect(result.value).toEqual(call(delay, 200))
-        expect(result.done).toBe(false)
+      result = fetchIterator.next()
+      expect(result.value).toEqual(call(delay, 200))
+      expect(result.done).toBe(false)
 
-        result = fetchIterator.next()
-        expect(result.value).toEqual(call(search, prefix))
-        expect(result.done).toBe(false)
+      result = fetchIterator.next()
+      expect(result.value).toEqual(call(search, prefix))
+      expect(result.done).toBe(false)
 
-        if (condition === "success") {
-          result = fetchIterator.next()
-          expect(result.value).toEqual(put(searchDone()))
-          expect(result.done).toBe(false)
-        }
+      result = fetchIterator.next()
+      expect(result.value).toEqual(put(searchDone()))
+      expect(result.done).toBe(false)
 
-        if (condition === "error") {
-          const error = new Error()
-          result = fetchIterator.throw!(error)
-          expect(result.value).toEqual(put(searchError(error)))
-          expect(result.done).toBe(false)
-        }
-
-        result = fetchIterator.next()
-        expect(result.done).toBe(true)
-      })
+      result = fetchIterator.next()
+      expect(result.done).toBe(true)
     })
 
-    const prefixes = ["", " "]
+    it(`executes with error`, () => {
+      const prefix = "a"
+      const fetchIterator = searchTask(searchStart(prefix))
+      let result: IteratorResult<CallEffect | PutEffect<any>>
 
-    prefixes.forEach((prefix) => {
-      it(`executes with a "${prefix}" prefix`, () => {
+      result = fetchIterator.next()
+      expect(result.value).toEqual(call(delay, 200))
+      expect(result.done).toBe(false)
+
+      result = fetchIterator.next()
+      expect(result.value).toEqual(call(search, prefix))
+      expect(result.done).toBe(false)
+
+      const error = new Error()
+      result = fetchIterator.throw!(error)
+      expect(result.value).toEqual(put(searchError(error)))
+      expect(result.done).toBe(false)
+
+      result = fetchIterator.next()
+      expect(result.done).toBe(true)
+    })
+
+    const ignoredPrefixes = ["", " "]
+
+    ignoredPrefixes.forEach((prefix) => {
+      it(`executes with a "${prefix}" prefix, ignoring it`, () => {
         const fetchIterator = searchTask(searchStart(prefix))
         let result: IteratorResult<CallEffect | PutEffect<any>>
 

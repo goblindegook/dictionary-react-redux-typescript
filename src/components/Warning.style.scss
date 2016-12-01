@@ -1,0 +1,10 @@
+.error {
+  composes: panel from "../styles/colors.scss";
+  composes: bordered shadowed from "../styles/effects.scss";
+  margin: 1rem 0;
+  padding: 1.5rem 1rem;
+}
+
+.message {
+  composes: base centered italic from "../styles/typography.scss";
+}

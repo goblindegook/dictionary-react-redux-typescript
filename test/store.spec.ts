@@ -9,7 +9,7 @@ describe("Store", () => {
       expect(store.getState()).toExist()
     })
 
-    it("has a custom initial state", () => {
+    it("allows a custom initial state", () => {
       const state: IApplicationState = {
         definition: {},
         routing: {
