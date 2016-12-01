@@ -41,7 +41,7 @@ describe("<Definition />", () => {
     const id = "test"
     const preloaders = ConnectedDefinition.preload({ id })
 
-    preloaders.forEach((preloader: any[]): void => {
+    preloaders.forEach((preloader) => {
       expect(preloader[0]).toBe(definitionTask)
       expect(preloader[1]).toEqual(definitionStart(id))
     })

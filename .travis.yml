@@ -2,7 +2,8 @@ language: node_js
 node_js:
   - node
   - 6
+cache: yarn
 env:
   - NODE_ENV=test
 install:
-  - npm install
+  - yarn install
