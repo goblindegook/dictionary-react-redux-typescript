@@ -7,5 +7,6 @@
     "**/node_modules": true
   },
   "tsimporter.doubleQuotes": true,
-  "tsimporter.emitSemicolon": false
+  "tsimporter.emitSemicolon": false,
+  "tslint.exclude": ["**/*.js", "**/*.jsx"]
 }
