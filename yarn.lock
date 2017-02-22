@@ -6,15 +6,21 @@
   version "0.0.32"
   resolved "https://registry.yarnpkg.com/@types/classnames/-/classnames-0.0.32.tgz#449abcd9a826807811ef101e58df9f83cfc61713"
 
+"@types/connect@*":
+  version "3.4.30"
+  resolved "https://registry.yarnpkg.com/@types/connect/-/connect-3.4.30.tgz#0a8ede309ce0ebdba2f0534e574692511dd71eb6"
+  dependencies:
+    "@types/node" "*"
+
 "@types/enzyme@^2.5.38":
   version "2.5.38"
   resolved "https://registry.yarnpkg.com/@types/enzyme/-/enzyme-2.5.38.tgz#e18519515c7aeb9a8a11699b8b45406d5b321f85"
   dependencies:
     "@types/react" "*"
 
-"@types/expect@^1.13.30":
-  version "1.13.30"
-  resolved "https://registry.yarnpkg.com/@types/expect/-/expect-1.13.30.tgz#1b09a2794de06ee5e9dc15db1d531f49960e4a6f"
+"@types/expect@^1.20.0":
+  version "1.20.0"
+  resolved "https://registry.yarnpkg.com/@types/expect/-/expect-1.20.0.tgz#c475daba54c243a177b17540c959428f56b5ccf4"
 
 "@types/express-serve-static-core@*", "@types/express-serve-static-core@^4.0.39":
   version "4.0.39"
@@ -137,7 +143,21 @@
   dependencies:
     "@types/source-map" "*"
 
-"@types/webpack@^2.0.0":
+"@types/webpack-dev-middleware@^1.9.1":
+  version "1.9.1"
+  resolved "https://registry.yarnpkg.com/@types/webpack-dev-middleware/-/webpack-dev-middleware-1.9.1.tgz#81e4ba42fb1e2bcd33c3ae2081b02da4604ab7ae"
+  dependencies:
+    "@types/connect" "*"
+    "@types/webpack" "*"
+
+"@types/webpack-hot-middleware@^2.15.0":
+  version "2.15.0"
+  resolved "https://registry.yarnpkg.com/@types/webpack-hot-middleware/-/webpack-hot-middleware-2.15.0.tgz#15c93c44ff2b6369d898df7ef42a374e8ba6780e"
+  dependencies:
+    "@types/connect" "*"
+    "@types/webpack" "*"
+
+"@types/webpack@*", "@types/webpack@^2.0.0":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@types/webpack/-/webpack-2.0.0.tgz#e7934a1c0bb628e1940f090c0afd2682817c1def"
   dependencies:
