@@ -92,7 +92,7 @@ export const ConnectedDefinition = connect(
   (state: IApplicationState, props: IDefinitionProps) => ({
     entries: state.definition.entries,
     error: state.definition.error,
-    id: state.definition.id || props.params && props.params.id,
+    id: props.params && props.params.id,
     isLoading: state.definition.isLoading,
   }),
   (dispatch: Redux.Dispatch<Action<string>>) => ({

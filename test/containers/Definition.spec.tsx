@@ -52,7 +52,10 @@ describe("<Definition />", () => {
   })
 
   it("contains an <EntryDefinition /> component per entry", () => {
-    state.definition.id = "teste:1"
+    const id = "teste:1"
+    const params = { id }
+
+    state.definition.id = id
     state.definition.entries = [
       createEntry("a", "a:1", { "@n": "1", "@id": "a:1", "form": { orth: "A" }, "sense": [] }),
       createEntry("a", "a:2", { "@n": "2", "@id": "a:2", "form": { orth: "A" }, "sense": [] }),
@@ -62,7 +65,7 @@ describe("<Definition />", () => {
 
     wrapper = mount((
       <Provider store={store}>
-        <ConnectedDefinition />
+        <ConnectedDefinition {...{params}} />
       </Provider>
     ))
 

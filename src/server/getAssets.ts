@@ -1,7 +1,7 @@
 import * as fs from "fs"
 import * as path from "path"
 
-export function compileAssets(): Object {
+export function getAssets(): {} {
   if (process.env.NODE_ENV === "development") {
     return {
       main: {

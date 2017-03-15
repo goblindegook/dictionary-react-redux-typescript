@@ -8,7 +8,7 @@ import { Action } from "redux-actions"
 import { fork, join } from "redux-saga/effects"
 import { Document } from "../containers/Document"
 import { configureStore } from "../store"
-import { compileAssets } from "./compileAssets"
+import { getAssets } from "./getAssets"
 
 type Preloader = Array<Array<IterableIterator<any> | Action<any>>>
 type PreloadedComponent = React.ReactType & { preload: (params: Router.Params) => Preloader }
@@ -41,7 +41,7 @@ export function render(req: Request, res: Response, renderProps: RouterContext.R
       )
 
       res.send("<!DOCTYPE HTML>\n" + renderToString((
-        <Document app={app} assets={compileAssets()} server store={store} />
+        <Document app={app} assets={getAssets()} server store={store} />
       )))
     })
     .catch((sagaError: Error) => {
