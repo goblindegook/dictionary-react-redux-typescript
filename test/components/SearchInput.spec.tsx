@@ -41,18 +41,16 @@ describe("<SearchInput />", () => {
 
   context("when loading", () => {
     it("displays a loading indicator", () => {
-      const loadingIndicator = <div className="loading">...</div>
       const isLoading = true
-      const wrapper = shallow(<SearchInput {...{loadingIndicator, isLoading}} />)
+      const wrapper = shallow(<SearchInput {...{isLoading}} />)
       expect(wrapper.find(LoadingIndicator).length).toBe(1)
     })
   })
 
   context("when not loading", () => {
     it("does not display a loading indicator", () => {
-      const loadingIndicator = <div className="loading">...</div>
       const isLoading = false
-      const wrapper = shallow(<SearchInput {...{loadingIndicator, isLoading}} />)
+      const wrapper = shallow(<SearchInput {...{isLoading}} />)
       expect(wrapper.find(LoadingIndicator).length).toBe(0)
     })
   })

@@ -1,4 +1,4 @@
-import * as fetch from "isomorphic-fetch"
+import fetch = require("isomorphic-fetch")
 import { createEntry, createEntryStub, IEntry } from "./Entry"
 
 export interface IRawSense {
