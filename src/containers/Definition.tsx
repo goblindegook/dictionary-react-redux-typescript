@@ -9,7 +9,8 @@ import { EntryDefinition } from "../components/EntryDefinition"
 import { LoadingIndicator } from "../components/LoadingIndicator"
 import { Warning } from "../components/Warning"
 import { IApplicationState } from "../reducers"
-import { definitionTask } from "../sagas/definition"
+import { Preloader } from "../sagas"
+import { definitionTask, DefinitionTaskEffect } from "../sagas/definition"
 
 interface IDefinitionProps extends React.ClassAttributes<Definition> {
   entries?: IEntry[]
@@ -34,7 +35,7 @@ class Definition extends React.Component<IDefinitionProps, {}> {
    * @param  {String}   params.id Entry ID.
    * @return {Array}              Saga workers and action objects.
    */
-  public static preload({ id }: IDefinitionPreloadParams) {
+  public static preload({ id }: IDefinitionPreloadParams): Array<Preloader<string, DefinitionTaskEffect>> {
     return [
       [definitionTask, definitionStart(id)],
     ]
@@ -98,4 +99,4 @@ export const ConnectedDefinition = connect(
   (dispatch: Redux.Dispatch<Action<string>>) => ({
     onLoad: (id: string) => dispatch(definitionStart(id)),
   }),
-)(Definition)
+)(Definition as any)

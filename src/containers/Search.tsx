@@ -10,7 +10,8 @@ import { EntryList } from "../components/EntryList"
 import { SearchInput } from "../components/SearchInput"
 import { Warning } from "../components/Warning"
 import { IApplicationState } from "../reducers/index"
-import { searchTask } from "../sagas/search"
+import { Preloader } from "../sagas"
+import { searchTask, SearchTaskEffect } from "../sagas/search"
 
 interface ISearchProps extends React.ClassAttributes<any> {
   entries?: IEntry[]
@@ -36,7 +37,7 @@ class Search extends React.Component<ISearchProps, {}> {
    * @param  {string} params.prefix Search term prefix.
    * @return {Array}                Saga workers and action objects.
    */
-  public static preload({ prefix }: ISearchPreloadParams) {
+  public static preload({ prefix }: ISearchPreloadParams): Array<Preloader<string, SearchTaskEffect>> {
     return [
       [searchTask, searchStart(prefix)],
     ]
@@ -113,4 +114,4 @@ export const ConnectedSearch = connect(
     onLoad: (prefix: string) => dispatch(searchStart(prefix)),
     onSubmit: (prefix: string) => dispatch(push("/search/" + prefix)),
   }),
-)(Search)
+)(Search as any)

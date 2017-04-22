@@ -3,10 +3,10 @@ import { SEARCH_DONE, SEARCH_ERROR, SEARCH_START } from "../actions/search"
 import { IEntry } from "../api/Entry"
 
 export interface ISearchState {
-  entries?: IEntry[]
-  error?: Error
-  isLoading?: boolean
-  prefix?: string
+  readonly entries?: ReadonlyArray<IEntry>
+  readonly error?: Error
+  readonly isLoading?: boolean
+  readonly prefix?: string
 }
 
 export const initialState: ISearchState = {

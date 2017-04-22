@@ -12,7 +12,8 @@ import { LoadingIndicator } from "../../src/components/LoadingIndicator"
 import { SearchInput } from "../../src/components/SearchInput"
 import { Warning } from "../../src/components/Warning"
 import { ConnectedSearch } from "../../src/containers/Search"
-import { searchTask } from "../../src/sagas/search"
+import { Preloader } from "../../src/sagas"
+import { searchTask, SearchTaskEffect } from "../../src/sagas/search"
 import { createMockStore } from "../_helpers/createMockStore"
 
 describe("<Search />", () => {
@@ -50,7 +51,7 @@ describe("<Search />", () => {
     const prefix = "test"
     const preloaders = ConnectedSearch.preload({ prefix })
 
-    preloaders.forEach((preloader) => {
+    preloaders.forEach((preloader: Preloader<string, SearchTaskEffect>) => {
       expect(preloader[0]).toBe(searchTask)
       expect(preloader[1]).toEqual(searchStart(prefix))
     })

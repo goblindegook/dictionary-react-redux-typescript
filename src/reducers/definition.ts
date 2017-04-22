@@ -3,10 +3,10 @@ import { DEFINITION_DONE, DEFINITION_ERROR, DEFINITION_START } from "../actions/
 import { IEntry } from "../api/Entry"
 
 export interface IDefinitionState {
-  entries?: IEntry[]
-  error?: Error
-  id?: string
-  isLoading?: boolean
+  readonly entries?: ReadonlyArray<IEntry>
+  readonly error?: Error
+  readonly id?: string
+  readonly isLoading?: boolean
 }
 
 export const initialState: IDefinitionState = {

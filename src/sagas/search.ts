@@ -5,7 +5,9 @@ import { SEARCH_START, searchDone, searchError } from "../actions/search"
 import { search } from "../api/DictionaryAPI"
 import { IEntry } from "../api/Entry"
 
-export function* searchTask(action: Action<any>): IterableIterator<CallEffect | PutEffect<any>> {
+export type SearchTaskEffect = IterableIterator<CallEffect | PutEffect<any>>
+
+export function* searchTask(action: Action<any>): SearchTaskEffect {
   const prefix: string = action.payload
 
   try {

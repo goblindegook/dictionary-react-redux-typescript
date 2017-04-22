@@ -5,7 +5,9 @@ import { DEFINITION_START, definitionDone, definitionError } from "../actions/de
 import { define } from "../api/DictionaryAPI"
 import { IEntry } from "../api/Entry"
 
-export function* definitionTask(action: Action<string>): IterableIterator<CallEffect | PutEffect<any>> {
+export type DefinitionTaskEffect = IterableIterator<CallEffect | PutEffect<any>>
+
+export function* definitionTask(action: Action<string>): DefinitionTaskEffect {
   const id = action.payload
 
   try {
