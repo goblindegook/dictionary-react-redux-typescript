@@ -2,14 +2,12 @@
 
 const path = require('path')
 const webpack = require('webpack')
-const autoprefixer = require('autoprefixer')
 const AssetsPlugin = require('assets-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 module.exports = {
   bail: true,
-  debug: false,
   devtool: 'cheap-source-map',
   entry: {
     main: './src/index',
@@ -37,7 +35,7 @@ module.exports = {
     publicPath: '/static/'
   },
   resolve: {
-    extensions: ['', '.ts', '.tsx', '.js', '.jsx']
+    extensions: ['.ts', '.tsx', '.js', '.jsx']
   },
   plugins: [
     new webpack.DefinePlugin({
@@ -46,8 +44,6 @@ module.exports = {
         PORT: JSON.stringify(process.env.PORT)
       }
     }),
-    new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.optimize.DedupePlugin(),
     new CopyPlugin([
       { context: 'assets', from: '**/*', to: '.' }
     ]),
@@ -59,42 +55,53 @@ module.exports = {
       },
       mangle: {
         screw_ie8: true
-      }
+      },
+      minimize: true
     }),
-    new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.[chunkhash].js'),
     new ExtractTextPlugin('[name].[contenthash].css'),
     new AssetsPlugin({ path: 'dist' })
   ],
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.tsx?$/,
-        loader: 'babel?cacheDirectory!ts!tslint',
+        use: [
+          'babel-loader?cacheDirectory',
+          'ts-loader',
+          'tslint-loader'
+        ],
         exclude: /node_modules/,
         include: path.join(__dirname, 'src')
       },
       {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract('style', 'css?-autoprefixer&importLoaders=1&modules&localIdentName=[name]__[local]___[hash:base64:5]!postcss'),
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            'css-loader?-autoprefixer&importLoaders=1&modules&localIdentName=[name]__[local]___[hash:base64:5]'
+            // 'postcss-loader'
+          ]
+        }),
         include: path.join(__dirname, 'src')
       },
       {
         test: /\.scss$/,
-        loader: ExtractTextPlugin.extract('style', 'css?-autoprefixer&importLoaders=1&modules&localIdentName=[name]__[local]___[hash:base64:5]!postcss!sass'),
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            'css-loader?-autoprefixer&importLoaders=1&modules&localIdentName=[name]__[local]___[hash:base64:5]',
+            // 'postcss-loader',
+            'sass-loader'
+          ]
+        }),
         include: path.join(__dirname, 'src')
       },
       {
         test: /\.(jpg|png|gif|eot|svg|ttf|woff|woff2)$/,
-        loader: 'file'
+        use: [
+          'file-loader'
+        ]
       }
     ]
-  },
-  postcss: () => [
-    autoprefixer
-  ],
-  sassLoader: {
-    outputStyle: 'expanded',
-    sourceMap: false,
-    sourceMapContents: false
   }
 }

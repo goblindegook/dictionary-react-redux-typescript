@@ -1,5 +1,5 @@
 .title {
-  composes: base centered normal italic from "../styles/typography.scss";
   composes: embossed from "../styles/effects.scss";
+  composes: base centered normal italic from "../styles/typography.scss";
   margin-bottom: 2rem;
 }

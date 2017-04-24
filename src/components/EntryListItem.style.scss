@@ -3,9 +3,9 @@
 }
 
 .link {
-  composes: large undecorated text from "../styles/typography.scss";
   composes: action from "../styles/colors.scss";
   composes: shadowed outline from "../styles/effects.scss";
+  composes: large undecorated text from "../styles/typography.scss";
 
   display: block;
   padding: .5rem 1rem;

@@ -2,12 +2,10 @@
 
 const path = require('path')
 const webpack = require('webpack')
-const autoprefixer = require('autoprefixer')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 module.exports = {
-  debug: true,
   devtool: 'eval',
   entry: {
     main: [
@@ -23,9 +21,12 @@ module.exports = {
     publicPath: '/static/'
   },
   resolve: {
-    extensions: ['', '.ts', '.tsx', '.js', '.jsx']
+    extensions: ['.ts', '.tsx', '.js', '.jsx']
   },
   plugins: [
+    new webpack.LoaderOptionsPlugin({
+      debug: true
+    }),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
@@ -33,42 +34,49 @@ module.exports = {
       }
     }),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
     new CopyWebpackPlugin([
       { context: 'assets', from: '**/*', to: '.' }
     ]),
-    new ExtractTextPlugin('main.css')
+    new ExtractTextPlugin({
+      filename: 'main.css'
+    })
   ],
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.tsx?$/,
-        loader: 'react-hot-loader/webpack!babel?cacheDirectory!ts?sourceMap',
+        use: [
+          'react-hot-loader/webpack',
+          'babel-loader?cacheDirectory',
+          'ts-loader?sourceMap'
+        ],
         exclude: /node_modules/,
         include: path.join(__dirname, 'src')
       },
       {
         test: /\.css$/,
-        loader: 'style?sourceMap!css?importLoaders=1&modules&sourceMap&localIdentName=[name]__[local]___[hash:base64:5]',
+        use: [
+          'style-loader?sourceMap',
+          'css-loader?importLoaders=1&modules&sourceMap&localIdentName=[name]__[local]___[hash:base64:5]'
+        ],
         include: path.join(__dirname, 'src')
       },
       {
         test: /\.scss$/,
-        loader: 'style?sourceMap!css?importLoaders=1&modules&sourceMap&localIdentName=[name]__[local]___[hash:base64:5]!sass',
+        use: [
+          'style-loader?sourceMap',
+          'css-loader?importLoaders=1&modules&sourceMap&localIdentName=[name]__[local]___[hash:base64:5]',
+          'sass-loader?outputStyle=expanded&sourceMap&sourceMapContents'
+        ],
         include: path.join(__dirname, 'src')
       },
       {
         test: /\.(jpg|png|gif|eot|svg|ttf|woff|woff2)$/,
-        loader: 'file'
+        use: [
+          'file-loader'
+        ]
       }
     ]
-  },
-  postcss: () => [
-    autoprefixer
-  ],
-  sassLoader: {
-    outputStyle: 'expanded',
-    sourceMap: true,
-    sourceMapContents: true
   }
 }

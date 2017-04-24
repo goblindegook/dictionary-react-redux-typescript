@@ -3,9 +3,9 @@
 }
 
 .field {
-  composes: large text from "../styles/typography.scss";
   composes: field from "../styles/colors.scss";
   composes: rounded bordered outline from "../styles/effects.scss";
+  composes: large text from "../styles/typography.scss";
   padding: .5rem 1rem;
   width: 100%;
 }
