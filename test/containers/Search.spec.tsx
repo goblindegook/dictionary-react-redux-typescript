@@ -13,7 +13,7 @@ import { SearchInput } from "../../src/components/SearchInput"
 import { Warning } from "../../src/components/Warning"
 import { ConnectedSearch } from "../../src/containers/Search"
 import { Preloader } from "../../src/sagas"
-import { searchTask, SearchTaskEffect } from "../../src/sagas/search"
+import { SearchTaskEffect, searchWorker } from "../../src/sagas/search"
 import { createMockStore } from "../_helpers/createMockStore"
 
 describe("<Search />", () => {
@@ -51,8 +51,8 @@ describe("<Search />", () => {
     const prefix = "test"
     const preloaders = ConnectedSearch.preload({ prefix })
 
-    preloaders.forEach((preloader: Preloader<string, SearchTaskEffect>) => {
-      expect(preloader[0]).toBe(searchTask)
+    preloaders.forEach((preloader: Preloader<SearchTaskEffect, string>) => {
+      expect(preloader[0]).toBe(searchWorker)
       expect(preloader[1]).toEqual(searchStart(prefix))
     })
   })

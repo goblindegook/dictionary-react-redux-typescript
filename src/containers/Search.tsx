@@ -11,7 +11,7 @@ import { SearchInput } from "../components/SearchInput"
 import { Warning } from "../components/Warning"
 import { IApplicationState } from "../reducers/index"
 import { Preloader } from "../sagas"
-import { searchTask, SearchTaskEffect } from "../sagas/search"
+import { SearchTaskEffect, searchWorker } from "../sagas/search"
 
 interface ISearchProps extends React.ClassAttributes<any> {
   entries?: IEntry[]
@@ -26,7 +26,7 @@ interface ISearchProps extends React.ClassAttributes<any> {
   prefix?: string
 }
 
-interface ISearchPreloadParams {
+interface IPreloadParams {
   prefix?: string
 }
 
@@ -37,9 +37,9 @@ class Search extends React.Component<ISearchProps, {}> {
    * @param  {string} params.prefix Search term prefix.
    * @return {Array}                Saga workers and action objects.
    */
-  public static preload({ prefix }: ISearchPreloadParams): Array<Preloader<string, SearchTaskEffect>> {
+  public static preload({ prefix }: IPreloadParams): Array<Preloader<SearchTaskEffect, string>> {
     return [
-      [searchTask, searchStart(prefix)],
+      [searchWorker, searchStart(prefix)],
     ]
   }
 

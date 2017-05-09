@@ -1,13 +1,13 @@
 import { Action } from "redux-actions"
-import { delay, takeLatest } from "redux-saga"
-import { call, CallEffect, put, PutEffect } from "redux-saga/effects"
+import { delay } from "redux-saga"
+import { call, CallEffect, ForkEffect, put, PutEffect, takeLatest } from "redux-saga/effects"
 import { SEARCH_START, searchDone, searchError } from "../actions/search"
 import { search } from "../api/DictionaryAPI"
 import { IEntry } from "../api/Entry"
 
-export type SearchTaskEffect = IterableIterator<CallEffect | PutEffect<any>>
+export type SearchTaskEffect = CallEffect | PutEffect<any>
 
-export function* searchTask(action: Action<any>): SearchTaskEffect {
+export function* searchWorker(action: Action<any>): IterableIterator<SearchTaskEffect> {
   const prefix: string = action.payload
 
   try {
@@ -24,6 +24,6 @@ export function* searchTask(action: Action<any>): SearchTaskEffect {
   }
 }
 
-export function* searchSaga() {
-  yield takeLatest(SEARCH_START, searchTask)
+export function searchSaga(): ForkEffect {
+  return takeLatest(SEARCH_START, searchWorker)
 }

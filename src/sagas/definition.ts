@@ -1,13 +1,12 @@
 import { Action } from "redux-actions"
-import { takeEvery } from "redux-saga"
-import { call, CallEffect, put, PutEffect } from "redux-saga/effects"
+import { call, CallEffect, ForkEffect, put, PutEffect, takeEvery } from "redux-saga/effects"
 import { DEFINITION_START, definitionDone, definitionError } from "../actions/definition"
 import { define } from "../api/DictionaryAPI"
 import { IEntry } from "../api/Entry"
 
-export type DefinitionTaskEffect = IterableIterator<CallEffect | PutEffect<any>>
+export type DefinitionTaskEffect = CallEffect | PutEffect<any>
 
-export function* definitionWorker(action: Action<string>): DefinitionTaskEffect {
+export function* definitionWorker(action: Action<string>): IterableIterator<DefinitionTaskEffect> {
   const id = action.payload
 
   try {
@@ -18,6 +17,6 @@ export function* definitionWorker(action: Action<string>): DefinitionTaskEffect 
   }
 }
 
-export function* definitionSaga(): IterableIterator<any> {
-  yield takeEvery(DEFINITION_START, definitionWorker)
+export function definitionSaga(): ForkEffect {
+  return takeEvery(DEFINITION_START, definitionWorker)
 }

@@ -10,7 +10,9 @@ const devTools = global["devToolsExtension"] || (() => (s: IApplicationState) =>
 /* tslint:enable:no-string-literal */
 
 type SagaEnhancedStore<S> = Store<S> & {
+  // tslint:disable-next-line:ban-types
   close: Function,
+  // tslint:disable-next-line:ban-types
   runSaga: Function,
 }
 

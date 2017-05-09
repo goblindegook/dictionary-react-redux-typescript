@@ -43,7 +43,7 @@ describe("<Definition />", () => {
     const id = "test"
     const preloaders = ConnectedDefinition.preload({ id })
 
-    preloaders.forEach((preloader: Preloader<string, SearchTaskEffect>) => {
+    preloaders.forEach((preloader: Preloader<SearchTaskEffect, string>) => {
       expect(preloader[0]).toBe(definitionWorker)
       expect(preloader[1]).toEqual(definitionStart(id))
     })
