@@ -14,7 +14,7 @@ export function createMockStore(state: IApplicationState): any {
   ]
 
   const mockStore = configureStore(middlewares)
-  const store = mockStore(<any> state)
+  const store = mockStore(state)
 
   sagaMiddleware.run(rootSaga)
 

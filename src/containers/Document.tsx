@@ -6,8 +6,8 @@ import serialize = require("serialize-javascript")
 
 interface IDocumentProps extends React.ClassAttributes<Document> {
   app?: JSX.Element
-  assets?: Object
-  server?: Boolean
+  assets?: object
+  server?: boolean
   store: any
 }
 

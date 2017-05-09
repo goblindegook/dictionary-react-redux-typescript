@@ -45,10 +45,10 @@ app.use((req, res) => {
 
 app.listen(port, (error: Error) => {
   if (error) {
+    // tslint:disable-next-line:no-console
     console.error(error)
   } else {
-    /* tslint:disable:no-console */
+    // tslint:disable-next-line:no-console
     console.info(`🌎  Listening on http://localhost:${port}/.`)
-    /* tslint:enable:no-console */
   }
 })

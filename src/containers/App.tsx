@@ -8,9 +8,7 @@ import { Header } from "../components/Header"
 const styles = require("./App.style.scss")
 /* tslint:enable:no-var-requires */
 
-interface IAppProps extends React.ClassAttributes<App> {}
-
-export class App extends React.Component<IAppProps, {}> {
+export class App extends React.Component<{}, {}> {
   /**
    * Render application container.
    *

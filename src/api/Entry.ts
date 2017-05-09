@@ -31,8 +31,7 @@ function createSense(sense: IRawSense): ISense {
  * @param  {string} rawId Entry ID.
  * @return {IEntry}       Entry object.
  */
-export function createEntryStub(word: string): IEntry
-export function createEntryStub(word: string, rawId: string): IEntry
+export function createEntryStub(word: string, rawId?: string): IEntry
 export function createEntryStub(word: string, rawId: string = word): IEntry {
   return {
     id: rawId,
