@@ -3,7 +3,7 @@
   "compileOnSave": false,
   "compilerOptions": {
     "outDir": "./dist/",
-    "target": "es6",
+    "target": "es5",
     "module": "commonjs",
     "lib": [
       "dom",
@@ -33,8 +33,6 @@
   "filesGlob": [
     "./src/**/*.ts",
     "./src/**/*.tsx",
-    "./test/**/*.ts",
-    "./test/**/*.tsx",
     "./typings/**/*.d.ts",
     "./typings/index.d.ts",
     "!./node_modules/**/*"

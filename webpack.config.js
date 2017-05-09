@@ -9,7 +9,6 @@ module.exports = {
   devtool: 'eval',
   entry: {
     main: [
-      'babel-polyfill',
       'webpack-hot-middleware/client?reload=true&overlay=true',
       './src/index'
     ]
@@ -48,7 +47,6 @@ module.exports = {
         test: /\.tsx?$/,
         use: [
           'react-hot-loader/webpack',
-          'babel-loader?cacheDirectory',
           'ts-loader?sourceMap'
         ],
         exclude: /node_modules/,

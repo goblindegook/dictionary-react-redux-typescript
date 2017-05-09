@@ -12,7 +12,6 @@ module.exports = {
   entry: {
     main: './src/index',
     vendor: [
-      'babel-polyfill',
       'classnames',
       'isomorphic-fetch',
       'lodash',
@@ -66,9 +65,7 @@ module.exports = {
       {
         test: /\.tsx?$/,
         use: [
-          'babel-loader?cacheDirectory',
-          'ts-loader',
-          'tslint-loader'
+          'ts-loader'
         ],
         exclude: /node_modules/,
         include: path.join(__dirname, 'src')

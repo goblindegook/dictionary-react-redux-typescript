@@ -1,7 +1,7 @@
 import * as expect from "expect"
 import { call, CallEffect, fork, put, PutEffect, take } from "redux-saga/effects"
 import { define } from "../../src/api/DictionaryAPI"
-import { definitionSaga, definitionTask } from "../../src/sagas/definition"
+import { definitionSaga, definitionWorker } from "../../src/sagas/definition"
 
 import {
   DEFINITION_START,
@@ -21,7 +21,7 @@ describe("Definition saga", () => {
 
   it("forks a fetch result function generator", () => {
     const result = sagaIterator.next()
-    expect(result.value).toEqual(fork(definitionTask, undefined))
+    expect(result.value).toEqual(fork(definitionWorker, undefined))
     expect(result.done).toBe(false)
   })
 
@@ -31,7 +31,7 @@ describe("Definition saga", () => {
     conditions.forEach((condition) => {
       it(`executes with ${condition}`, () => {
         const id = "a:1"
-        const fetchIterator = definitionTask(definitionStart(id))
+        const fetchIterator = definitionWorker(definitionStart(id))
         let result: IteratorResult<CallEffect | PutEffect<any>>
 
         result = fetchIterator.next()

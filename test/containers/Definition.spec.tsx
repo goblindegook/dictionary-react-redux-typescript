@@ -11,7 +11,7 @@ import { LoadingIndicator } from "../../src/components/LoadingIndicator"
 import { Warning } from "../../src/components/Warning"
 import { ConnectedDefinition } from "../../src/containers/Definition"
 import { Preloader } from "../../src/sagas"
-import { definitionTask } from "../../src/sagas/definition"
+import { definitionWorker } from "../../src/sagas/definition"
 import { SearchTaskEffect } from "../../src/sagas/search"
 import { createMockStore } from "../_helpers/createMockStore"
 
@@ -44,7 +44,7 @@ describe("<Definition />", () => {
     const preloaders = ConnectedDefinition.preload({ id })
 
     preloaders.forEach((preloader: Preloader<string, SearchTaskEffect>) => {
-      expect(preloader[0]).toBe(definitionTask)
+      expect(preloader[0]).toBe(definitionWorker)
       expect(preloader[1]).toEqual(definitionStart(id))
     })
   })

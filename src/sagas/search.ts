@@ -25,5 +25,5 @@ export function* searchTask(action: Action<any>): SearchTaskEffect {
 }
 
 export function* searchSaga() {
-  yield* takeLatest(SEARCH_START, searchTask)
+  yield takeLatest(SEARCH_START, searchTask)
 }

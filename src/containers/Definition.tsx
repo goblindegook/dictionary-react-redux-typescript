@@ -10,7 +10,7 @@ import { LoadingIndicator } from "../components/LoadingIndicator"
 import { Warning } from "../components/Warning"
 import { IApplicationState } from "../reducers"
 import { Preloader } from "../sagas"
-import { definitionTask, DefinitionTaskEffect } from "../sagas/definition"
+import { definitionWorker, DefinitionTaskEffect } from "../sagas/definition"
 
 interface IDefinitionProps extends React.ClassAttributes<Definition> {
   entries?: IEntry[]
@@ -37,7 +37,7 @@ class Definition extends React.Component<IDefinitionProps, {}> {
    */
   public static preload({ id }: IDefinitionPreloadParams): Array<Preloader<string, DefinitionTaskEffect>> {
     return [
-      [definitionTask, definitionStart(id)],
+      [definitionWorker, definitionStart(id)],
     ]
   }
 

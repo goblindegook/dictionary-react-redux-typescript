@@ -7,7 +7,7 @@ import { IEntry } from "../api/Entry"
 
 export type DefinitionTaskEffect = IterableIterator<CallEffect | PutEffect<any>>
 
-export function* definitionTask(action: Action<string>): DefinitionTaskEffect {
+export function* definitionWorker(action: Action<string>): DefinitionTaskEffect {
   const id = action.payload
 
   try {
@@ -18,6 +18,6 @@ export function* definitionTask(action: Action<string>): DefinitionTaskEffect {
   }
 }
 
-export function* definitionSaga() {
-  yield* takeEvery(DEFINITION_START, definitionTask)
+export function* definitionSaga(): IterableIterator<any> {
+  yield takeEvery(DEFINITION_START, definitionWorker)
 }
